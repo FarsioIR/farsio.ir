@@ -12,10 +12,10 @@ import { Lang, languageMeta, languages, t } from "./i18n";
 
 const LINKS = {
   farsioGithub: "https://github.com/FarsioIR",
-  neveshtyarGithub: "https://github.com/AmirMotefaker/Farsi-Smart-Assistant",
+  neveshtyarGithub: "https://github.com/FarsioIR/NeveshtYar",
   neveshtyarRelease:
-    "https://github.com/AmirMotefaker/Farsi-Smart-Assistant/releases/tag/v4.9.1",
-  avaGithub: "https://github.com/AmirMotefaker/farsismart-listen",
+    "https://github.com/FarsioIR/NeveshtYar/releases/tag/v4.9.1",
+  avaGithub: "https://github.com/FarsioIR/AvaYar",
 };
 
 function useLang(): Lang {
@@ -177,7 +177,7 @@ function WritingPanel() {
         </span>
         <div>
           <strong>نوشت‌یار</strong>
-          <small>دستیار هوشمند فارسی</small>
+          <small>بنویس، درست و روان</small>
         </div>
         <span className="panel-status">AI</span>
       </div>
@@ -211,8 +211,8 @@ function AvaPanel() {
           <Icon icon="solar:soundwave-bold" />
         </span>
         <div>
-          <strong>آوا</strong>
-          <small>خواندن و شنیدن فارسی</small>
+          <strong>آوایار</strong>
+          <small>بشنو، به فارسی</small>
         </div>
         <span className="panel-status gold">TTS</span>
       </div>
@@ -711,7 +711,7 @@ function Docs() {
           <div className="docs-callout">
             <Icon icon="solar:verified-check-bold" />
             <div>
-              <strong>Farsi Smart Assistant v4.9.1</strong>
+              <strong>NeveshtYar · v4.9.1</strong>
               <a
                 href={LINKS.neveshtyarRelease}
                 target="_blank"

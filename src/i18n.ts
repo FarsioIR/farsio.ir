@@ -43,13 +43,13 @@ const fa: Dictionary = {
   productsEyebrow: "محصولات فارسیو",
   productsTitle: "دو محصول، یک هدف: تجربه‌ی بهتر فارسی",
   productsBody:
-    "نوشت‌یار برای نوشتن بهتر و آوا برای شنیدن بهتر؛ هر دو زیر یک هویت محصولی منسجم و فارسی‌محور.",
+    "نوشت‌یار برای نوشتن بهتر و آوایار برای شنیدن بهتر؛ هر دو زیر یک هویت محصولی منسجم و فارسی‌محور.",
   neveshtyar: "نوشت‌یار",
-  neveshtyarTag: "دستیار هوشمند فارسی",
+  neveshtyarTag: "بنویس، درست و روان",
   neveshtyarBody:
     "کمک به اصلاح نوشتار، بازیابی چیدمان صفحه‌کلید، Finglish و کار با متن فارسی در مرورگر؛ سریع و قابل کنترل.",
-  ava: "آوا",
-  avaTag: "بشنو، به فارسی.",
+  ava: "آوایار",
+  avaTag: "بشنو، به فارسی",
   avaBody:
     "محتوای وب را می‌گیرد، در صورت نیاز به فارسی روان برمی‌گرداند و آن را برای شنیدن با صدای فارسی آماده می‌کند.",
   statePublic: "نسخه عمومی",
@@ -78,7 +78,7 @@ const fa: Dictionary = {
   showcaseTitle: "محصول باید در عمل زیبا و ساده باشد",
   showcaseBody:
     "یک زبان طراحی مشترک برای نوشتن، اصلاح، خواندن و شنیدن؛ با رابط‌هایی که شلوغ نمی‌شوند.",
-  showcaseVoice: "آوا — تجربه‌ی شنیدن فارسی",
+  showcaseVoice: "آوایار — تجربه‌ی شنیدن فارسی",
   showcaseEditor: "نوشت‌یار — دستیار نوشتاری شما",
   showcaseReview: "بررسی هوشمند متن",
 
@@ -90,7 +90,7 @@ const fa: Dictionary = {
   faqTitle: "سوالات متداول",
   faq1Q: "فارسیو چیست؟",
   faq1A:
-    "فارسیو برند مادر مجموعه‌ای از ابزارهای فارسی‌محور است. نوشت‌یار و آوا نخستین محصولات این خانواده هستند.",
+    "فارسیو برند مادر مجموعه‌ای از ابزارهای فارسی‌محور است. نوشت‌یار و آوایار نخستین محصولات این خانواده هستند.",
   faq2Q: "آیا فارسیو فقط فارسی است؟",
   faq2A:
     "تمرکز محصول روی فارسی است، اما وب‌سایت رسمی فعلاً به دو زبان فارسی و انگلیسی ارائه می‌شود.",
@@ -108,7 +108,7 @@ const fa: Dictionary = {
 
   aboutTitle: "فارسیو چیست؟",
   aboutBody:
-    "فارسیو یک برند محصولی برای ساخت تجربه‌های دیجیتال فارسی‌محور است. نوشت‌یار و آوا اولین محصولات این خانواده‌اند و ساختار برند برای محصولات بعدی هم آماده شده است.",
+    "فارسیو یک برند محصولی برای ساخت تجربه‌های دیجیتال فارسی‌محور است. نوشت‌یار و آوایار اولین محصولات این خانواده‌اند و ساختار برند برای محصولات بعدی هم آماده شده است.",
 
   docsStart: "شروع",
   docsStartBody:
@@ -116,9 +116,9 @@ const fa: Dictionary = {
   docsInstall: "نصب نوشت‌یار",
   docsInstallBody:
     "نسخه عمومی نوشت‌یار از GitHub Release رسمی در دسترس است و بسته‌های Chromium و Firefox به‌صورت جداگانه منتشر می‌شوند.",
-  docsAva: "آوا",
+  docsAva: "آوایار",
   docsAvaBody:
-    "آوا در حال توسعه است. صفحه رسمی محصول همزمان با آماده‌شدن نسخه‌های عمومی، روش استفاده و وضعیت انتشار را نمایش خواهد داد.",
+    "آوایار در حال توسعه است. صفحه رسمی محصول همزمان با آماده‌شدن نسخه‌های عمومی، روش استفاده و وضعیت انتشار را نمایش خواهد داد.",
   docsPrivacy: "حریم خصوصی",
   docsPrivacyBody:
     "اصل طراحی فارسیو کمینه‌سازی داده و شفافیت است. هر محصول اعلامیه و جزئیات حریم خصوصی مخصوص خود را خواهد داشت.",
@@ -161,15 +161,15 @@ const en: Dictionary = {
   productsEyebrow: "Farsio products",
   productsTitle: "Two products, one goal: a better Persian experience",
   productsBody:
-    "Neveshtyar helps you write better. Ava helps you listen better. Both belong to one coherent Persian-first product family.",
-  neveshtyar: "Neveshtyar",
-  neveshtyarTag: "Persian Smart Assistant",
+    "NeveshtYar helps you write better. AvaYar helps you listen better. Both belong to one coherent Persian-first product family.",
+  neveshtyar: "NeveshtYar",
+  neveshtyarTag: "Farsi Smart Assistant by Farsio",
   neveshtyarBody:
-    "Writing correction, keyboard-layout recovery, Finglish handling and Persian text workflows in the browser — fast and controllable.",
-  ava: "Ava",
-  avaTag: "Listen, in Persian.",
+    "Persian & English writing assistant, keyboard-layout recovery and Finglish correction.",
+  ava: "AvaYar",
+  avaTag: "Persian Reading & Listening Assistant by Farsio",
   avaBody:
-    "Extracts web content, turns non-Persian text into fluent Persian when needed, and prepares it for Persian listening.",
+    "Persian-first web reading, translation and text-to-speech experience.",
   statePublic: "Public release",
   stateDev: "In development",
   learnMore: "Learn more",
@@ -196,8 +196,8 @@ const en: Dictionary = {
   showcaseTitle: "Products should feel simple and beautiful in real use",
   showcaseBody:
     "A shared design language for writing, correction, reading and listening without unnecessary interface clutter.",
-  showcaseVoice: "Ava — Persian listening",
-  showcaseEditor: "Neveshtyar — your writing assistant",
+  showcaseVoice: "AvaYar — Persian listening",
+  showcaseEditor: "NeveshtYar — your writing assistant",
   showcaseReview: "Smart text review",
 
   metricProducts: "products in the Farsio family",
@@ -208,7 +208,7 @@ const en: Dictionary = {
   faqTitle: "Frequently asked questions",
   faq1Q: "What is Farsio?",
   faq1A:
-    "Farsio is the umbrella brand for Persian-first digital tools. Neveshtyar and Ava are the first products in the family.",
+    "Farsio is the umbrella brand for Persian-first digital tools. NeveshtYar and AvaYar are the first products in the family.",
   faq2Q: "Is Farsio Persian-only?",
   faq2A:
     "The product focus is Persian, while the official website currently supports Persian and English.",
@@ -226,17 +226,17 @@ const en: Dictionary = {
 
   aboutTitle: "What is Farsio?",
   aboutBody:
-    "Farsio is a product brand focused on Persian-first digital experiences. Neveshtyar and Ava are the first products in a structure designed to grow.",
+    "Farsio is a product brand focused on Persian-first digital experiences. NeveshtYar and AvaYar are the first products in a structure designed to grow.",
 
   docsStart: "Getting started",
   docsStartBody:
     "Farsio is a family of products for writing, reading and listening in Persian. These docs will grow alongside the products.",
-  docsInstall: "Install Neveshtyar",
+  docsInstall: "Install NeveshtYar",
   docsInstallBody:
-    "Neveshtyar's public release is available from the official GitHub Release page, with separate Chromium and Firefox packages.",
-  docsAva: "Ava",
+    "NeveshtYar's public release is available from the official GitHub Release page, with separate Chromium and Firefox packages.",
+  docsAva: "AvaYar",
   docsAvaBody:
-    "Ava is in development. Its official product page will expose usage and release information as public versions become available.",
+    "AvaYar is in development. Its official product page will expose usage and release information as public versions become available.",
   docsPrivacy: "Privacy",
   docsPrivacyBody:
     "Farsio is designed around data minimization and transparency. Each product will maintain its own privacy information.",
