@@ -172,9 +172,7 @@ function WritingPanel() {
   return (
     <div className="demo-panel writing-panel">
       <div className="demo-panel-head">
-        <span className="mini-brand">
-          <img src="/brand/farsio-mark.png" alt="" />
-        </span>
+        <span className="mini-brand"><img className="product-logo-mark" src="/brand/products/neveshtyar-mark.png" alt="NeveshtYar" /></span>
         <div>
           <strong>نوشت‌یار</strong>
           <small>بنویس، درست و روان</small>
@@ -207,9 +205,7 @@ function AvaPanel() {
   return (
     <div className="demo-panel ava-panel">
       <div className="demo-panel-head">
-        <span className="ava-icon">
-          <Icon icon="solar:soundwave-bold" />
-        </span>
+        <span className="ava-icon"><img className="product-logo-mark" src="/brand/products/avayar-mark.png" alt="AvaYar" /></span>
         <div>
           <strong>آوایار</strong>
           <small>بشنو، به فارسی</small>
