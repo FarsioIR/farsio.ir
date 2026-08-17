@@ -1,81 +1,870 @@
-import {Icon} from "@iconify/react";
-import {Navigate,Route,Routes,useLocation,useNavigate,useParams} from "react-router-dom";
-import {useEffect,useMemo,useState} from "react";
-import {Lang,langs,t} from "./i18n";
+import { Icon } from "@iconify/react";
+import {
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
+import { Lang, languageMeta, languages, t } from "./i18n";
 
-const G={
-  org:"https://github.com/FarsioIR",
-  nev:"https://github.com/AmirMotefaker/Farsi-Smart-Assistant",
-  nevRelease:"https://github.com/AmirMotefaker/Farsi-Smart-Assistant/releases/tag/v4.9.1",
-  ava:"https://github.com/AmirMotefaker/farsismart-listen"
+const LINKS = {
+  farsioGithub: "https://github.com/FarsioIR",
+  neveshtyarGithub: "https://github.com/AmirMotefaker/Farsi-Smart-Assistant",
+  neveshtyarRelease:
+    "https://github.com/AmirMotefaker/Farsi-Smart-Assistant/releases/tag/v4.9.1",
+  avaGithub: "https://github.com/AmirMotefaker/farsismart-listen",
 };
-const ok=(v?:string):v is Lang=>langs.some(x=>x.code===v);
-const langNow=()=>{const {lang}=useParams();return ok(lang)?lang:"fa"};
-const path=(l:Lang,s="")=>`/${l}${s}`;
 
-function Logo(){
- return <div className="logo"><b>F</b><span><strong>Farsio</strong><small>فارسیو</small></span></div>
+function useLang(): Lang {
+  const { lang } = useParams();
+  return languages.some((item) => item.code === lang) ? (lang as Lang) : "fa";
 }
-function Header(){
- const l=langNow(), nav=useNavigate(), loc=useLocation();
- const [theme,setTheme]=useState(localStorage.getItem("farsio-theme")||"dark");
- const [open,setOpen]=useState(false);
- useEffect(()=>{document.documentElement.dataset.theme=theme;localStorage.setItem("farsio-theme",theme)},[theme]);
- const change=(n:Lang)=>{const parts=loc.pathname.split("/").filter(Boolean);if(ok(parts[0]))parts.shift();nav(`/${n}/${parts.join("/")}`);setOpen(false)};
- return <header><div className="shell bar">
-   <button className="brandbtn" onClick={()=>nav(path(l))}><Logo/></button>
-   <nav><a href={path(l,"/#products")}>{t(l,"navProducts")}</a><button onClick={()=>nav(path(l,"/docs"))}>{t(l,"navDocs")}</button><button onClick={()=>nav(path(l,"/about"))}>{t(l,"navAbout")}</button></nav>
-   <div className="actions">
-    <a className="iconbtn" href={G.org} target="_blank"><Icon icon="mdi:github"/></a>
-    <button className="iconbtn" onClick={()=>setTheme(theme==="dark"?"light":"dark")}><Icon icon={theme==="dark"?"solar:sun-2-bold":"solar:moon-bold"}/></button>
-    <div className="lang"><button onClick={()=>setOpen(!open)}><Icon icon="solar:global-bold"/><span>{langs.find(x=>x.code===l)!.label}</span></button>
-    {open&&<div className="langs">{langs.map(x=><button key={x.code} className={x.code===l?"active":""} onClick={()=>change(x.code)}>{x.label}{x.code===l&&<Icon icon="solar:check-circle-bold"/>}</button>)}</div>}</div>
-   </div>
- </div></header>
+
+function localPath(lang: Lang, path = "") {
+  return `/${lang}${path}`;
 }
-function Mock({kind}:{kind:"write"|"listen"}){
- return <div className={`mock ${kind}`}><div className="mocktop"><i/><i/><i/></div>
- {kind==="write"?<div className="writeui"><span/><span/><em>سلام 👋</em><span/></div>:
- <div className="listenui"><div className="wave">{Array.from({length:18}).map((_,i)=><i key={i} style={{height:`${10+((i*13)%28)}px`}}/>)}</div><b>فارسی، شنیدنی‌تر.</b><button><Icon icon="solar:play-bold"/></button></div>}</div>
+
+function Brand({ compact = false }: { compact?: boolean }) {
+  return (
+    <span className={`brand ${compact ? "compact" : ""}`}>
+      <img src="/brand/farsio-logo.png" alt="Farsio · فارسیو" />
+    </span>
+  );
 }
-function Hero({l}:{l:Lang}){
- return <section className="shell hero">
-  <div className="herocopy"><span className="eyebrow">● Farsio · فارسیو</span><h1>{t(l,"hero")}</h1><p>{t(l,"sub")}</p>
-   <div className="ctas"><a className="primary" href={path(l,"/#products")}><Icon icon="solar:widget-5-bold"/>{t(l,"explore")}</a><a className="secondary" href={G.org} target="_blank"><Icon icon="mdi:github"/>{t(l,"github")}</a></div>
-   <div className="trust"><span>Privacy-minded</span><span>Open source</span><span>FA · EN · TR</span></div>
-  </div>
-  <div className="visual"><div className="glow a"/><div className="glow b"/><div className="card one"><Mock kind="write"/></div><div className="card two"><Mock kind="listen"/></div><span className="chip c1">نوشت‌یار</span><span className="chip c2">آوا</span></div>
- </section>
+
+function Header() {
+  const lang = useLang();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem("farsio-theme") || "dark";
+  });
+
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    localStorage.setItem("farsio-theme", theme);
+  }, [theme]);
+
+  const switchLanguage = (next: Lang) => {
+    const parts = location.pathname.split("/").filter(Boolean);
+
+    if (parts.length && languages.some((item) => item.code === parts[0])) {
+      parts.shift();
+    }
+
+    const suffix = parts.length ? `/${parts.join("/")}` : "";
+    navigate(`/${next}${suffix}${location.search}${location.hash}`);
+    setMobileOpen(false);
+  };
+
+  const go = (href: string) => {
+    setMobileOpen(false);
+    navigate(href);
+  };
+
+  return (
+    <header className="site-header">
+      <div className="shell header-shell">
+        <button
+          className="brand-button"
+          type="button"
+          onClick={() => go(localPath(lang))}
+          aria-label="Farsio home"
+        >
+          <Brand />
+        </button>
+
+        <nav className="desktop-nav" aria-label="Main navigation">
+          <a href={localPath(lang, "/#products")}>{t(lang, "navProducts")}</a>
+          <a href={localPath(lang, "/#features")}>{t(lang, "navFeatures")}</a>
+          <button type="button" onClick={() => go(localPath(lang, "/docs"))}>
+            {t(lang, "navDocs")}
+          </button>
+          <button type="button" onClick={() => go(localPath(lang, "/about"))}>
+            {t(lang, "navAbout")}
+          </button>
+          <a href={LINKS.farsioGithub} target="_blank" rel="noreferrer">
+            <Icon icon="mdi:github" />
+            GitHub
+          </a>
+        </nav>
+
+        <div className="header-actions">
+          <div className="language-toggle" aria-label="Language">
+            {languages.map((item) => (
+              <button
+                key={item.code}
+                type="button"
+                className={item.code === lang ? "active" : ""}
+                onClick={() => switchLanguage(item.code)}
+              >
+                {item.short}
+              </button>
+            ))}
+          </div>
+
+          <button
+            className="round-button"
+            type="button"
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            aria-label="Toggle theme"
+          >
+            <Icon
+              icon={
+                theme === "dark"
+                  ? "solar:sun-2-bold"
+                  : "solar:moon-stars-bold"
+              }
+            />
+          </button>
+
+          <a
+            className="header-cta"
+            href={localPath(lang, "/#products")}
+          >
+            {t(lang, "navCta")}
+            <Icon icon="solar:arrow-left-linear" />
+          </a>
+
+          <button
+            className="mobile-menu-button"
+            type="button"
+            onClick={() => setMobileOpen((value) => !value)}
+            aria-label="Menu"
+          >
+            <Icon icon={mobileOpen ? "solar:close-circle-bold" : "solar:hamburger-menu-bold"} />
+          </button>
+        </div>
+      </div>
+
+      {mobileOpen && (
+        <div className="mobile-menu">
+          <div className="shell mobile-menu-inner">
+            <a href={localPath(lang, "/#products")} onClick={() => setMobileOpen(false)}>
+              {t(lang, "navProducts")}
+            </a>
+            <a href={localPath(lang, "/#features")} onClick={() => setMobileOpen(false)}>
+              {t(lang, "navFeatures")}
+            </a>
+            <button type="button" onClick={() => go(localPath(lang, "/docs"))}>
+              {t(lang, "navDocs")}
+            </button>
+            <button type="button" onClick={() => go(localPath(lang, "/about"))}>
+              {t(lang, "navAbout")}
+            </button>
+            <a href={LINKS.farsioGithub} target="_blank" rel="noreferrer">
+              GitHub
+            </a>
+          </div>
+        </div>
+      )}
+    </header>
+  );
 }
-function Product({l,ava=false}:{l:Lang;ava?:boolean}){
- const name=t(l,ava?"ava":"nev"), tag=t(l,ava?"avaTag":"nevTag"), body=t(l,ava?"avaBody":"nevBody");
- return <article className="product"><div className="protop"><span className="proicon"><Icon icon={ava?"solar:headphones-round-sound-bold":"solar:pen-new-square-bold"}/></span><small>{t(l,ava?"dev":"public")}</small></div>
-  <h3>{name}</h3><strong>{tag}</strong><p>{body}</p><Mock kind={ava?"listen":"write"}/>
-  <div className="links"><a href={path(l,ava?"/products/ava":"/products/neveshtyar")}>{t(l,"view")}<Icon icon="solar:arrow-right-up-linear"/></a><a href={ava?G.ava:G.nev} target="_blank"><Icon icon="mdi:github"/>GitHub</a></div>
- </article>
+
+function WritingPanel() {
+  return (
+    <div className="demo-panel writing-panel">
+      <div className="demo-panel-head">
+        <span className="mini-brand">
+          <img src="/brand/farsio-mark.png" alt="" />
+        </span>
+        <div>
+          <strong>نوشت‌یار</strong>
+          <small>دستیار هوشمند فارسی</small>
+        </div>
+        <span className="panel-status">AI</span>
+      </div>
+
+      <div className="editor-line">
+        فارسیو تجربه‌ی نوشتن فارسی را
+        <mark> روان‌تر </mark>
+        می‌کند.
+      </div>
+
+      <div className="suggestion-box">
+        <span className="suggestion-label">پیشنهاد فارسیو</span>
+        <div>
+          <Icon icon="solar:magic-stick-3-bold" />
+          دقیق‌تر، روان‌تر و طبیعی‌تر بنویسید.
+        </div>
+        <div className="suggestion-actions">
+          <span>Tab</span>
+          <button type="button">پذیرش</button>
+        </div>
+      </div>
+    </div>
+  );
 }
-function Home(){
- const l=langNow(), icons=["solar:language-bold","solar:bolt-bold","solar:shield-check-bold","solar:code-square-bold","solar:global-bold","solar:layers-bold"];
- return <><Hero l={l}/><section id="products" className="shell section"><div className="heading"><span>{t(l,"products")}</span><h2>{t(l,"productsTitle")}</h2></div><div className="products"><Product l={l}/><Product l={l} ava/></div></section>
- <section className="shell section"><div className="heading"><span>Farsio principles</span><h2>{t(l,"why")}</h2></div><div className="features">{[1,2,3,4,5,6].map((n,i)=><article key={n}><Icon icon={icons[i]}/><h3>{t(l,`f${n}`)}</h3><p>{t(l,`b${n}`)}</p></article>)}</div></section>
- <section className="shell docscta"><div><span className="eyebrow">Help Center</span><h2>{t(l,"docsTitle")}</h2><p>{t(l,"docsBody")}</p></div><a className="primary" href={path(l,"/docs")}>{t(l,"openDocs")}<Icon icon="solar:arrow-right-up-linear"/></a></section></>
+
+function AvaPanel() {
+  return (
+    <div className="demo-panel ava-panel">
+      <div className="demo-panel-head">
+        <span className="ava-icon">
+          <Icon icon="solar:soundwave-bold" />
+        </span>
+        <div>
+          <strong>آوا</strong>
+          <small>خواندن و شنیدن فارسی</small>
+        </div>
+        <span className="panel-status gold">TTS</span>
+      </div>
+
+      <div className="waveform" aria-hidden="true">
+        {Array.from({ length: 30 }).map((_, index) => (
+          <i
+            key={index}
+            style={{
+              height: `${12 + ((index * 17) % 46)}px`,
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="audio-row">
+        <button type="button" aria-label="Play">
+          <Icon icon="solar:play-bold" />
+        </button>
+        <span>00:12 / 01:08</span>
+        <div className="audio-progress">
+          <i />
+        </div>
+        <Icon icon="solar:volume-loud-bold" />
+      </div>
+    </div>
+  );
 }
-function ProductPage({ava=false}:{ava?:boolean}){
- const l=langNow();return <main className="shell page"><span className="proicon xl"><Icon icon={ava?"solar:headphones-round-sound-bold":"solar:pen-new-square-bold"}/></span><small className="badge">{t(l,ava?"dev":"public")}</small><h1>{t(l,ava?"ava":"nev")}</h1><h2>{t(l,ava?"avaTag":"nevTag")}</h2><p className="lead">{t(l,ava?"avaBody":"nevBody")}</p><div className="ctas">{!ava&&<a className="primary" href={G.nevRelease} target="_blank"><Icon icon="solar:download-bold"/>v4.9.1</a>}<a className="secondary" href={ava?G.ava:G.nev} target="_blank"><Icon icon="mdi:github"/>GitHub</a></div><div className="bigmock"><Mock kind={ava?"listen":"write"}/></div></main>
+
+function Hero() {
+  const lang = useLang();
+
+  return (
+    <section className="hero shell">
+      <div className="hero-copy">
+        <span className="hero-kicker">
+          <Icon icon="solar:stars-minimalistic-bold" />
+          {t(lang, "heroKicker")}
+        </span>
+
+        <h1>
+          {t(lang, "heroTitleA")}
+          <span>{t(lang, "heroTitleB")}</span>
+        </h1>
+
+        <p>{t(lang, "heroBody")}</p>
+
+        <div className="hero-actions">
+          <a className="button button-primary" href={localPath(lang, "/#products")}>
+            {t(lang, "explore")}
+            <Icon icon="solar:arrow-left-linear" />
+          </a>
+
+          <a
+            className="button button-secondary"
+            href={LINKS.farsioGithub}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <Icon icon="mdi:github" />
+            {t(lang, "githubCta")}
+          </a>
+        </div>
+
+        <div className="hero-trust">
+          <span>
+            <Icon icon="solar:shield-check-bold" />
+            {t(lang, "trustPrivacy")}
+          </span>
+          <i />
+          <span>{t(lang, "trustOpen")}</span>
+          <i />
+          <span>{t(lang, "trustPersian")}</span>
+        </div>
+      </div>
+
+      <div className="hero-visual" aria-label="Farsio product preview">
+        <div className="persian-orbit orbit-right">ف</div>
+        <div className="persian-orbit orbit-left">ی</div>
+        <div className="hero-halo halo-teal" />
+        <div className="hero-halo halo-gold" />
+
+        <div className="floating writing-float">
+          <WritingPanel />
+        </div>
+
+        <div className="floating ava-float">
+          <AvaPanel />
+        </div>
+
+        <div className="floating-mark">
+          <img src="/brand/farsio-mark.png" alt="" />
+        </div>
+      </div>
+    </section>
+  );
 }
-function Docs(){
- const l=langNow(), items=useMemo(()=>[["d1","db1","solar:home-2-bold"],["d2","db2","solar:download-bold"],["d3","db3","solar:headphones-round-sound-bold"],["d4","db4","solar:shield-check-bold"],["d5","db5","solar:question-circle-bold"]] as const,[]);
- const [active,setActive]=useState(0);
- return <main className="shell docslayout"><aside><b>Farsio Docs</b>{items.map((x,i)=><button className={active===i?"active":""} onClick={()=>setActive(i)} key={x[0]}><Icon icon={x[2]}/>{t(l,x[0])}</button>)}</aside><article><span className="eyebrow">Documentation</span><h1>{t(l,items[active][0])}</h1><p>{t(l,items[active][1])}</p>{active===1&&<div className="callout"><Icon icon="solar:verified-check-bold"/><div><b>Farsi Smart Assistant v4.9.1</b><a href={G.nevRelease} target="_blank">GitHub Release</a></div></div>}</article></main>
+
+function ProductCard({
+  lang,
+  type,
+}: {
+  lang: Lang;
+  type: "neveshtyar" | "ava";
+}) {
+  const isAva = type === "ava";
+
+  return (
+    <article className={`product-card ${isAva ? "product-ava" : "product-write"}`}>
+      <div className="product-card-top">
+        <span className="product-icon">
+          <Icon icon={isAva ? "solar:soundwave-bold" : "solar:pen-new-square-bold"} />
+        </span>
+
+        <span className="product-state">
+          {t(lang, isAva ? "stateDev" : "statePublic")}
+        </span>
+      </div>
+
+      <div className="product-title-row">
+        <div>
+          <h3>{t(lang, isAva ? "ava" : "neveshtyar")}</h3>
+          <strong>{t(lang, isAva ? "avaTag" : "neveshtyarTag")}</strong>
+        </div>
+      </div>
+
+      <p>{t(lang, isAva ? "avaBody" : "neveshtyarBody")}</p>
+
+      <div className="product-mini-preview">
+        {isAva ? <AvaPanel /> : <WritingPanel />}
+      </div>
+
+      <div className="product-actions">
+        <a href={localPath(lang, isAva ? "/products/ava" : "/products/neveshtyar")}>
+          {t(lang, "learnMore")}
+          <Icon icon="solar:arrow-left-linear" />
+        </a>
+
+        <a
+          href={isAva ? LINKS.avaGithub : LINKS.neveshtyarGithub}
+          target="_blank"
+          rel="noreferrer"
+        >
+          <Icon icon="mdi:github" />
+          GitHub
+        </a>
+      </div>
+    </article>
+  );
 }
-function About(){
- const l=langNow();return <main className="shell page narrow"><span className="eyebrow">Farsio · فارسیو</span><h1>{t(l,"aboutTitle")}</h1><p className="lead">{t(l,"aboutBody")}</p><div className="about"><div><b>نوشت‌یار</b><span>Writing intelligence</span></div><div><b>آوا</b><span>Listening intelligence</span></div></div></main>
+
+function Products() {
+  const lang = useLang();
+
+  return (
+    <section className="section shell" id="products">
+      <div className="section-heading centered">
+        <span>{t(lang, "productsEyebrow")}</span>
+        <h2>{t(lang, "productsTitle")}</h2>
+        <p>{t(lang, "productsBody")}</p>
+      </div>
+
+      <div className="product-grid">
+        <ProductCard lang={lang} type="neveshtyar" />
+        <ProductCard lang={lang} type="ava" />
+      </div>
+    </section>
+  );
 }
-function Footer(){
- const l=langNow();return <footer><div className="shell foot"><div><Logo/><p>Built for Persian speakers.</p></div><div><b>{t(l,"navProducts")}</b><a href={path(l,"/products/neveshtyar")}>نوشت‌یار</a><a href={path(l,"/products/ava")}>آوا</a></div><div><b>Project</b><a href={G.org} target="_blank">GitHub</a><a href={path(l,"/docs")}>{t(l,"navDocs")}</a></div><div><b>Farsio</b><a href={path(l,"/about")}>{t(l,"navAbout")}</a><a href="mailto:hello@farsio.ir">hello@farsio.ir</a></div></div><div className="shell copyright">© 2026 Farsio.ir · فارسیو</div></footer>
+
+function Features() {
+  const lang = useLang();
+
+  const icons = [
+    "solar:star-fall-bold",
+    "solar:brain-bold",
+    "solar:bolt-bold",
+    "solar:code-square-bold",
+    "solar:shield-check-bold",
+  ];
+
+  return (
+    <section className="section shell" id="features">
+      <div className="section-heading centered">
+        <span>{t(lang, "featuresEyebrow")}</span>
+        <h2>{t(lang, "featuresTitle")}</h2>
+      </div>
+
+      <div className="feature-strip">
+        {[1, 2, 3, 4, 5].map((number, index) => (
+          <article key={number}>
+            <span className={index % 2 === 0 ? "teal-feature" : "gold-feature"}>
+              <Icon icon={icons[index]} />
+            </span>
+            <h3>{t(lang, `feature${number}Title`)}</h3>
+            <p>{t(lang, `feature${number}Body`)}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
 }
-function Layout(){
- const l=langNow();useEffect(()=>{const m=langs.find(x=>x.code===l)!;document.documentElement.lang=l;document.documentElement.dir=m.dir;document.title=l==="fa"?"فارسیو | ابزارهای هوشمند برای فارسی":"Farsio | Persian-first intelligent tools"},[l]);
- return <><Header/><Routes><Route index element={<Home/>}/><Route path="products/neveshtyar" element={<ProductPage/>}/><Route path="products/ava" element={<ProductPage ava/>}/><Route path="docs" element={<Docs/>}/><Route path="about" element={<About/>}/><Route path="*" element={<Navigate to={`/${l}`} replace/>}/></Routes><Footer/></>
+
+function ShowcaseCard({
+  variant,
+  title,
+}: {
+  variant: "voice" | "editor" | "review";
+  title: string;
+}) {
+  return (
+    <article className={`showcase-card ${variant}`}>
+      <h3>{title}</h3>
+
+      {variant === "voice" && (
+        <div className="showcase-inner voice-preview">
+          <div className="preview-lines">
+            <i />
+            <i />
+            <i />
+          </div>
+          <div className="showcase-wave">
+            {Array.from({ length: 22 }).map((_, index) => (
+              <i
+                key={index}
+                style={{ height: `${8 + ((index * 19) % 38)}px` }}
+              />
+            ))}
+          </div>
+          <div className="mini-player">
+            <Icon icon="solar:play-bold" />
+            <span>00:00 / 01:08</span>
+          </div>
+        </div>
+      )}
+
+      {variant === "editor" && (
+        <div className="showcase-inner editor-preview">
+          <div className="editor-toolbar">
+            {Array.from({ length: 9 }).map((_, index) => (
+              <i key={index} />
+            ))}
+          </div>
+          <p>فارسیو تجربه‌ی نوشتن فارسی را متحول می‌کند.</p>
+          <div className="smart-popover">
+            <strong>پیشنهاد فارسیو</strong>
+            <span>روان‌تر و دقیق‌تر بنویسید.</span>
+            <button type="button">Tab</button>
+          </div>
+        </div>
+      )}
+
+      {variant === "review" && (
+        <div className="showcase-inner review-preview">
+          <strong>بررسی املا و نگارش</strong>
+          {[
+            ["اشتباه املایی", "اصلاح"],
+            ["نشانه‌گذاری", "پیشنهاد"],
+            ["خوانایی متن", "بهتر"],
+          ].map(([label, state]) => (
+            <div key={label}>
+              <span>{label}</span>
+              <small>{state}</small>
+            </div>
+          ))}
+        </div>
+      )}
+    </article>
+  );
 }
-export default function App(){return <Routes><Route path="/" element={<Navigate to="/fa" replace/>}/><Route path="/:lang/*" element={<Layout/>}/></Routes>}
+
+function Showcase() {
+  const lang = useLang();
+
+  return (
+    <section className="section shell showcase-section">
+      <div className="section-heading centered">
+        <span>{t(lang, "showcaseEyebrow")}</span>
+        <h2>{t(lang, "showcaseTitle")}</h2>
+        <p>{t(lang, "showcaseBody")}</p>
+      </div>
+
+      <div className="showcase-grid">
+        <ShowcaseCard variant="voice" title={t(lang, "showcaseVoice")} />
+        <ShowcaseCard variant="editor" title={t(lang, "showcaseEditor")} />
+        <ShowcaseCard variant="review" title={t(lang, "showcaseReview")} />
+      </div>
+    </section>
+  );
+}
+
+function TrustBoard() {
+  const lang = useLang();
+
+  return (
+    <section className="shell trust-board">
+      <div>
+        <strong>۲</strong>
+        <span>{t(lang, "metricProducts")}</span>
+      </div>
+      <div>
+        <strong>FA / EN</strong>
+        <span>{t(lang, "metricLanguages")}</span>
+      </div>
+      <div>
+        <strong>
+          <Icon icon="mdi:github" />
+        </strong>
+        <span>{t(lang, "metricOpen")}</span>
+      </div>
+      <div>
+        <strong>
+          <Icon icon="solar:shield-check-bold" />
+        </strong>
+        <span>{t(lang, "metricPrivacy")}</span>
+      </div>
+    </section>
+  );
+}
+
+function Faq() {
+  const lang = useLang();
+
+  return (
+    <section className="section shell faq-section">
+      <div className="section-heading centered">
+        <span>FAQ</span>
+        <h2>{t(lang, "faqTitle")}</h2>
+      </div>
+
+      <div className="faq-grid">
+        {[1, 2, 3, 4].map((number) => (
+          <details key={number}>
+            <summary>
+              {t(lang, `faq${number}Q`)}
+              <Icon icon="solar:alt-arrow-down-linear" />
+            </summary>
+            <p>{t(lang, `faq${number}A`)}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function FinalCta() {
+  const lang = useLang();
+
+  return (
+    <section className="shell final-cta">
+      <div className="cta-art">ف</div>
+
+      <div>
+        <span>{t(lang, "ctaEyebrow")}</span>
+        <h2>{t(lang, "ctaTitle")}</h2>
+        <p>{t(lang, "ctaBody")}</p>
+      </div>
+
+      <div className="cta-actions">
+        <a className="button button-primary" href={localPath(lang, "/#products")}>
+          {t(lang, "explore")}
+          <Icon icon="solar:arrow-left-linear" />
+        </a>
+
+        <a
+          className="button button-secondary"
+          href={LINKS.farsioGithub}
+          target="_blank"
+          rel="noreferrer"
+        >
+          <Icon icon="mdi:github" />
+          GitHub
+        </a>
+      </div>
+    </section>
+  );
+}
+
+function Home() {
+  return (
+    <>
+      <Hero />
+      <Products />
+      <Features />
+      <Showcase />
+      <TrustBoard />
+      <Faq />
+      <FinalCta />
+    </>
+  );
+}
+
+function ProductPage({ type }: { type: "neveshtyar" | "ava" }) {
+  const lang = useLang();
+  const isAva = type === "ava";
+
+  return (
+    <main className="shell inner-page product-page">
+      <div className="inner-hero">
+        <span className="product-icon large">
+          <Icon icon={isAva ? "solar:soundwave-bold" : "solar:pen-new-square-bold"} />
+        </span>
+
+        <span className="product-state">
+          {t(lang, isAva ? "stateDev" : "statePublic")}
+        </span>
+
+        <h1>{t(lang, isAva ? "ava" : "neveshtyar")}</h1>
+        <h2>{t(lang, isAva ? "avaTag" : "neveshtyarTag")}</h2>
+        <p>{t(lang, isAva ? "avaBody" : "neveshtyarBody")}</p>
+
+        <div className="hero-actions">
+          {!isAva && (
+            <a
+              className="button button-primary"
+              href={LINKS.neveshtyarRelease}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <Icon icon="solar:download-bold" />
+              v4.9.1
+            </a>
+          )}
+
+          <a
+            className="button button-secondary"
+            href={isAva ? LINKS.avaGithub : LINKS.neveshtyarGithub}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <Icon icon="mdi:github" />
+            GitHub
+          </a>
+        </div>
+      </div>
+
+      <div className="product-page-demo">
+        {isAva ? <AvaPanel /> : <WritingPanel />}
+      </div>
+    </main>
+  );
+}
+
+function Docs() {
+  const lang = useLang();
+
+  const items = useMemo(
+    () =>
+      [
+        ["docsStart", "docsStartBody", "solar:home-2-bold"],
+        ["docsInstall", "docsInstallBody", "solar:download-bold"],
+        ["docsAva", "docsAvaBody", "solar:soundwave-bold"],
+        ["docsPrivacy", "docsPrivacyBody", "solar:shield-check-bold"],
+        ["docsFaq", "docsFaqBody", "solar:question-circle-bold"],
+      ] as const,
+    [],
+  );
+
+  const [active, setActive] = useState(0);
+  const current = items[active];
+
+  return (
+    <main className="shell docs-layout">
+      <aside>
+        <div className="docs-brand">
+          <img src="/brand/farsio-mark.png" alt="" />
+          <div>
+            <strong>Farsio Docs</strong>
+            <span>FA / EN</span>
+          </div>
+        </div>
+
+        {items.map((item, index) => (
+          <button
+            key={item[0]}
+            type="button"
+            className={active === index ? "active" : ""}
+            onClick={() => setActive(index)}
+          >
+            <Icon icon={item[2]} />
+            {t(lang, item[0])}
+          </button>
+        ))}
+      </aside>
+
+      <article className="docs-content">
+        <span className="hero-kicker">
+          <Icon icon="solar:book-2-bold" />
+          Documentation
+        </span>
+
+        <h1>{t(lang, current[0])}</h1>
+        <p>{t(lang, current[1])}</p>
+
+        {active === 1 && (
+          <div className="docs-callout">
+            <Icon icon="solar:verified-check-bold" />
+            <div>
+              <strong>Farsi Smart Assistant v4.9.1</strong>
+              <a
+                href={LINKS.neveshtyarRelease}
+                target="_blank"
+                rel="noreferrer"
+              >
+                GitHub Release
+              </a>
+            </div>
+          </div>
+        )}
+      </article>
+    </main>
+  );
+}
+
+function About() {
+  const lang = useLang();
+
+  return (
+    <main className="shell inner-page about-page">
+      <span className="hero-kicker">
+        <Icon icon="solar:stars-minimalistic-bold" />
+        Farsio · فارسیو
+      </span>
+
+      <h1>{t(lang, "aboutTitle")}</h1>
+      <p>{t(lang, "aboutBody")}</p>
+
+      <div className="about-products">
+        <article>
+          <Icon icon="solar:pen-new-square-bold" />
+          <strong>{t(lang, "neveshtyar")}</strong>
+          <span>{t(lang, "neveshtyarTag")}</span>
+        </article>
+
+        <article>
+          <Icon icon="solar:soundwave-bold" />
+          <strong>{t(lang, "ava")}</strong>
+          <span>{t(lang, "avaTag")}</span>
+        </article>
+      </div>
+    </main>
+  );
+}
+
+function Footer() {
+  const lang = useLang();
+
+  return (
+    <footer className="site-footer">
+      <div className="shell footer-main">
+        <div className="footer-brand">
+          <Brand />
+          <p>{t(lang, "footerBrandBody")}</p>
+
+          <div className="footer-social">
+            <a href={LINKS.farsioGithub} target="_blank" rel="noreferrer">
+              <Icon icon="mdi:github" />
+            </a>
+            <a href="mailto:hello@farsio.ir">
+              <Icon icon="solar:letter-bold" />
+            </a>
+          </div>
+        </div>
+
+        <div className="footer-column">
+          <strong>{t(lang, "footerProducts")}</strong>
+          <a href={localPath(lang, "/products/neveshtyar")}>
+            {t(lang, "neveshtyar")}
+          </a>
+          <a href={localPath(lang, "/products/ava")}>{t(lang, "ava")}</a>
+          <a href={localPath(lang, "/#products")}>{t(lang, "footerAllProducts")}</a>
+        </div>
+
+        <div className="footer-column">
+          <strong>{t(lang, "footerResources")}</strong>
+          <a href={localPath(lang, "/docs")}>{t(lang, "navDocs")}</a>
+          <a href={localPath(lang, "/#faq")}>FAQ</a>
+          <a href={LINKS.neveshtyarRelease} target="_blank" rel="noreferrer">
+            Release Notes
+          </a>
+        </div>
+
+        <div className="footer-column">
+          <strong>{t(lang, "footerCommunity")}</strong>
+          <a href={LINKS.farsioGithub} target="_blank" rel="noreferrer">
+            GitHub
+          </a>
+          <a href={LINKS.neveshtyarGithub} target="_blank" rel="noreferrer">
+            {t(lang, "footerReport")}
+          </a>
+          <a href={LINKS.avaGithub} target="_blank" rel="noreferrer">
+            {t(lang, "footerContribute")}
+          </a>
+        </div>
+
+        <div className="footer-column">
+          <strong>{t(lang, "footerCompany")}</strong>
+          <a href={localPath(lang, "/about")}>{t(lang, "navAbout")}</a>
+          <a href="mailto:hello@farsio.ir">{t(lang, "footerContact")}</a>
+          <a href={localPath(lang, "/docs")}>{t(lang, "footerPrivacy")}</a>
+        </div>
+      </div>
+
+      <div className="shell footer-bottom">
+        <span>© 2026 Farsio.ir</span>
+        <span>{t(lang, "footerRights")}</span>
+        <span>فارسی / EN</span>
+      </div>
+    </footer>
+  );
+}
+
+function LocalizedLayout() {
+  const lang = useLang();
+
+  useEffect(() => {
+    const meta = languageMeta(lang);
+
+    document.documentElement.lang = lang;
+    document.documentElement.dir = meta.dir;
+    document.title =
+      lang === "fa"
+        ? "فارسیو | ابزارهای هوشمند برای فارسی"
+        : "Farsio | Persian-first intelligent tools";
+  }, [lang]);
+
+  return (
+    <>
+      <Header />
+
+      <Routes>
+        <Route index element={<Home />} />
+        <Route
+          path="products/neveshtyar"
+          element={<ProductPage type="neveshtyar" />}
+        />
+        <Route path="products/ava" element={<ProductPage type="ava" />} />
+        <Route path="docs" element={<Docs />} />
+        <Route path="about" element={<About />} />
+        <Route path="*" element={<Navigate to={`/${lang}`} replace />} />
+      </Routes>
+
+      <Footer />
+    </>
+  );
+}
+
+export default function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<Navigate to="/fa" replace />} />
+      <Route path="/:lang/*" element={<LocalizedLayout />} />
+    </Routes>
+  );
+}
