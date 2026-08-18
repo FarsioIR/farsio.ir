@@ -1,0 +1,20 @@
+{
+  "name": "Farsio - فارسیو",
+  "short_name": "Farsio",
+  "description": "Persian-first tools for writing, reading, translation and listening.",
+  "lang": "fa",
+  "dir": "rtl",
+  "start_url": "/fa",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0b0f10",
+  "theme_color": "#0b0f10",
+  "icons": [
+    {
+      "src": "/brand/farsio-mark.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

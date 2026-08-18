@@ -1,1 +1,11 @@
-/* /index.html 200
+/ /fa 301
+/fa/ /fa 301
+/en/ /en 301
+/fa/products/neveshtyar/ /fa/products/neveshtyar 301
+/en/products/neveshtyar/ /en/products/neveshtyar 301
+/fa/products/ava/ /fa/products/ava 301
+/en/products/ava/ /en/products/ava 301
+/fa/docs/ /fa/docs 301
+/en/docs/ /en/docs 301
+/fa/about/ /fa/about 301
+/en/about/ /en/about 301
