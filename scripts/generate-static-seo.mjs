@@ -237,7 +237,7 @@ const template = await readFile(templatePath, "utf8");
 
 for (const page of pages) {
   const relative = page.path.replace(/^\/+/, "");
-  const output = join(DIST, relative, "index.html");
+  const output = join(DIST, `${relative}.html`);
   await mkdir(dirname(output), { recursive: true });
   await writeFile(output, buildHtml(template, page), "utf8");
 }
