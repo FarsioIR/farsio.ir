@@ -27,6 +27,124 @@ function localPath(lang: Lang, path = "") {
   return `/${lang}${path}`;
 }
 
+type ClientSeo = {
+  title: string;
+  description: string;
+  canonical: string;
+};
+
+function upsertMeta(
+  key: "name" | "property",
+  value: string,
+  content: string,
+) {
+  let element = document.head.querySelector<HTMLMetaElement>(
+    `meta[${key}="${value}"]`,
+  );
+
+  if (!element) {
+    element = document.createElement("meta");
+    element.setAttribute(key, value);
+    document.head.appendChild(element);
+  }
+
+  element.content = content;
+}
+
+function upsertLink(rel: string, href: string) {
+  let element = document.head.querySelector<HTMLLinkElement>(
+    `link[rel="${rel}"]`,
+  );
+
+  if (!element) {
+    element = document.createElement("link");
+    element.rel = rel;
+    document.head.appendChild(element);
+  }
+
+  element.href = href;
+}
+
+function getClientSeo(lang: Lang, routeKey: string): ClientSeo {
+  const origin = "https://farsio.ir";
+  const suffix = routeKey ? `/${routeKey}` : "";
+  const canonical = `${origin}/${lang}${suffix}`;
+
+  const fa = {
+    home: {
+      title: "فارسیو | یار فارسی‌زبان",
+      description:
+        "فارسیو؛ یار فارسی‌زبان برای نوشتن، خواندن، ترجمه و شنیدن بهتر با نوشت‌یار و آوایار.",
+    },
+    neveshtyar: {
+      title: "نوشت‌یار | دستیار نوشتن فارسی و انگلیسی | فارسیو",
+      description:
+        "نوشت‌یار، دستیار نوشتن فارسی و انگلیسی فارسیو برای اصلاح فینگلیش، بازیابی چیدمان صفحه‌کلید، املاء و تجربه بهتر نوشتن راست‌به‌چپ.",
+    },
+    ava: {
+      title: "آوایار | دستیار خواندن و شنیدن فارسی | فارسیو",
+      description:
+        "آوایار، محصول فارسی‌محور فارسیو برای خواندن وب، ترجمه، خلاصه‌سازی و تبدیل متن به گفتار در مسیر ساخت تجربه شنیدن روان فارسی.",
+    },
+    docs: {
+      title: "مستندات فارسیو | Farsio Docs",
+      description:
+        "مستندات فارسیو برای نوشت‌یار، آوایار، نصب، حریم خصوصی و راهنمای استفاده.",
+    },
+    about: {
+      title: "درباره فارسیو | یار فارسی‌زبان",
+      description:
+        "درباره فارسیو و محصولات فارسی‌محور آن برای نوشتن، خواندن، ترجمه و شنیدن.",
+    },
+  };
+
+  const en = {
+    home: {
+      title: "Farsio | Persian-first tools for writing, reading & listening",
+      description:
+        "Farsio builds Persian-first tools for writing, reading, translation and listening, including NeveshtYar and AvaYar.",
+    },
+    neveshtyar: {
+      title: "NeveshtYar | Persian & English Writing Assistant | Farsio",
+      description:
+        "NeveshtYar is Farsio's local-first Persian and English writing assistant for Finglish correction, keyboard-layout recovery, spelling and RTL workflows.",
+    },
+    ava: {
+      title: "AvaYar | Persian Reading & Listening Assistant | Farsio",
+      description:
+        "AvaYar is Farsio's Persian-first web reading, translation, summarization and text-to-speech assistant.",
+    },
+    docs: {
+      title: "Farsio Docs | NeveshtYar & AvaYar",
+      description:
+        "Farsio documentation for NeveshtYar, AvaYar, installation, privacy and product usage.",
+    },
+    about: {
+      title: "About Farsio | Persian-first product engineering",
+      description:
+        "Learn about Farsio and its Persian-first products for writing, reading, translation and listening.",
+    },
+  };
+
+  const key =
+    routeKey === "products/neveshtyar"
+      ? "neveshtyar"
+      : routeKey === "products/ava"
+        ? "ava"
+        : routeKey === "docs"
+          ? "docs"
+          : routeKey === "about"
+            ? "about"
+            : "home";
+
+  const copy = lang === "fa" ? fa[key] : en[key];
+
+  return {
+    ...copy,
+    canonical,
+  };
+}
+
 function Brand({ compact = false }: { compact?: boolean }) {
   return (
     <span className={`brand ${compact ? "compact" : ""}`}>
@@ -823,17 +941,30 @@ function Footer() {
 
 function LocalizedLayout() {
   const lang = useLang();
+  const location = useLocation();
 
   useEffect(() => {
     const meta = languageMeta(lang);
+    const path = location.pathname;
+
+    const routeKey = path
+      .replace(/^\/(fa|en)/, "")
+      .replace(/^\/+|\/+$/g, "");
+
+    const seo = getClientSeo(lang, routeKey);
 
     document.documentElement.lang = lang;
     document.documentElement.dir = meta.dir;
-    document.title =
-      lang === "fa"
-        ? "فارسیو | ابزارهای هوشمند برای فارسی"
-        : "Farsio | Persian-first intelligent tools";
-  }, [lang]);
+    document.title = seo.title;
+
+    upsertMeta("name", "description", seo.description);
+    upsertMeta("property", "og:title", seo.title);
+    upsertMeta("property", "og:description", seo.description);
+    upsertMeta("property", "og:url", seo.canonical);
+    upsertMeta("name", "twitter:title", seo.title);
+    upsertMeta("name", "twitter:description", seo.description);
+    upsertLink("canonical", seo.canonical);
+  }, [lang, location.pathname]);
 
   return (
     <>
