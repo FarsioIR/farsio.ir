@@ -7,8 +7,15 @@ import {
   useNavigate,
   useParams,
 } from "react-router-dom";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { Lang, languageMeta, languages, t } from "./i18n";
+import {
+  FaqPage,
+  GenericPage,
+  getPageSeo,
+  ProductDetailPage,
+  ProfessionalFooter,
+} from "./site-pages";
 
 const LINKS = {
   farsioGithub: "https://github.com/FarsioIR",
@@ -27,12 +34,6 @@ function localPath(lang: Lang, path = "") {
   return `/${lang}${path}`;
 }
 
-type ClientSeo = {
-  title: string;
-  description: string;
-  canonical: string;
-};
-
 function upsertMeta(
   key: "name" | "property",
   value: string,
@@ -41,108 +42,35 @@ function upsertMeta(
   let element = document.head.querySelector<HTMLMetaElement>(
     `meta[${key}="${value}"]`,
   );
-
   if (!element) {
     element = document.createElement("meta");
     element.setAttribute(key, value);
     document.head.appendChild(element);
   }
-
   element.content = content;
 }
 
 function upsertLink(rel: string, href: string) {
-  let element = document.head.querySelector<HTMLLinkElement>(
-    `link[rel="${rel}"]`,
-  );
-
+  let element = document.head.querySelector<HTMLLinkElement>(`link[rel="${rel}"]`);
   if (!element) {
     element = document.createElement("link");
     element.rel = rel;
     document.head.appendChild(element);
   }
-
   element.href = href;
 }
 
-function getClientSeo(lang: Lang, routeKey: string): ClientSeo {
-  const origin = "https://farsio.ir";
-  const suffix = routeKey ? `/${routeKey}` : "";
-  const canonical = `${origin}/${lang}${suffix}`;
-
-  const fa = {
-    home: {
-      title: "فارسیو | یار فارسی‌زبان",
-      description:
-        "فارسیو؛ یار فارسی‌زبان برای نوشتن، خواندن، ترجمه و شنیدن بهتر با نوشت‌یار و آوایار.",
-    },
-    neveshtyar: {
-      title: "نوشت‌یار | دستیار نوشتن فارسی و انگلیسی | فارسیو",
-      description:
-        "نوشت‌یار، دستیار نوشتن فارسی و انگلیسی فارسیو برای اصلاح فینگلیش، بازیابی چیدمان صفحه‌کلید، املاء و تجربه بهتر نوشتن راست‌به‌چپ.",
-    },
-    ava: {
-      title: "آوایار | دستیار خواندن و شنیدن فارسی | فارسیو",
-      description:
-        "آوایار، محصول فارسی‌محور فارسیو برای خواندن وب، ترجمه، خلاصه‌سازی و تبدیل متن به گفتار در مسیر ساخت تجربه شنیدن روان فارسی.",
-    },
-    docs: {
-      title: "مستندات فارسیو | Farsio Docs",
-      description:
-        "مستندات فارسیو برای نوشت‌یار، آوایار، نصب، حریم خصوصی و راهنمای استفاده.",
-    },
-    about: {
-      title: "درباره فارسیو | یار فارسی‌زبان",
-      description:
-        "درباره فارسیو و محصولات فارسی‌محور آن برای نوشتن، خواندن، ترجمه و شنیدن.",
-    },
-  };
-
-  const en = {
-    home: {
-      title: "Farsio | Persian-first tools for writing, reading & listening",
-      description:
-        "Farsio builds Persian-first tools for writing, reading, translation and listening, including NeveshtYar and AvaYar.",
-    },
-    neveshtyar: {
-      title: "NeveshtYar | Persian & English Writing Assistant | Farsio",
-      description:
-        "NeveshtYar is Farsio's local-first Persian and English writing assistant for Finglish correction, keyboard-layout recovery, spelling and RTL workflows.",
-    },
-    ava: {
-      title: "AvaYar | Persian Reading & Listening Assistant | Farsio",
-      description:
-        "AvaYar is Farsio's Persian-first web reading, translation, summarization and text-to-speech assistant.",
-    },
-    docs: {
-      title: "Farsio Docs | NeveshtYar & AvaYar",
-      description:
-        "Farsio documentation for NeveshtYar, AvaYar, installation, privacy and product usage.",
-    },
-    about: {
-      title: "About Farsio | Persian-first product engineering",
-      description:
-        "Learn about Farsio and its Persian-first products for writing, reading, translation and listening.",
-    },
-  };
-
-  const key =
-    routeKey === "products/neveshtyar"
-      ? "neveshtyar"
-      : routeKey === "products/ava"
-        ? "ava"
-        : routeKey === "docs"
-          ? "docs"
-          : routeKey === "about"
-            ? "about"
-            : "home";
-
-  const copy = lang === "fa" ? fa[key] : en[key];
-
-  return {
-    ...copy,
-    canonical,
-  };
+function upsertAlternateLink(hreflang: string, href: string) {
+  let element = document.head.querySelector<HTMLLinkElement>(
+    `link[rel="alternate"][hreflang="${hreflang}"]`,
+  );
+  if (!element) {
+    element = document.createElement("link");
+    element.rel = "alternate";
+    element.hreflang = hreflang;
+    document.head.appendChild(element);
+  }
+  element.href = href;
 }
 
 function Brand({ compact = false }: { compact?: boolean }) {
@@ -157,11 +85,7 @@ function Header() {
   const lang = useLang();
   const navigate = useNavigate();
   const location = useLocation();
-
-  const [theme, setTheme] = useState(() => {
-    return localStorage.getItem("farsio-theme") || "dark";
-  });
-
+  const [theme, setTheme] = useState(() => localStorage.getItem("farsio-theme") || "dark");
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
@@ -171,11 +95,7 @@ function Header() {
 
   const switchLanguage = (next: Lang) => {
     const parts = location.pathname.split("/").filter(Boolean);
-
-    if (parts.length && languages.some((item) => item.code === parts[0])) {
-      parts.shift();
-    }
-
+    if (parts.length && languages.some((item) => item.code === parts[0])) parts.shift();
     const suffix = parts.length ? `/${parts.join("/")}` : "";
     navigate(`/${next}${suffix}${location.search}${location.hash}`);
     setMobileOpen(false);
@@ -189,73 +109,31 @@ function Header() {
   return (
     <header className="site-header">
       <div className="shell header-shell">
-        <button
-          className="brand-button"
-          type="button"
-          onClick={() => go(localPath(lang))}
-          aria-label="Farsio home"
-        >
+        <button className="brand-button" type="button" onClick={() => go(localPath(lang))} aria-label="Farsio home">
           <Brand />
         </button>
 
         <nav className="desktop-nav" aria-label="Main navigation">
-          <a href={localPath(lang, "/#products")}>{t(lang, "navProducts")}</a>
-          <a href={localPath(lang, "/#features")}>{t(lang, "navFeatures")}</a>
-          <button type="button" onClick={() => go(localPath(lang, "/docs"))}>
-            {t(lang, "navDocs")}
-          </button>
-          <button type="button" onClick={() => go(localPath(lang, "/about"))}>
-            {t(lang, "navAbout")}
-          </button>
-          <a href={LINKS.farsioGithub} target="_blank" rel="noreferrer">
+          <a href={localPath(lang, "/products")}>{t(lang, "navProducts")}</a>
+          <a href={localPath(lang, "/features")}>{t(lang, "navFeatures")}</a>
+          <button type="button" onClick={() => go(localPath(lang, "/docs"))}>{t(lang, "navDocs")}</button>
+          <button type="button" onClick={() => go(localPath(lang, "/about"))}>{t(lang, "navAbout")}</button>
+          <a className="github-nav-link" href={LINKS.farsioGithub} target="_blank" rel="noreferrer" aria-label="Farsio on GitHub" title="GitHub">
             <Icon icon="mdi:github" />
-            GitHub
           </a>
         </nav>
 
         <div className="header-actions">
           <div className="language-toggle" aria-label="Language">
             {languages.map((item) => (
-              <button
-                key={item.code}
-                type="button"
-                className={item.code === lang ? "active" : ""}
-                onClick={() => switchLanguage(item.code)}
-              >
-                {item.short}
-              </button>
+              <button key={item.code} type="button" className={item.code === lang ? "active" : ""} onClick={() => switchLanguage(item.code)}>{item.short}</button>
             ))}
           </div>
-
-          <button
-            className="round-button"
-            type="button"
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            aria-label="Toggle theme"
-          >
-            <Icon
-              icon={
-                theme === "dark"
-                  ? "solar:sun-2-bold"
-                  : "solar:moon-stars-bold"
-              }
-            />
+          <button className="round-button" type="button" onClick={() => setTheme(theme === "dark" ? "light" : "dark")} aria-label="Toggle theme">
+            <Icon icon={theme === "dark" ? "solar:sun-2-bold" : "solar:moon-stars-bold"} />
           </button>
-
-          <a
-            className="header-cta"
-            href={localPath(lang, "/#products")}
-          >
-            {t(lang, "navCta")}
-            <Icon icon="solar:arrow-left-linear" />
-          </a>
-
-          <button
-            className="mobile-menu-button"
-            type="button"
-            onClick={() => setMobileOpen((value) => !value)}
-            aria-label="Menu"
-          >
+          <a className="header-cta" href={localPath(lang, "/products")}>{t(lang, "navCta")}<Icon icon="solar:arrow-left-linear" /></a>
+          <button className="mobile-menu-button" type="button" onClick={() => setMobileOpen((value) => !value)} aria-label="Menu">
             <Icon icon={mobileOpen ? "solar:close-circle-bold" : "solar:hamburger-menu-bold"} />
           </button>
         </div>
@@ -264,21 +142,11 @@ function Header() {
       {mobileOpen && (
         <div className="mobile-menu">
           <div className="shell mobile-menu-inner">
-            <a href={localPath(lang, "/#products")} onClick={() => setMobileOpen(false)}>
-              {t(lang, "navProducts")}
-            </a>
-            <a href={localPath(lang, "/#features")} onClick={() => setMobileOpen(false)}>
-              {t(lang, "navFeatures")}
-            </a>
-            <button type="button" onClick={() => go(localPath(lang, "/docs"))}>
-              {t(lang, "navDocs")}
-            </button>
-            <button type="button" onClick={() => go(localPath(lang, "/about"))}>
-              {t(lang, "navAbout")}
-            </button>
-            <a href={LINKS.farsioGithub} target="_blank" rel="noreferrer">
-              GitHub
-            </a>
+            <a href={localPath(lang, "/products")} onClick={() => setMobileOpen(false)}>{t(lang, "navProducts")}</a>
+            <a href={localPath(lang, "/features")} onClick={() => setMobileOpen(false)}>{t(lang, "navFeatures")}</a>
+            <button type="button" onClick={() => go(localPath(lang, "/docs"))}>{t(lang, "navDocs")}</button>
+            <button type="button" onClick={() => go(localPath(lang, "/about"))}>{t(lang, "navAbout")}</button>
+            <a className="github-nav-link mobile" href={LINKS.farsioGithub} target="_blank" rel="noreferrer" aria-label="Farsio on GitHub" title="GitHub"><Icon icon="mdi:github" /></a>
           </div>
         </div>
       )}
@@ -721,222 +589,22 @@ function Home() {
 
 function ProductPage({ type }: { type: "neveshtyar" | "ava" }) {
   const lang = useLang();
-  const isAva = type === "ava";
-
-  return (
-    <main className="shell inner-page product-page">
-      <div className="inner-hero">
-        <span className="product-icon large">
-          <Icon icon={isAva ? "solar:soundwave-bold" : "solar:pen-new-square-bold"} />
-        </span>
-
-        <span className="product-state">
-          {t(lang, isAva ? "stateDev" : "statePublic")}
-        </span>
-
-        <h1>{t(lang, isAva ? "ava" : "neveshtyar")}</h1>
-        <h2>{t(lang, isAva ? "avaTag" : "neveshtyarTag")}</h2>
-        <p>{t(lang, isAva ? "avaBody" : "neveshtyarBody")}</p>
-
-        <div className="hero-actions">
-          {!isAva && (
-            <a
-              className="button button-primary"
-              href={LINKS.neveshtyarRelease}
-              target="_blank"
-              rel="noreferrer"
-            >
-              <Icon icon="solar:download-bold" />
-              v4.9.1
-            </a>
-          )}
-
-          <a
-            className="button button-secondary"
-            href={isAva ? LINKS.avaGithub : LINKS.neveshtyarGithub}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <Icon icon="mdi:github" />
-            GitHub
-          </a>
-        </div>
-      </div>
-
-      <div className="product-page-demo">
-        {isAva ? <AvaPanel /> : <WritingPanel />}
-      </div>
-    </main>
-  );
+  return <ProductDetailPage lang={lang} type={type} preview={type === "ava" ? <AvaPanel /> : <WritingPanel />} />;
 }
 
 function Docs() {
   const lang = useLang();
-
-  const items = useMemo(
-    () =>
-      [
-        ["docsStart", "docsStartBody", "solar:home-2-bold"],
-        ["docsInstall", "docsInstallBody", "solar:download-bold"],
-        ["docsAva", "docsAvaBody", "solar:soundwave-bold"],
-        ["docsPrivacy", "docsPrivacyBody", "solar:shield-check-bold"],
-        ["docsFaq", "docsFaqBody", "solar:question-circle-bold"],
-      ] as const,
-    [],
-  );
-
-  const [active, setActive] = useState(0);
-  const current = items[active];
-
-  return (
-    <main className="shell docs-layout">
-      <aside>
-        <div className="docs-brand">
-          <img src="/brand/farsio-mark.png" alt="" />
-          <div>
-            <strong>Farsio Docs</strong>
-            <span>FA / EN</span>
-          </div>
-        </div>
-
-        {items.map((item, index) => (
-          <button
-            key={item[0]}
-            type="button"
-            className={active === index ? "active" : ""}
-            onClick={() => setActive(index)}
-          >
-            <Icon icon={item[2]} />
-            {t(lang, item[0])}
-          </button>
-        ))}
-      </aside>
-
-      <article className="docs-content">
-        <span className="hero-kicker">
-          <Icon icon="solar:book-2-bold" />
-          Documentation
-        </span>
-
-        <h1>{t(lang, current[0])}</h1>
-        <p>{t(lang, current[1])}</p>
-
-        {active === 1 && (
-          <div className="docs-callout">
-            <Icon icon="solar:verified-check-bold" />
-            <div>
-              <strong>NeveshtYar · v4.9.1</strong>
-              <a
-                href={LINKS.neveshtyarRelease}
-                target="_blank"
-                rel="noreferrer"
-              >
-                GitHub Release
-              </a>
-            </div>
-          </div>
-        )}
-      </article>
-    </main>
-  );
+  return <GenericPage lang={lang} pageKey="docs" />;
 }
 
 function About() {
   const lang = useLang();
-
-  return (
-    <main className="shell inner-page about-page">
-      <span className="hero-kicker">
-        <Icon icon="solar:stars-minimalistic-bold" />
-        Farsio · فارسیو
-      </span>
-
-      <h1>{t(lang, "aboutTitle")}</h1>
-      <p>{t(lang, "aboutBody")}</p>
-
-      <div className="about-products">
-        <article>
-          <Icon icon="solar:pen-new-square-bold" />
-          <strong>{t(lang, "neveshtyar")}</strong>
-          <span>{t(lang, "neveshtyarTag")}</span>
-        </article>
-
-        <article>
-          <Icon icon="solar:soundwave-bold" />
-          <strong>{t(lang, "ava")}</strong>
-          <span>{t(lang, "avaTag")}</span>
-        </article>
-      </div>
-    </main>
-  );
+  return <GenericPage lang={lang} pageKey="about" />;
 }
 
 function Footer() {
   const lang = useLang();
-
-  return (
-    <footer className="site-footer">
-      <div className="shell footer-main">
-        <div className="footer-brand">
-          <Brand />
-          <p>{t(lang, "footerBrandBody")}</p>
-
-          <div className="footer-social">
-            <a href={LINKS.farsioGithub} target="_blank" rel="noreferrer">
-              <Icon icon="mdi:github" />
-            </a>
-            <a href="mailto:hello@farsio.ir">
-              <Icon icon="solar:letter-bold" />
-            </a>
-          </div>
-        </div>
-
-        <div className="footer-column">
-          <strong>{t(lang, "footerProducts")}</strong>
-          <a href={localPath(lang, "/products/neveshtyar")}>
-            {t(lang, "neveshtyar")}
-          </a>
-          <a href={localPath(lang, "/products/ava")}>{t(lang, "ava")}</a>
-          <a href={localPath(lang, "/#products")}>{t(lang, "footerAllProducts")}</a>
-        </div>
-
-        <div className="footer-column">
-          <strong>{t(lang, "footerResources")}</strong>
-          <a href={localPath(lang, "/docs")}>{t(lang, "navDocs")}</a>
-          <a href={localPath(lang, "/#faq")}>FAQ</a>
-          <a href={LINKS.neveshtyarRelease} target="_blank" rel="noreferrer">
-            Release Notes
-          </a>
-        </div>
-
-        <div className="footer-column">
-          <strong>{t(lang, "footerCommunity")}</strong>
-          <a href={LINKS.farsioGithub} target="_blank" rel="noreferrer">
-            GitHub
-          </a>
-          <a href={LINKS.neveshtyarGithub} target="_blank" rel="noreferrer">
-            {t(lang, "footerReport")}
-          </a>
-          <a href={LINKS.avaGithub} target="_blank" rel="noreferrer">
-            {t(lang, "footerContribute")}
-          </a>
-        </div>
-
-        <div className="footer-column">
-          <strong>{t(lang, "footerCompany")}</strong>
-          <a href={localPath(lang, "/about")}>{t(lang, "navAbout")}</a>
-          <a href="mailto:hello@farsio.ir">{t(lang, "footerContact")}</a>
-          <a href={localPath(lang, "/docs")}>{t(lang, "footerPrivacy")}</a>
-        </div>
-      </div>
-
-      <div className="shell footer-bottom">
-        <span>© 2026 Farsio.ir</span>
-        <span>{t(lang, "footerRights")}</span>
-        <span>فارسی / EN</span>
-      </div>
-    </footer>
-  );
+  return <ProfessionalFooter lang={lang} brand={<Brand />} />;
 }
 
 function LocalizedLayout() {
@@ -945,43 +613,47 @@ function LocalizedLayout() {
 
   useEffect(() => {
     const meta = languageMeta(lang);
-    const path = location.pathname;
-
-    const routeKey = path
-      .replace(/^\/(fa|en)/, "")
-      .replace(/^\/+|\/+$/g, "");
-
-    const seo = getClientSeo(lang, routeKey);
+    const routeKey = location.pathname.replace(/^\/(fa|en)/, "").replace(/^\/+|\/+$/g, "");
+    const seo = getPageSeo(lang, routeKey);
 
     document.documentElement.lang = lang;
     document.documentElement.dir = meta.dir;
     document.title = seo.title;
-
     upsertMeta("name", "description", seo.description);
+    upsertMeta("name", "robots", "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1");
     upsertMeta("property", "og:title", seo.title);
     upsertMeta("property", "og:description", seo.description);
     upsertMeta("property", "og:url", seo.canonical);
+    upsertMeta("property", "og:locale", seo.locale);
+    upsertMeta("property", "og:locale:alternate", seo.alternateLocale);
     upsertMeta("name", "twitter:title", seo.title);
     upsertMeta("name", "twitter:description", seo.description);
     upsertLink("canonical", seo.canonical);
+    upsertAlternateLink("fa", seo.faHref);
+    upsertAlternateLink("en", seo.enHref);
+    upsertAlternateLink("x-default", seo.xDefaultHref);
   }, [lang, location.pathname]);
 
   return (
     <>
       <Header />
-
       <Routes>
         <Route index element={<Home />} />
-        <Route
-          path="products/neveshtyar"
-          element={<ProductPage type="neveshtyar" />}
-        />
+        <Route path="products" element={<GenericPage lang={lang} pageKey="products" />} />
+        <Route path="products/neveshtyar" element={<ProductPage type="neveshtyar" />} />
         <Route path="products/ava" element={<ProductPage type="ava" />} />
+        <Route path="features" element={<GenericPage lang={lang} pageKey="features" />} />
         <Route path="docs" element={<Docs />} />
+        <Route path="faq" element={<FaqPage lang={lang} />} />
+        <Route path="releases" element={<GenericPage lang={lang} pageKey="releases" />} />
+        <Route path="community" element={<GenericPage lang={lang} pageKey="community" />} />
+        <Route path="report-issue" element={<GenericPage lang={lang} pageKey="report-issue" />} />
+        <Route path="contribute" element={<GenericPage lang={lang} pageKey="contribute" />} />
         <Route path="about" element={<About />} />
+        <Route path="contact" element={<GenericPage lang={lang} pageKey="contact" />} />
+        <Route path="privacy" element={<GenericPage lang={lang} pageKey="privacy" />} />
         <Route path="*" element={<Navigate to={`/${lang}`} replace />} />
       </Routes>
-
       <Footer />
     </>
   );

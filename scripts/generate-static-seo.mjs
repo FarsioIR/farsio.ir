@@ -5,117 +5,57 @@ import { fileURLToPath } from "node:url";
 const DIST = fileURLToPath(new URL("../dist/", import.meta.url));
 const ORIGIN = "https://farsio.ir";
 const OG_IMAGE = `${ORIGIN}/brand/farsio-logo.png`;
-
-if (!/[/\\]dist[/\\]?$/.test(DIST)) {
-  throw new Error(`Unexpected dist path: ${DIST}`);
-}
-
-const pages = [
-  {
-    path: "/fa",
-    lang: "fa",
-    dir: "rtl",
-    title: "فارسیو | یار فارسی‌زبان",
-    description:
-      "فارسیو؛ یار فارسی‌زبان برای نوشتن، خواندن، ترجمه و شنیدن بهتر با نوشت‌یار و آوایار.",
-    alternate: "/en",
-  },
-  {
-    path: "/en",
-    lang: "en",
-    dir: "ltr",
-    title: "Farsio | Persian-first tools for writing, reading & listening",
-    description:
-      "Farsio builds Persian-first tools for writing, reading, translation and listening, including NeveshtYar and AvaYar.",
-    alternate: "/fa",
-  },
-  {
-    path: "/fa/products/neveshtyar",
-    lang: "fa",
-    dir: "rtl",
-    title: "نوشت‌یار | دستیار نوشتن فارسی و انگلیسی | فارسیو",
-    description:
-      "نوشت‌یار، دستیار نوشتن فارسی و انگلیسی فارسیو برای اصلاح فینگلیش، بازیابی چیدمان صفحه‌کلید، املاء و تجربه بهتر نوشتن راست‌به‌چپ.",
-    alternate: "/en/products/neveshtyar",
-  },
-  {
-    path: "/en/products/neveshtyar",
-    lang: "en",
-    dir: "ltr",
-    title: "NeveshtYar | Persian & English Writing Assistant | Farsio",
-    description:
-      "NeveshtYar is Farsio's local-first Persian and English writing assistant for Finglish correction, keyboard-layout recovery, spelling and RTL workflows.",
-    alternate: "/fa/products/neveshtyar",
-  },
-  {
-    path: "/fa/products/ava",
-    lang: "fa",
-    dir: "rtl",
-    title: "آوایار | دستیار خواندن و شنیدن فارسی | فارسیو",
-    description:
-      "آوایار، محصول فارسی‌محور فارسیو برای خواندن وب، ترجمه، خلاصه‌سازی و تبدیل متن به گفتار در مسیر ساخت تجربه شنیدن روان فارسی.",
-    alternate: "/en/products/ava",
-  },
-  {
-    path: "/en/products/ava",
-    lang: "en",
-    dir: "ltr",
-    title: "AvaYar | Persian Reading & Listening Assistant | Farsio",
-    description:
-      "AvaYar is Farsio's Persian-first web reading, translation, summarization and text-to-speech assistant.",
-    alternate: "/fa/products/ava",
-  },
-  {
-    path: "/fa/docs",
-    lang: "fa",
-    dir: "rtl",
-    title: "مستندات فارسیو | Farsio Docs",
-    description:
-      "مستندات فارسیو برای نوشت‌یار، آوایار، نصب، حریم خصوصی و راهنمای استفاده.",
-    alternate: "/en/docs",
-  },
-  {
-    path: "/en/docs",
-    lang: "en",
-    dir: "ltr",
-    title: "Farsio Docs | NeveshtYar & AvaYar",
-    description:
-      "Farsio documentation for NeveshtYar, AvaYar, installation, privacy and product usage.",
-    alternate: "/fa/docs",
-  },
-  {
-    path: "/fa/about",
-    lang: "fa",
-    dir: "rtl",
-    title: "درباره فارسیو | یار فارسی‌زبان",
-    description:
-      "درباره فارسیو و محصولات فارسی‌محور آن برای نوشتن، خواندن، ترجمه و شنیدن.",
-    alternate: "/en/about",
-  },
-  {
-    path: "/en/about",
-    lang: "en",
-    dir: "ltr",
-    title: "About Farsio | Persian-first product engineering",
-    description:
-      "Learn about Farsio and its Persian-first products for writing, reading, translation and listening.",
-    alternate: "/fa/about",
-  },
+const routes = [
+  ["", "home", "فارسیو | یار فارسی‌زبان", "فارسیو؛ ابزارهای فارسی‌محور برای نوشتن، خواندن، ترجمه و شنیدن بهتر با نوشت‌یار و آوایار.", "Farsio | Persian-first tools for writing, reading & listening", "Farsio builds Persian-first tools for writing, reading, translation and listening, including NeveshtYar and AvaYar."],
+  ["/products", "collection", "محصولات فارسیو | نوشت‌یار و آوایار", "محصولات فارسیو را بشناسید؛ نوشت‌یار برای نوشتن دقیق‌تر و آوایار برای خواندن، ترجمه و شنیدن بهتر.", "Farsio Products | NeveshtYar & AvaYar", "Explore NeveshtYar for better writing and AvaYar for Persian-first reading, translation and listening."],
+  ["/products/neveshtyar", "neveshtyar", "نوشت‌یار | دستیار نوشتن فارسی و انگلیسی | فارسیو", "نوشت‌یار، دستیار نوشتن فارسی و انگلیسی برای اصلاح فینگلیش، بازیابی چیدمان صفحه‌کلید، املا و RTL.", "NeveshtYar | Persian & English Writing Assistant | Farsio", "NeveshtYar is Farsio's local-first writing assistant for Finglish correction, keyboard-layout recovery, spelling and RTL workflows."],
+  ["/products/ava", "ava", "آوایار | دستیار خواندن و شنیدن فارسی | فارسیو", "آوایار، دستیار فارسی‌محور برای خواندن وب، ترجمه، خلاصه‌سازی و تبدیل متن به گفتار.", "AvaYar | Persian Reading & Listening Assistant | Farsio", "AvaYar is Farsio's Persian-first web reading, translation, summarization and text-to-speech assistant."],
+  ["/features", "features", "ویژگی‌های فارسیو | طراحی فارسی‌محور، سبک و شفاف", "ویژگی‌ها و اصول طراحی فارسیو؛ فارسی در اولویت، سرعت، حریم خصوصی و توسعه شفاف.", "Farsio Features | Persian-first, lightweight and transparent", "Explore Farsio's product principles: Persian-first design, speed, privacy and transparent development."],
+  ["/docs", "docs", "راهنمای فارسیو | نصب، استفاده و مسیر توسعه", "راهنمای جامع فارسیو برای شروع، نصب نوشت‌یار، آوایار، حریم خصوصی، گزارش مشکل و نسخه‌ها.", "Farsio Guide | Installation, usage and development", "A practical Farsio guide covering setup, NeveshtYar, AvaYar, privacy, issue reporting and releases."],
+  ["/faq", "faq", "سوالات متداول فارسیو | پاسخ‌های رسمی", "پاسخ‌های رسمی درباره فارسیو، نوشت‌یار، آوایار، نسخه‌ها، GitHub و حریم خصوصی.", "Farsio FAQ | Official answers", "Official answers about Farsio, NeveshtYar, AvaYar, releases, GitHub and privacy."],
+  ["/releases", "releases", "نسخه‌ها و انتشارهای فارسیو | Release Notes", "وضعیت انتشار نوشت‌یار v4.9.1 و مسیر توسعه آوایار.", "Farsio Releases | Product release notes", "Follow NeveshtYar v4.9.1 and AvaYar development status through official sources."],
+  ["/community", "community", "جامعه و GitHub فارسیو | توسعه شفاف", "مخزن‌های رسمی GitHub، گزارش مسائل و مسیر مشارکت در توسعه فارسیو.", "Farsio Community & GitHub | Open development", "Explore Farsio repositories, issue tracking and contribution paths."],
+  ["/report-issue", "report", "گزارش مشکل فارسیو | راهنمای ثبت Issue حرفه‌ای", "راهنمای گزارش خطا با اطلاعات بازتولید، نسخه، مرورگر و رفتار مورد انتظار.", "Report a Farsio Issue | High-quality bug reports", "Learn how to report a Farsio issue with reproducible steps, version, browser and expected behavior."],
+  ["/contribute", "contribute", "مشارکت در فارسیو | راهنمای Contribution", "راهنمای مشارکت در توسعه فارسیو، Issue، Pull Request، تست و حریم خصوصی.", "Contribute to Farsio | Contribution guide", "A practical guide to issues, focused pull requests, validation and safe contribution."],
+  ["/about", "about", "درباره فارسیو | ماموریت، اصول و محصولات", "درباره ماموریت فارسیو، نوشت‌یار، آوایار و بنیان‌گذار پروژه.", "About Farsio | Mission, principles and products", "Learn about Farsio's mission, Persian-first principles, products and founder."],
+  ["/contact", "contact", "تماس با فارسیو | مسیرهای رسمی ارتباط", "مسیرهای رسمی ارتباط برای موضوعات فنی، همکاری و بازخورد محصول.", "Contact Farsio | Official communication channels", "Official ways to contact Farsio for technical topics, collaboration and product feedback."],
+  ["/privacy", "privacy", "حریم خصوصی فارسیو | اصول داده و شفافیت", "اصول حریم خصوصی فارسیو؛ کمینه‌سازی، شفافیت و کنترل کاربر.", "Farsio Privacy | Data and transparency principles", "Farsio's privacy principles: minimization, transparency and user control."],
 ];
 
-function escapeHtml(value) {
-  return String(value)
-    .replaceAll("&", "&amp;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;");
+const pages = routes.flatMap(([suffix, kind, faTitle, faDescription, enTitle, enDescription]) => [
+  { path: `/fa${suffix}`, alternate: `/en${suffix}`, lang: "fa", dir: "rtl", locale: "fa_IR", alternateLocale: "en_US", kind, title: faTitle, description: faDescription },
+  { path: `/en${suffix}`, alternate: `/fa${suffix}`, lang: "en", dir: "ltr", locale: "en_US", alternateLocale: "fa_IR", kind, title: enTitle, description: enDescription },
+]);
+
+function esc(value) {
+  return String(value).replaceAll("&", "&amp;").replaceAll('"', "&quot;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
 }
 
-function replaceTag(html, pattern, replacement, label) {
-  if (!pattern.test(html)) {
-    throw new Error(`Missing expected ${label} tag in built index.html`);
-  }
+function replaceRequired(html, pattern, replacement, label) {
+  if (!pattern.test(html)) throw new Error(`Missing ${label} in built index.html`);
   return html.replace(pattern, replacement);
+}
+
+function upsert(html, pattern, replacement) {
+  if (pattern.test(html)) return html.replace(pattern, replacement);
+  return html.replace("</head>", `    ${replacement}\n  </head>`);
+}
+
+function schema(page) {
+  const canonical = `${ORIGIN}${page.path}`;
+  const graph = [
+    { "@type": "Organization", "@id": `${ORIGIN}/#organization`, name: "Farsio", alternateName: "فارسیو", url: `${ORIGIN}/`, logo: `${ORIGIN}/brand/farsio-logo.png`, founder: { "@type": "Person", name: "Amir Motefaker", alternateName: "امیر متفکر", url: "https://amirmotefaker.ir/" }, sameAs: ["https://github.com/FarsioIR", "https://amirmotefaker.ir/"] },
+    { "@type": "WebSite", "@id": `${ORIGIN}/#website`, url: `${ORIGIN}/`, name: "Farsio", alternateName: "فارسیو", publisher: { "@id": `${ORIGIN}/#organization` }, inLanguage: ["fa", "en"] },
+    { "@type": page.kind === "about" ? "AboutPage" : page.kind === "contact" ? "ContactPage" : page.kind === "collection" ? "CollectionPage" : "WebPage", "@id": `${canonical}#webpage`, url: canonical, name: page.title, description: page.description, inLanguage: page.lang, isPartOf: { "@id": `${ORIGIN}/#website` } },
+  ];
+  if (page.kind === "neveshtyar" || page.kind === "ava") graph.push({ "@type": "SoftwareApplication", "@id": `${canonical}#software`, name: page.kind === "neveshtyar" ? "NeveshtYar" : "AvaYar", alternateName: page.kind === "neveshtyar" ? "نوشت‌یار" : "آوایار", url: canonical, description: page.description, applicationCategory: "UtilitiesApplication", publisher: { "@id": `${ORIGIN}/#organization` } });
+  if (page.path !== `/${page.lang}`) {
+    const items = [{ "@type": "ListItem", position: 1, name: page.lang === "fa" ? "خانه" : "Home", item: `${ORIGIN}/${page.lang}` }];
+    if (page.path.includes("/products/")) items.push({ "@type": "ListItem", position: 2, name: page.lang === "fa" ? "محصولات" : "Products", item: `${ORIGIN}/${page.lang}/products` });
+    items.push({ "@type": "ListItem", position: items.length + 1, name: page.title, item: canonical });
+    graph.push({ "@type": "BreadcrumbList", itemListElement: items });
+  }
+  return { "@context": "https://schema.org", "@graph": graph };
 }
 
 function buildHtml(template, page) {
@@ -123,123 +63,37 @@ function buildHtml(template, page) {
   const alternate = `${ORIGIN}${page.alternate}`;
   const faHref = page.lang === "fa" ? canonical : alternate;
   const enHref = page.lang === "en" ? canonical : alternate;
-  const locale = page.lang === "fa" ? "fa_IR" : "en_US";
-  const alternateLocale = page.lang === "fa" ? "en_US" : "fa_IR";
-
   let html = template;
-
-  html = replaceTag(
-    html,
-    /<html\b[^>]*>/i,
-    `<html lang="${page.lang}" dir="${page.dir}" data-theme="dark">`,
-    "html",
-  );
-
-  html = replaceTag(
-    html,
-    /<title>[\s\S]*?<\/title>/i,
-    `<title>${escapeHtml(page.title)}</title>`,
-    "title",
-  );
-
-  html = replaceTag(
-    html,
-    /<meta\s+name="description"\s+content="[^"]*"\s*\/?>/i,
-    `<meta name="description" content="${escapeHtml(page.description)}" />`,
-    "description",
-  );
-
-  html = replaceTag(
-    html,
-    /<link\s+rel="canonical"\s+href="[^"]*"\s*\/?>/i,
-    `<link rel="canonical" href="${canonical}" />`,
-    "canonical",
-  );
-
-  html = replaceTag(
-    html,
-    /<meta\s+property="og:title"\s+content="[^"]*"\s*\/?>/i,
-    `<meta property="og:title" content="${escapeHtml(page.title)}" />`,
-    "og:title",
-  );
-
-  html = replaceTag(
-    html,
-    /<meta\s+property="og:description"\s+content="[^"]*"\s*\/?>/i,
-    `<meta property="og:description" content="${escapeHtml(page.description)}" />`,
-    "og:description",
-  );
-
-  html = replaceTag(
-    html,
-    /<meta\s+property="og:url"\s+content="[^"]*"\s*\/?>/i,
-    `<meta property="og:url" content="${canonical}" />`,
-    "og:url",
-  );
-
-  html = replaceTag(
-    html,
-    /<meta\s+property="og:image"\s+content="[^"]*"\s*\/?>/i,
-    `<meta property="og:image" content="${OG_IMAGE}" />`,
-    "og:image",
-  );
-
-  html = replaceTag(
-    html,
-    /<meta\s+property="og:locale"\s+content="[^"]*"\s*\/?>/i,
-    `<meta property="og:locale" content="${locale}" />`,
-    "og:locale",
-  );
-
-  html = replaceTag(
-    html,
-    /<meta\s+property="og:locale:alternate"\s+content="[^"]*"\s*\/?>/i,
-    `<meta property="og:locale:alternate" content="${alternateLocale}" />`,
-    "og:locale:alternate",
-  );
-
-  html = replaceTag(
-    html,
-    /<meta\s+name="twitter:title"\s+content="[^"]*"\s*\/?>/i,
-    `<meta name="twitter:title" content="${escapeHtml(page.title)}" />`,
-    "twitter:title",
-  );
-
-  html = replaceTag(
-    html,
-    /<meta\s+name="twitter:description"\s+content="[^"]*"\s*\/?>/i,
-    `<meta name="twitter:description" content="${escapeHtml(page.description)}" />`,
-    "twitter:description",
-  );
-
-  html = replaceTag(
-    html,
-    /<meta\s+name="twitter:image"\s+content="[^"]*"\s*\/?>/i,
-    `<meta name="twitter:image" content="${OG_IMAGE}" />`,
-    "twitter:image",
-  );
-
-  html = html.replace(
-    "</head>",
-    [
-      `    <link rel="alternate" hreflang="fa" href="${faHref}" />`,
-      `    <link rel="alternate" hreflang="en" href="${enHref}" />`,
-      `    <link rel="alternate" hreflang="x-default" href="${faHref}" />`,
-      "  </head>",
-    ].join("\n"),
-  );
-
+  html = replaceRequired(html, /<html\b[^>]*>/i, `<html lang="${page.lang}" dir="${page.dir}" data-theme="dark">`, "html tag");
+  html = replaceRequired(html, /<title>[\s\S]*?<\/title>/i, `<title>${esc(page.title)}</title>`, "title");
+  const entries = [
+    [/<meta\s+name="description"\s+content="[^"]*"\s*\/?>/i, `<meta name="description" content="${esc(page.description)}" />`],
+    [/<meta\s+name="robots"\s+content="[^"]*"\s*\/?>/i, `<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />`],
+    [/<link\s+rel="canonical"\s+href="[^"]*"\s*\/?>/i, `<link rel="canonical" href="${canonical}" />`],
+    [/<meta\s+property="og:title"\s+content="[^"]*"\s*\/?>/i, `<meta property="og:title" content="${esc(page.title)}" />`],
+    [/<meta\s+property="og:description"\s+content="[^"]*"\s*\/?>/i, `<meta property="og:description" content="${esc(page.description)}" />`],
+    [/<meta\s+property="og:url"\s+content="[^"]*"\s*\/?>/i, `<meta property="og:url" content="${canonical}" />`],
+    [/<meta\s+property="og:image"\s+content="[^"]*"\s*\/?>/i, `<meta property="og:image" content="${OG_IMAGE}" />`],
+    [/<meta\s+property="og:image:alt"\s+content="[^"]*"\s*\/?>/i, `<meta property="og:image:alt" content="Farsio logo" />`],
+    [/<meta\s+property="og:locale"\s+content="[^"]*"\s*\/?>/i, `<meta property="og:locale" content="${page.locale}" />`],
+    [/<meta\s+property="og:locale:alternate"\s+content="[^"]*"\s*\/?>/i, `<meta property="og:locale:alternate" content="${page.alternateLocale}" />`],
+    [/<meta\s+name="twitter:title"\s+content="[^"]*"\s*\/?>/i, `<meta name="twitter:title" content="${esc(page.title)}" />`],
+    [/<meta\s+name="twitter:description"\s+content="[^"]*"\s*\/?>/i, `<meta name="twitter:description" content="${esc(page.description)}" />`],
+    [/<meta\s+name="twitter:image"\s+content="[^"]*"\s*\/?>/i, `<meta name="twitter:image" content="${OG_IMAGE}" />`],
+    [/<meta\s+name="twitter:image:alt"\s+content="[^"]*"\s*\/?>/i, `<meta name="twitter:image:alt" content="Farsio logo" />`],
+  ];
+  for (const [pattern, replacement] of entries) html = upsert(html, pattern, replacement);
+  html = html.replace(/(?:\s*<link\s+rel="alternate"\s+hreflang="[^"]+"\s+href="[^"]*"\s*\/?>)+/gi, "");
+  html = html.replace("</head>", [`    <link rel="alternate" hreflang="fa" href="${faHref}" />`, `    <link rel="alternate" hreflang="en" href="${enHref}" />`, `    <link rel="alternate" hreflang="x-default" href="${faHref}" />`, "  </head>"].join("\n"));
+  html = replaceRequired(html, /<script\s+type="application\/ld\+json">[\s\S]*?<\/script>/i, `<script type="application/ld+json">\n${JSON.stringify(schema(page), null, 2)}\n    </script>`, "JSON-LD");
   return html;
 }
 
-const templatePath = join(DIST, "index.html");
-const template = await readFile(templatePath, "utf8");
-
+const template = await readFile(join(DIST, "index.html"), "utf8");
 for (const page of pages) {
   const relative = page.path.replace(/^\/+/, "");
   const output = join(DIST, `${relative}.html`);
   await mkdir(dirname(output), { recursive: true });
   await writeFile(output, buildHtml(template, page), "utf8");
 }
-
-console.log(`Generated route-specific SEO HTML for ${pages.length} routes.`);
+console.log(`Generated route-specific SEO HTML for ${pages.length} localized routes.`);

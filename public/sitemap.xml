@@ -2,12 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://farsio.ir/fa</loc></url>
   <url><loc>https://farsio.ir/en</loc></url>
+  <url><loc>https://farsio.ir/fa/products</loc></url>
+  <url><loc>https://farsio.ir/en/products</loc></url>
   <url><loc>https://farsio.ir/fa/products/neveshtyar</loc></url>
   <url><loc>https://farsio.ir/en/products/neveshtyar</loc></url>
   <url><loc>https://farsio.ir/fa/products/ava</loc></url>
   <url><loc>https://farsio.ir/en/products/ava</loc></url>
+  <url><loc>https://farsio.ir/fa/features</loc></url>
+  <url><loc>https://farsio.ir/en/features</loc></url>
   <url><loc>https://farsio.ir/fa/docs</loc></url>
   <url><loc>https://farsio.ir/en/docs</loc></url>
+  <url><loc>https://farsio.ir/fa/faq</loc></url>
+  <url><loc>https://farsio.ir/en/faq</loc></url>
+  <url><loc>https://farsio.ir/fa/releases</loc></url>
+  <url><loc>https://farsio.ir/en/releases</loc></url>
+  <url><loc>https://farsio.ir/fa/community</loc></url>
+  <url><loc>https://farsio.ir/en/community</loc></url>
+  <url><loc>https://farsio.ir/fa/report-issue</loc></url>
+  <url><loc>https://farsio.ir/en/report-issue</loc></url>
+  <url><loc>https://farsio.ir/fa/contribute</loc></url>
+  <url><loc>https://farsio.ir/en/contribute</loc></url>
   <url><loc>https://farsio.ir/fa/about</loc></url>
   <url><loc>https://farsio.ir/en/about</loc></url>
+  <url><loc>https://farsio.ir/fa/contact</loc></url>
+  <url><loc>https://farsio.ir/en/contact</loc></url>
+  <url><loc>https://farsio.ir/fa/privacy</loc></url>
+  <url><loc>https://farsio.ir/en/privacy</loc></url>
 </urlset>
