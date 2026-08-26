@@ -21,7 +21,7 @@ const LINKS = {
   farsioGithub: "https://github.com/FarsioIR",
   neveshtyarGithub: "https://github.com/FarsioIR/NeveshtYar",
   neveshtyarRelease:
-    "https://github.com/FarsioIR/NeveshtYar/releases/tag/v4.9.1",
+    "https://github.com/FarsioIR/NeveshtYar/releases/tag/v4.9.2",
   avaGithub: "https://github.com/FarsioIR/AvaYar",
 };
 
