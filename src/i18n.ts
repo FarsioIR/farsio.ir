@@ -163,7 +163,7 @@ const en: Dictionary = {
   productsBody:
     "NeveshtYar helps you write better. AvaYar helps you listen better. Both belong to one coherent Persian-first product family.",
   neveshtyar: "NeveshtYar",
-  neveshtyarTag: "Farsi Smart Assistant by Farsio",
+  neveshtyarTag: "NeveshtYar by Farsio",
   neveshtyarBody:
     "Persian & English writing assistant, keyboard-layout recovery and Finglish correction.",
   ava: "AvaYar",

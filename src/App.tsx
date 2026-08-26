@@ -113,7 +113,7 @@ function Header() {
           <Brand />
         </button>
 
-        <nav className="desktop-nav" aria-label="Main navigation">
+        <nav className="desktop-nav" aria-label={lang === "fa" ? "ناوبری اصلی" : "Main navigation"}>
           <a href={localPath(lang, "/products")}>{t(lang, "navProducts")}</a>
           <a href={localPath(lang, "/features")}>{t(lang, "navFeatures")}</a>
           <button type="button" onClick={() => go(localPath(lang, "/docs"))}>{t(lang, "navDocs")}</button>
@@ -124,16 +124,16 @@ function Header() {
         </nav>
 
         <div className="header-actions">
-          <div className="language-toggle" aria-label="Language">
+          <div className="language-toggle" aria-label={lang === "fa" ? "انتخاب زبان" : "Language selector"}>
             {languages.map((item) => (
               <button key={item.code} type="button" className={item.code === lang ? "active" : ""} onClick={() => switchLanguage(item.code)}>{item.short}</button>
             ))}
           </div>
-          <button className="round-button" type="button" onClick={() => setTheme(theme === "dark" ? "light" : "dark")} aria-label="Toggle theme">
+          <button className="round-button" type="button" onClick={() => setTheme(theme === "dark" ? "light" : "dark")} aria-label={lang === "fa" ? "تغییر حالت روشن و تاریک" : "Toggle light and dark theme"}>
             <Icon icon={theme === "dark" ? "solar:sun-2-bold" : "solar:moon-stars-bold"} />
           </button>
           <a className="header-cta" href={localPath(lang, "/products")}>{t(lang, "navCta")}<Icon icon="solar:arrow-left-linear" /></a>
-          <button className="mobile-menu-button" type="button" onClick={() => setMobileOpen((value) => !value)} aria-label="Menu">
+          <button className="mobile-menu-button" type="button" onClick={() => setMobileOpen((value) => !value)} aria-label={lang === "fa" ? "منوی سایت" : "Site menu"}>
             <Icon icon={mobileOpen ? "solar:close-circle-bold" : "solar:hamburger-menu-bold"} />
           </button>
         </div>
