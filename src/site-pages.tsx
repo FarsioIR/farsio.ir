@@ -40,6 +40,11 @@ const SEO: Record<Lang, Record<string, SeoEntry>> = {
     about: { title: "درباره فارسیو | ماموریت، اصول و محصولات", description: "درباره ماموریت فارسیو، نوشت‌یار، آوایار و بنیان‌گذار پروژه." },
     contact: { title: "تماس با فارسیو | مسیرهای رسمی ارتباط", description: "مسیرهای رسمی ارتباط برای موضوعات فنی، همکاری و بازخورد محصول." },
     privacy: { title: "حریم خصوصی فارسیو | اصول داده و شفافیت", description: "اصول حریم خصوصی فارسیو؛ کمینه‌سازی، شفافیت و کنترل کاربر." },
+    "guides/finglish-to-persian": { title: "تبدیل فینگلیش به فارسی | راهنمای کامل فارسیو", description: "راهنمای تبدیل فینگلیش به فارسی؛ چالش‌های نوشتار لاتین، خطاهای رایج، بازبینی متن و انتخاب جریان کار مناسب برای نوشتن فارسی." },
+    "guides/persian-keyboard-layout": { title: "تبدیل متن کیبورد اشتباه فارسی و انگلیسی | فارسیو", description: "راهنمای بازیابی متن تایپ‌شده با زبان یا چیدمان اشتباه کیبورد فارسی و انگلیسی بدون نیاز به تایپ دوباره کل متن." },
+    "guides/persian-ai-writing": { title: "هوش مصنوعی برای نوشتن و ویرایش متن فارسی | فارسیو", description: "راهنمای استفاده از هوش مصنوعی برای نوشتن، اصلاح و بازنویسی متن فارسی با تمرکز بر کیفیت، محدودیت‌ها و بازبینی انسانی." },
+    "guides/persian-text-to-speech": { title: "تبدیل متن فارسی به گفتار و صدا | راهنمای فارسیو", description: "راهنمای تبدیل متن فارسی به گفتار؛ آماده‌سازی متن، تلفظ، نشانه‌گذاری، نام‌ها و نکاتی برای دستیابی به خروجی صوتی قابل‌فهم‌تر." },
+    "guides/web-reading-summarization": { title: "خلاصه‌سازی صفحات وب با هوش مصنوعی | راهنمای فارسیو", description: "راهنمای خلاصه‌سازی صفحات و محتوای وب؛ استخراج محتوای اصلی، حفظ نکات مهم و استفاده درست از خلاصه برای مطالعه سریع‌تر." },
   },
   en: {
     home: { title: "Farsio | Persian-first tools for writing, reading & listening", description: "Farsio builds Persian-first tools for writing, reading, translation and listening, including NeveshtYar and AvaYar." },
@@ -56,6 +61,11 @@ const SEO: Record<Lang, Record<string, SeoEntry>> = {
     about: { title: "About Farsio | Mission, principles and products", description: "Learn about Farsio's mission, Persian-first principles, products and founder." },
     contact: { title: "Contact Farsio | Official communication channels", description: "Official ways to contact Farsio for technical topics, collaboration and product feedback." },
     privacy: { title: "Farsio Privacy | Data and transparency principles", description: "Farsio's privacy principles: minimization, transparency and user control." },
+    "guides/finglish-to-persian": { title: "Finglish to Persian Conversion Guide | Farsio", description: "Learn how Finglish-to-Persian conversion works, why Latin-written Persian is ambiguous, and how to review converted Persian text reliably." },
+    "guides/persian-keyboard-layout": { title: "Wrong Persian Keyboard Layout Recovery | Farsio", description: "Learn how to recover text accidentally typed with the wrong Persian or English keyboard layout without retyping the entire text." },
+    "guides/persian-ai-writing": { title: "AI for Persian Writing & Editing | Farsio Guide", description: "A practical guide to using AI for Persian writing, editing and rewriting while preserving context, terminology, tone and human review." },
+    "guides/persian-text-to-speech": { title: "Persian Text to Speech Guide | Farsio", description: "Learn how Persian text-to-speech works and how punctuation, numbers, names and text preparation affect intelligible spoken output." },
+    "guides/web-reading-summarization": { title: "AI Web Page Summarization Guide | Farsio", description: "Learn how web page summarization works, how to identify primary content, preserve important context and review long web content faster." },
   },
 };
 

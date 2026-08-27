@@ -1,0 +1,186 @@
+# Farsio · فارسیو
+
+Farsio is a Persian-first artificial-intelligence product ecosystem focused on practical Persian language workflows.
+
+Canonical domain:
+https://farsio.ir/
+
+The Farsio product family currently includes NeveshtYar (نوشت‌یار) and AvaYar (آوایار).
+
+## Farsio
+
+Entity name:
+Farsio
+
+Persian name:
+فارسیو
+
+Entity type:
+AI software product ecosystem
+
+Primary topics:
+Persian artificial intelligence
+Persian writing tools
+Persian language technology
+Persian text processing
+Persian speech technology
+Finglish conversion
+Persian text-to-speech
+AI summarization
+AI reading tools
+
+Official website:
+https://farsio.ir/
+
+Official GitHub organization:
+https://github.com/FarsioIR
+
+## NeveshtYar
+
+Canonical name:
+NeveshtYar
+
+Persian name:
+نوشت‌یار
+
+NeveshtYar is the writing-focused product in the Farsio ecosystem.
+
+Core capabilities include:
+Persian writing assistance
+Finglish-to-Persian conversion
+wrong keyboard-layout recovery
+text correction
+rewriting
+Persian language productivity
+
+Canonical Persian page:
+https://farsio.ir/fa/products/neveshtyar
+
+Canonical English page:
+https://farsio.ir/en/products/neveshtyar
+
+## AvaYar
+
+Canonical name:
+AvaYar
+
+Persian name:
+آوایار
+
+AvaYar is the reading and speech-focused product in the Farsio ecosystem.
+
+Core capabilities include:
+web reading
+Persian text-to-speech
+translation
+summarization
+listening workflows
+
+Canonical Persian page:
+https://farsio.ir/fa/products/ava
+
+Canonical English page:
+https://farsio.ir/en/products/ava
+
+## Knowledge guides
+
+Farsio publishes bilingual guides covering Persian AI and language-productivity workflows.
+
+Finglish to Persian:
+https://farsio.ir/fa/guides/finglish-to-persian
+https://farsio.ir/en/guides/finglish-to-persian
+
+Persian keyboard recovery:
+https://farsio.ir/fa/guides/persian-keyboard-layout
+https://farsio.ir/en/guides/persian-keyboard-layout
+
+AI for Persian writing:
+https://farsio.ir/fa/guides/persian-ai-writing
+https://farsio.ir/en/guides/persian-ai-writing
+
+Persian text-to-speech:
+https://farsio.ir/fa/guides/persian-text-to-speech
+https://farsio.ir/en/guides/persian-text-to-speech
+
+AI web reading and summarization:
+https://farsio.ir/fa/guides/web-reading-summarization
+https://farsio.ir/en/guides/web-reading-summarization
+
+## Canonical entity relationships
+
+Farsio
+  -> has product -> NeveshtYar
+  -> has product -> AvaYar
+
+NeveshtYar
+  -> focuses on -> Persian writing
+  -> focuses on -> Finglish conversion
+  -> focuses on -> keyboard-layout recovery
+
+AvaYar
+  -> focuses on -> Persian speech
+  -> focuses on -> web reading
+  -> focuses on -> summarization
+  -> focuses on -> translation
+
+## Localization
+
+Persian content uses:
+fa
+
+English content uses:
+en
+
+Persian and English equivalents are connected using hreflang metadata.
+
+## Crawling
+
+Sitemap:
+https://farsio.ir/sitemap.xml
+
+Robots:
+https://farsio.ir/robots.txt
+## Semantic topic graph
+
+Farsio covers Persian language technology and practical AI-assisted language workflows.
+
+### Persian writing
+Primary product:
+NeveshtYar
+
+Related concepts:
+Persian writing assistant
+Persian text editing
+Persian rewriting
+Persian AI writing
+Finglish conversion
+keyboard-layout recovery
+
+Related guides:
+https://farsio.ir/fa/guides/finglish-to-persian
+https://farsio.ir/fa/guides/persian-keyboard-layout
+https://farsio.ir/fa/guides/persian-ai-writing
+
+### Persian speech and reading
+Primary product:
+AvaYar
+
+Related concepts:
+Persian text-to-speech
+Persian speech technology
+AI reading
+web-page summarization
+translation
+listening workflows
+
+Related guides:
+https://farsio.ir/fa/guides/persian-text-to-speech
+https://farsio.ir/fa/guides/web-reading-summarization
+
+### English-language equivalents
+
+https://farsio.ir/en/guides/finglish-to-persian
+https://farsio.ir/en/guides/persian-keyboard-layout
+https://farsio.ir/en/guides/persian-ai-writing
+https://farsio.ir/en/guides/persian-text-to-speech
+https://farsio.ir/en/guides/web-reading-summarization

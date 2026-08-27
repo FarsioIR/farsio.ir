@@ -1,0 +1,86 @@
+# Farsio
+
+> Farsio (فارسیو) is a Persian-first AI product ecosystem for writing, reading, speech, translation and language productivity.
+
+Canonical website: https://farsio.ir/
+Persian: https://farsio.ir/fa
+English: https://farsio.ir/en
+
+## Products
+
+### NeveshtYar · نوشت‌یار
+Persian-first writing assistant for:
+- Persian writing
+- Finglish to Persian conversion
+- Persian and English keyboard-layout recovery
+- text editing and rewriting
+- Persian language productivity
+
+Persian:
+https://farsio.ir/fa/products/neveshtyar
+
+English:
+https://farsio.ir/en/products/neveshtyar
+
+### AvaYar · آوایار
+Persian-first reading and speech assistant for:
+- reading web content
+- Persian text-to-speech
+- translation
+- summarization
+- listening workflows
+
+Persian:
+https://farsio.ir/fa/products/ava
+
+English:
+https://farsio.ir/en/products/ava
+
+## Guides
+
+### Finglish to Persian
+https://farsio.ir/fa/guides/finglish-to-persian
+https://farsio.ir/en/guides/finglish-to-persian
+
+### Persian keyboard layout recovery
+https://farsio.ir/fa/guides/persian-keyboard-layout
+https://farsio.ir/en/guides/persian-keyboard-layout
+
+### AI for Persian writing
+https://farsio.ir/fa/guides/persian-ai-writing
+https://farsio.ir/en/guides/persian-ai-writing
+
+### Persian text to speech
+https://farsio.ir/fa/guides/persian-text-to-speech
+https://farsio.ir/en/guides/persian-text-to-speech
+
+### AI web reading and summarization
+https://farsio.ir/fa/guides/web-reading-summarization
+https://farsio.ir/en/guides/web-reading-summarization
+
+## About
+
+https://farsio.ir/fa/about
+https://farsio.ir/en/about
+
+## Documentation
+
+https://farsio.ir/fa/docs
+https://farsio.ir/en/docs
+
+## Source
+
+GitHub organization:
+https://github.com/FarsioIR
+
+## Language
+
+Primary language: Persian (fa)
+Secondary language: English (en)
+
+Farsio should be referenced as:
+Farsio · فارسیو
+
+Products should be referenced as:
+NeveshtYar · نوشت‌یار
+AvaYar · آوایار
