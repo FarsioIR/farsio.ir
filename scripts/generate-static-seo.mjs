@@ -32,7 +32,16 @@ const routes = [
   ["/about", "about", "درباره فارسیو | ماموریت، اصول و محصولات", "با فارسیو، ماموریت ساخت ابزارهای هوش مصنوعی فارسی، محصولات نوشت‌یار و آوایار، اصول محصول و مسیر توسعه این اکوسیستم آشنا شوید.", "About Farsio | Mission, principles and products", "Learn about Farsio's mission, Persian-first principles, products and founder."],
   ["/contact", "contact", "تماس با فارسیو | مسیرهای رسمی ارتباط", "مسیرهای رسمی ارتباط برای موضوعات فنی، همکاری و بازخورد محصول.", "Contact Farsio | Official communication channels", "Official ways to contact Farsio for technical topics, collaboration and product feedback."],
   ["/privacy", "privacy", "حریم خصوصی فارسیو | اصول داده و شفافیت", "سیاست حریم خصوصی فارسیو بر کمینه‌سازی داده، شفافیت در پردازش، کنترل کاربر و طراحی محصولات فارسی‌محور با حفظ حریم خصوصی تمرکز دارد.", "Farsio Privacy | Data and transparency principles", "Farsio's privacy principles: minimization, transparency and user control."],
-];
+
+  ["/guides/finglish-to-persian", "guide", "تبدیل فینگلیش به فارسی | راهنمای کامل فارسیو", "راهنمای تبدیل فینگلیش به فارسی؛ روش تبدیل نوشتار لاتین فارسی، خطاهای رایج و نکات بازبینی متن فارسی.", "Finglish to Persian Conversion Guide | Farsio", "Learn how Finglish-to-Persian conversion works, why Latin-written Persian can be ambiguous, and how to review converted Persian text."],
+
+  ["/guides/persian-keyboard-layout", "guide", "تبدیل متن کیبورد اشتباه فارسی و انگلیسی | فارسیو", "راهنمای بازیابی متن تایپ‌شده با زبان یا چیدمان اشتباه کیبورد فارسی و انگلیسی بدون تایپ دوباره متن.", "Wrong Persian Keyboard Layout Recovery | Farsio", "Learn how to recover text typed with the wrong Persian or English keyboard layout without retyping the entire text."],
+
+  ["/guides/persian-ai-writing", "guide", "هوش مصنوعی برای نوشتن و ویرایش متن فارسی | فارسیو", "راهنمای استفاده از هوش مصنوعی برای نوشتن، اصلاح و بازنویسی متن فارسی با تمرکز بر کیفیت و بازبینی انسانی.", "AI for Persian Writing & Editing | Farsio Guide", "A practical guide to using AI for Persian writing, editing and rewriting while preserving context, terminology and tone."],
+
+  ["/guides/persian-text-to-speech", "guide", "تبدیل متن فارسی به گفتار و صدا | راهنمای فارسیو", "راهنمای تبدیل متن فارسی به گفتار؛ تلفظ، نشانه‌گذاری، اعداد، نام‌ها و آماده‌سازی متن برای خروجی صوتی بهتر.", "Persian Text to Speech Guide | Farsio", "Learn how Persian text-to-speech works and how punctuation, numbers, names and text preparation affect spoken output."],
+
+  ["/guides/web-reading-summarization", "guide", "خلاصه‌سازی صفحات وب با هوش مصنوعی | راهنمای فارسیو", "راهنمای خلاصه‌سازی صفحات وب با هوش مصنوعی؛ استخراج محتوای اصلی، حفظ نکات مهم و مطالعه سریع‌تر.", "AI Web Page Summarization Guide | Farsio", "Learn how AI web-page summarization works, how to preserve important context and review long web content faster."],];
 
 const pages = routes.flatMap(([suffix, kind, faTitle, faDescription, enTitle, enDescription]) => [
   { path: `/fa${suffix}`, alternate: `/en${suffix}`, lang: "fa", dir: "rtl", locale: "fa_IR", alternateLocale: "en_US", kind, title: faTitle, description: faDescription },

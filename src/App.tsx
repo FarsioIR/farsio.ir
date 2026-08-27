@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Lang, languageMeta, languages, t } from "./i18n";
+import { GuidePage, isGuideKey } from "./seo-guides";
 import {
   FaqPage,
   GenericPage,
@@ -592,6 +593,17 @@ function ProductPage({ type }: { type: "neveshtyar" | "ava" }) {
   return <ProductDetailPage lang={lang} type={type} preview={type === "ava" ? <AvaPanel /> : <WritingPanel />} />;
 }
 
+function SeoGuide() {
+  const lang = useLang();
+  const { guideKey = "" } = useParams();
+
+  if (!isGuideKey(guideKey)) {
+    return <Navigate to={`/${lang}/docs`} replace />;
+  }
+
+  return <GuidePage lang={lang} guideKey={guideKey} />;
+}
+
 function Docs() {
   const lang = useLang();
   return <GenericPage lang={lang} pageKey="docs" />;
@@ -644,6 +656,7 @@ function LocalizedLayout() {
         <Route path="products/ava" element={<ProductPage type="ava" />} />
         <Route path="features" element={<GenericPage lang={lang} pageKey="features" />} />
         <Route path="docs" element={<Docs />} />
+        <Route path="guides/:guideKey" element={<SeoGuide />} />
         <Route path="faq" element={<FaqPage lang={lang} />} />
         <Route path="releases" element={<GenericPage lang={lang} pageKey="releases" />} />
         <Route path="community" element={<GenericPage lang={lang} pageKey="community" />} />

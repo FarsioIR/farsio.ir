@@ -4,6 +4,16 @@ import { fileURLToPath } from "node:url";
 const DIST = fileURLToPath(new URL("../dist/", import.meta.url));
 
 const routes = [
+  "/fa/guides/finglish-to-persian",
+  "/en/guides/finglish-to-persian",
+  "/fa/guides/persian-keyboard-layout",
+  "/en/guides/persian-keyboard-layout",
+  "/fa/guides/persian-ai-writing",
+  "/en/guides/persian-ai-writing",
+  "/fa/guides/persian-text-to-speech",
+  "/en/guides/persian-text-to-speech",
+  "/fa/guides/web-reading-summarization",
+  "/en/guides/web-reading-summarization",
   "/fa",
   "/en",
   "/fa/products",

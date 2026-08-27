@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "publisher": {
+    "name": "Farsio",
+    "alternateName": "فارسیو",
+    "url": "https://farsio.ir/"
+  },
+  "guides": [
+    {
+      "slug": "finglish-to-persian",
+      "topic": "Finglish to Persian conversion",
+      "product": "NeveshtYar",
+      "fa": "https://farsio.ir/fa/guides/finglish-to-persian",
+      "en": "https://farsio.ir/en/guides/finglish-to-persian"
+    },
+    {
+      "slug": "persian-keyboard-layout",
+      "topic": "Persian keyboard layout recovery",
+      "product": "NeveshtYar",
+      "fa": "https://farsio.ir/fa/guides/persian-keyboard-layout",
+      "en": "https://farsio.ir/en/guides/persian-keyboard-layout"
+    },
+    {
+      "slug": "persian-ai-writing",
+      "topic": "AI-assisted Persian writing",
+      "product": "NeveshtYar",
+      "fa": "https://farsio.ir/fa/guides/persian-ai-writing",
+      "en": "https://farsio.ir/en/guides/persian-ai-writing"
+    },
+    {
+      "slug": "persian-text-to-speech",
+      "topic": "Persian text to speech",
+      "product": "AvaYar",
+      "fa": "https://farsio.ir/fa/guides/persian-text-to-speech",
+      "en": "https://farsio.ir/en/guides/persian-text-to-speech"
+    },
+    {
+      "slug": "web-reading-summarization",
+      "topic": "AI web reading and summarization",
+      "product": "AvaYar",
+      "fa": "https://farsio.ir/fa/guides/web-reading-summarization",
+      "en": "https://farsio.ir/en/guides/web-reading-summarization"
+    }
+  ]
+}
