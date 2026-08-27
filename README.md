@@ -7,7 +7,7 @@ Official website for the Farsio product family.
 ## Products
 
 ### NeveshtYar · نوشت‌یار
-**Farsi Smart Assistant by Farsio**
+**NeveshtYar · نوشت‌یار by Farsio**
 
 Persian & English writing assistant, keyboard-layout recovery and Finglish correction.
 
