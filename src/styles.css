@@ -1829,10 +1829,8 @@ html[lang="en"] body {
 .products-dropdown {
   position: absolute;
   z-index: 300;
-  top: calc(100% + 10px);
-  inset-inline-end: 0;
-  inset-inline-start: auto;
-  width: 340px;
+  top: calc(100% + 8px);
+  width: 320px;
   transform: translateY(-6px);
   padding: 10px;
   border: 1px solid var(--line);
@@ -1851,6 +1849,22 @@ html[lang="en"] body {
     visibility 140ms ease;
 }
 
+
+/* Exact physical alignment with Products trigger */
+
+html[dir="rtl"] .products-nav .products-dropdown {
+  right: 0;
+  left: auto;
+}
+
+html[dir="ltr"] .products-nav .products-dropdown {
+  left: 0;
+  right: auto;
+}
+
+.products-nav {
+  position: relative;
+}
 .products-dropdown.open {
   opacity: 1;
   visibility: visible;
