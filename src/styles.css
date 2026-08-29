@@ -1829,10 +1829,11 @@ html[lang="en"] body {
 .products-dropdown {
   position: absolute;
   z-index: 300;
-  top: calc(100% + 8px);
-  inset-inline-start: 50%;
+  top: calc(100% + 10px);
+  inset-inline-end: 0;
+  inset-inline-start: auto;
   width: 340px;
-  transform: translate(-50%, -6px);
+  transform: translateY(-6px);
   padding: 10px;
   border: 1px solid var(--line);
   border-radius: 18px;
@@ -1854,7 +1855,7 @@ html[lang="en"] body {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
-  transform: translate(-50%, 0);
+  transform: translateY(0);
 }
 
 .products-dropdown::before {
