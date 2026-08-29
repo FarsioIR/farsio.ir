@@ -71,6 +71,7 @@ const SEO: Record<Lang, Record<string, SeoEntry>> = {
 
 function seoKey(routeKey: string) {
   if (routeKey === "products/neveshtyar") return "neveshtyar";
+  if (routeKey === "products/avayar") return "ava";
   if (routeKey === "products/ava") return "ava";
   if (routeKey === "report-issue") return "report";
   return routeKey || "home";
@@ -172,6 +173,78 @@ function productInfo(lang: Lang, type: "neveshtyar" | "ava"): ProductInfo {
 export function ProductDetailPage({ lang, type, preview }: { lang: Lang; type: "neveshtyar" | "ava"; preview: ReactNode }) {
   const p = productInfo(lang, type);
   const github = type === "ava" ? LINKS.avaGithub : LINKS.neveshtyarGithub;
+  const isAva = type === "ava";
+
+  const audiences = isAva
+    ? [
+        tr(lang, "افرادی که مقاله‌ها و صفحات طولانی وب را دنبال می‌کنند", "People who regularly work through long articles and web pages"),
+        tr(lang, "کاربرانی که ترجیح می‌دهند محتوای فارسی را بشنوند", "People who prefer listening to Persian content"),
+        tr(lang, "پژوهشگران و دانشجویانی که به مرور سریع‌تر محتوا نیاز دارند", "Researchers and students who need a faster way to review content"),
+        tr(lang, "کاربرانی که محتوای غیرفارسی را با توضیح و خلاصه فارسی می‌خواهند", "Users who want foreign-language content explained and summarized in Persian"),
+      ]
+    : [
+        tr(lang, "افرادی که هر روز فارسی در مرورگر می‌نویسند", "People who write Persian in the browser every day"),
+        tr(lang, "کاربرانی که بین کیبورد فارسی و انگلیسی جابه‌جا می‌شوند", "Users who regularly switch between Persian and English keyboard layouts"),
+        tr(lang, "نویسندگان، دانشجویان و تیم‌هایی که متن فارسی را ویرایش می‌کنند", "Writers, students and teams editing Persian text"),
+        tr(lang, "کاربرانی که با فینگلیش یا خطاهای رایج تایپ فارسی روبه‌رو هستند", "Users dealing with Finglish and common Persian typing mistakes"),
+      ];
+
+  const workflow = isAva
+    ? [
+        {
+          title: tr(lang, "۱. صفحه را باز کنید", "1. Open the page"),
+          body: tr(lang, "محتوایی را که می‌خواهید بخوانید، خلاصه کنید یا بشنوید در مرورگر باز کنید.", "Open the web content you want to read, summarize or listen to."),
+        },
+        {
+          title: tr(lang, "۲. نوع خروجی را انتخاب کنید", "2. Choose the output"),
+          body: tr(lang, "بر اساس نیاز، متن اصلی، خلاصه فارسی، ترجمه یا تجربه شنیداری را انتخاب کنید.", "Choose the original text, Persian summary, translation or listening workflow."),
+        },
+        {
+          title: tr(lang, "۳. نتیجه را مرور کنید", "3. Review the result"),
+          body: tr(lang, "خلاصه و ترجمه برای سرعت بیشتر هستند؛ در محتوای حساس یا تخصصی، منبع اصلی را نیز بررسی کنید.", "Summaries and translations improve speed; for sensitive or specialist content, review the original source as well."),
+        },
+      ]
+    : [
+        {
+          title: tr(lang, "۱. همان‌جایی که می‌نویسید بمانید", "1. Stay where you write"),
+          body: tr(lang, "هدف نوشت‌یار این است که ابزارهای نگارشی نزدیک به جریان واقعی نوشتن در مرورگر باشند.", "NeveshtYar keeps writing tools close to the actual browser writing flow."),
+        },
+        {
+          title: tr(lang, "۲. مشکل متن را مشخص کنید", "2. Choose the writing problem"),
+          body: tr(lang, "فینگلیش، چیدمان اشتباه کیبورد، املا یا اصلاح متن را بر اساس نیاز انتخاب کنید.", "Choose Finglish correction, keyboard-layout recovery, spelling or text improvement."),
+        },
+        {
+          title: tr(lang, "۳. پیشنهاد را قبل از استفاده نهایی مرور کنید", "3. Review before applying"),
+          body: tr(lang, "در متن‌های رسمی، تخصصی یا حساس، تصمیم نهایی همیشه باید با نویسنده بماند.", "For formal, specialist or sensitive writing, the final decision should remain with the writer."),
+        },
+      ];
+
+  const guideLinks = isAva
+    ? [
+        {
+          title: tr(lang, "راهنمای تبدیل متن فارسی به گفتار", "Persian text-to-speech guide"),
+          href: localPath(lang, "/guides/persian-text-to-speech"),
+        },
+        {
+          title: tr(lang, "راهنمای خلاصه‌سازی صفحات وب", "Web reading and summarization guide"),
+          href: localPath(lang, "/guides/web-reading-summarization"),
+        },
+      ]
+    : [
+        {
+          title: tr(lang, "راهنمای تبدیل فینگلیش به فارسی", "Finglish-to-Persian guide"),
+          href: localPath(lang, "/guides/finglish-to-persian"),
+        },
+        {
+          title: tr(lang, "بازیابی متن با چیدمان اشتباه کیبورد", "Wrong keyboard-layout recovery"),
+          href: localPath(lang, "/guides/persian-keyboard-layout"),
+        },
+        {
+          title: tr(lang, "راهنمای هوش مصنوعی برای نوشتن فارسی", "AI for Persian writing guide"),
+          href: localPath(lang, "/guides/persian-ai-writing"),
+        },
+      ];
+
   return (
     <main className="shell inner-page pro-page">
       <Breadcrumb lang={lang} current={p.name} />
@@ -192,8 +265,188 @@ export function ProductDetailPage({ lang, type, preview }: { lang: Lang; type: "
       </section>
       <section className="pro-section"><SectionTitle eyebrow={tr(lang, "قابلیت‌ها", "Capabilities")} title={tr(lang, "قابلیت‌هایی برای تجربه واقعی کاربر", "Capabilities for real user workflows")} /><CardGrid items={p.cards} /></section>
       <section className="pro-section pro-split-section">
-        <div><SectionTitle eyebrow={tr(lang, "سناریوها", "Use cases")} title={tr(lang, "کجا به کار می‌آید؟", "Where does it fit?")} /><ul className="pro-check-list">{p.uses.map((x) => <li key={x}><Icon icon="solar:check-circle-bold" /><span>{x}</span></li>)}</ul></div>
-        <aside className="pro-panel pro-principles"><strong>{tr(lang, "اصل طراحی فارسیو", "Farsio design principle")}</strong><p>{tr(lang, "هوشمندی باید به کاربر کمک کند، نه اینکه کنترل تجربه را از او بگیرد. قابلیت‌ها باید روشن و قابل بررسی باشند.", "Intelligence should help without taking control away. Features should stay clear and reviewable.")}</p><a href={localPath(lang, "/privacy")}>{tr(lang, "اصول حریم خصوصی", "Privacy principles")} <Icon icon="solar:arrow-left-linear" /></a></aside>
+        <div>
+          <SectionTitle
+            eyebrow={tr(lang, "سناریوها", "Use cases")}
+            title={tr(lang, "کجا به کار می‌آید؟", "Where does it fit?")}
+          />
+          <ul className="pro-check-list">
+            {p.uses.map((x) => (
+              <li key={x}>
+                <Icon icon="solar:check-circle-bold" />
+                <span>{x}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <aside className="pro-panel pro-principles">
+          <strong>{tr(lang, "اصل طراحی فارسیو", "Farsio design principle")}</strong>
+          <p>
+            {tr(
+              lang,
+              "هوشمندی باید به کاربر کمک کند، نه اینکه کنترل تجربه را از او بگیرد. قابلیت‌ها باید روشن و قابل بررسی باشند.",
+              "Intelligence should help without taking control away. Features should stay clear and reviewable.",
+            )}
+          </p>
+          <a href={localPath(lang, "/privacy")}>
+            {tr(lang, "اصول حریم خصوصی", "Privacy principles")}
+            <Icon icon="solar:arrow-left-linear" />
+          </a>
+        </aside>
+      </section>
+
+      <section className="pro-section">
+        <SectionTitle
+          eyebrow={tr(lang, "برای چه کسانی؟", "Who is it for?")}
+          title={tr(
+            lang,
+            isAva ? "آوایار برای دریافت سریع‌تر و شنیدنی‌تر محتوا" : "نوشت‌یار برای کسانی که فارسی را هر روز می‌نویسند",
+            isAva ? "AvaYar is for faster, more listenable content workflows" : "NeveshtYar is for people who write Persian every day",
+          )}
+          body={tr(
+            lang,
+            "محصول باید قبل از هر چیز مسئله واقعی کاربر را حل کند؛ نه اینکه فقط مجموعه‌ای از قابلیت‌های هوش مصنوعی باشد.",
+            "A product should first solve a real user problem rather than become a collection of AI features.",
+          )}
+        />
+
+        <div className="product-audience-grid">
+          {audiences.map((item) => (
+            <article className="product-audience-card" key={item}>
+              <Icon icon="solar:user-check-rounded-bold" />
+              <p>{item}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="pro-section">
+        <SectionTitle
+          eyebrow={tr(lang, "روش استفاده", "How it works")}
+          title={tr(lang, "یک جریان ساده و قابل‌فهم", "A simple, understandable workflow")}
+          body={tr(
+            lang,
+            "ارزش محصول زمانی بیشتر می‌شود که رسیدن از مسئله به نتیجه کوتاه و قابل پیش‌بینی باشد.",
+            "Product value improves when the path from problem to result stays short and predictable.",
+          )}
+        />
+
+        <div className="product-workflow-grid">
+          {workflow.map((step) => (
+            <article className="pro-panel product-workflow-card" key={step.title}>
+              <strong>{step.title}</strong>
+              <p>{step.body}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="pro-section product-trust-section">
+        <SectionTitle
+          eyebrow={tr(lang, "اعتماد و کنترل", "Trust & control")}
+          title={tr(lang, "هوش مصنوعی باید قابل‌فهم و قابل‌کنترل بماند", "AI should remain understandable and controllable")}
+        />
+
+        <div className="product-trust-grid">
+          <article className="pro-panel">
+            <Icon icon="solar:shield-check-bold" />
+            <h3>{tr(lang, "حریم خصوصی در طراحی", "Privacy by design")}</h3>
+            <p>
+              {tr(
+                lang,
+                "دسترسی‌ها و داده باید به نیاز واقعی قابلیت محدود شوند. جزئیات هر نسخه و رفتار محصول باید از منابع رسمی قابل بررسی باشد.",
+                "Permissions and data should remain limited to real functional requirements. Product behavior and releases should remain reviewable through official sources.",
+              )}
+            </p>
+            <a href={localPath(lang, "/privacy")}>
+              {tr(lang, "مشاهده اصول حریم خصوصی", "Read privacy principles")}
+            </a>
+          </article>
+
+          <article className="pro-panel">
+            <Icon icon="mdi:github" />
+            <h3>{tr(lang, "توسعه قابل‌پیگیری", "Traceable development")}</h3>
+            <p>
+              {tr(
+                lang,
+                "GitHub مرجع رسمی وضعیت فنی، Issueها و تاریخچه توسعه محصول است.",
+                "GitHub is the official technical reference for issues, development status and history.",
+              )}
+            </p>
+            <a href={github} target="_blank" rel="noreferrer">
+              GitHub
+            </a>
+          </article>
+
+          <article className="pro-panel">
+            <Icon icon="solar:chat-round-check-bold" />
+            <h3>{tr(lang, "گزارش مسئله با اطلاعات کافی", "Report issues with useful context")}</h3>
+            <p>
+              {tr(
+                lang,
+                "برای گزارش خطا، نسخه، مرورگر، مراحل بازتولید و نتیجه مورد انتظار را بنویسید و داده حساس منتشر نکنید.",
+                "For bug reports, include version, browser, reproduction steps and expected behavior, and never publish sensitive data.",
+              )}
+            </p>
+            <a href={localPath(lang, "/report-issue")}>
+              {tr(lang, "راهنمای گزارش مشکل", "Issue reporting guide")}
+            </a>
+          </article>
+        </div>
+      </section>
+
+      <section className="pro-section">
+        <SectionTitle
+          eyebrow={tr(lang, "یادگیری بیشتر", "Learn more")}
+          title={tr(lang, "راهنماهای مرتبط با این محصول", "Guides related to this product")}
+          body={tr(
+            lang,
+            "راهنماها مسئله را عمیق‌تر توضیح می‌دهند و صفحه محصول مسیر استفاده و وضعیت رسمی را نگه می‌دارد.",
+            "Guides explain the underlying problem in more depth, while the product page remains the official product destination.",
+          )}
+        />
+
+        <div className="product-guides-grid">
+          {guideLinks.map((guide) => (
+            <a className="product-guide-link" key={guide.href} href={guide.href}>
+              <span>{guide.title}</span>
+              <Icon icon="solar:arrow-left-linear" />
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <section className="product-final-cta">
+        <div>
+          <span>{tr(lang, "پشتیبانی و ارتباط", "Support & contact")}</span>
+          <h2>
+            {tr(
+              lang,
+              isAva ? "درباره آوایار سوال، پیشنهاد یا مسئله فنی دارید؟" : "درباره نوشت‌یار سوال، پیشنهاد یا مسئله فنی دارید؟",
+              isAva ? "Have a question, suggestion or technical issue about AvaYar?" : "Have a question, suggestion or technical issue about NeveshtYar?",
+            )}
+          </h2>
+          <p>
+            {tr(
+              lang,
+              "برای هر موضوع مسیر مناسب را انتخاب کنید تا درخواست شما در جای درست ثبت و پیگیری شود.",
+              "Choose the appropriate channel so your request is recorded and handled in the right place.",
+            )}
+          </p>
+        </div>
+
+        <div className="hero-actions">
+          <a className="button button-primary" href={localPath(lang, "/contact")}>
+            <Icon icon="solar:letter-bold" />
+            {tr(lang, "تماس با فارسیو", "Contact Farsio")}
+          </a>
+
+          <a className="button button-secondary" href={github} target="_blank" rel="noreferrer">
+            <Icon icon="mdi:github" />
+            GitHub
+          </a>
+        </div>
       </section>
     </main>
   );
@@ -210,7 +463,7 @@ function pageData(lang: Lang, key: PageKey): PageData {
       lead: tr(lang, "هر محصول فارسیو یک مسئله مشخص را هدف می‌گیرد؛ نوشت‌یار برای نوشتن و آوایار برای خواندن و شنیدن.", "Each Farsio product targets a concrete problem: NeveshtYar for writing and AvaYar for reading and listening."),
       sections: [
         { title: "NeveshtYar · نوشت‌یار", body: productInfo(lang, "neveshtyar").lead, icon: "solar:pen-new-square-bold", bullets: productInfo(lang, "neveshtyar").uses, links: [{ label: tr(lang, "صفحه محصول", "Product page"), href: localPath(lang, "/products/neveshtyar") }, { label: "GitHub", href: LINKS.neveshtyarGithub, external: true }] },
-        { title: "AvaYar · آوایار", body: productInfo(lang, "ava").lead, icon: "solar:soundwave-bold", bullets: productInfo(lang, "ava").uses, links: [{ label: tr(lang, "صفحه محصول", "Product page"), href: localPath(lang, "/products/ava") }, { label: "GitHub", href: LINKS.avaGithub, external: true }] },
+        { title: "AvaYar · آوایار", body: productInfo(lang, "ava").lead, icon: "solar:soundwave-bold", bullets: productInfo(lang, "ava").uses, links: [{ label: tr(lang, "صفحه محصول", "Product page"), href: localPath(lang, "/products/avayar") }, { label: "GitHub", href: LINKS.avaGithub, external: true }] },
       ],
     },
     features: {
@@ -265,10 +518,108 @@ function pageData(lang: Lang, key: PageKey): PageData {
       { title: tr(lang, "شفافیت فنی", "Technical transparency"), body: tr(lang, "نسخه‌ها و تاریخچه توسعه از GitHub قابل مشاهده و پیگیری‌اند.", "Releases and development history remain visible through GitHub."), icon: "solar:code-square-bold" },
       { title: tr(lang, "بنیان‌گذار و سازنده: امیر متفکر", "Founder & maker: Amir Motefaker"), body: tr(lang, "فارسیو با تمرکز بر محصول‌سازی، مهندسی و تجربه فارسی‌محور توسعه داده می‌شود.", "Farsio is developed around product engineering and Persian-first user experience."), icon: "solar:user-id-bold", links: [{ label: "amirmotefaker.ir", href: LINKS.founder, external: true }] },
     ] },
-    contact: { eyebrow: "Contact", title: tr(lang, "مسیر ارتباط را بر اساس موضوع انتخاب کنید", "Choose the path that fits the topic"), lead: tr(lang, "موضوعات فنی بهتر است در GitHub ثبت شوند؛ برای ارتباط با سازنده وب‌سایت رسمی او در دسترس است.", "Technical topics work best on GitHub; the maker's official website is available for direct contact paths."), icon: "solar:letter-bold", sections: [
-      { title: tr(lang, "موضوع فنی یا محصول", "Technical or product topics"), body: tr(lang, "برای خطا و پیشنهاد قابلیت از مخزن مرتبط در GitHub استفاده کنید.", "Use the relevant GitHub repository for bugs and feature proposals."), icon: "mdi:github", links: [{ label: "FarsioIR", href: LINKS.farsioGithub, external: true }] },
-      { title: tr(lang, "ارتباط با سازنده", "Contact the maker"), body: tr(lang, "برای پروژه‌ها و مسیرهای ارتباطی امیر متفکر، وب‌سایت رسمی او مرجع مستقیم است.", "For Amir Motefaker's projects and contact paths, use his official website."), icon: "solar:global-bold", links: [{ label: "amirmotefaker.ir", href: LINKS.founder, external: true }] },
-    ] },
+    contact: {
+      eyebrow: "Contact",
+      title: tr(
+        lang,
+        "تماس با فارسیو؛ هر موضوع از مسیر درست",
+        "Contact Farsio through the right channel",
+      ),
+      lead: tr(
+        lang,
+        "برای پشتیبانی نوشت‌یار و آوایار، گزارش خطا، پیشنهاد قابلیت، همکاری یا ارتباط تجاری، مسیر مناسب را انتخاب کنید تا درخواست قابل‌پیگیری بماند.",
+        "Choose the appropriate route for NeveshtYar and AvaYar support, bug reports, feature proposals, collaboration or business contact.",
+      ),
+      icon: "solar:letter-bold",
+      sections: [
+        {
+          title: tr(lang, "پشتیبانی نوشت‌یار", "NeveshtYar support"),
+          body: tr(
+            lang,
+            "برای خطا، رفتار غیرمنتظره یا پیشنهاد قابلیت نوشت‌یار از مخزن رسمی استفاده کنید. نسخه، مرورگر، مراحل بازتولید و نتیجه مورد انتظار را بنویسید.",
+            "For NeveshtYar bugs, unexpected behavior or feature proposals, use the official repository. Include version, browser, reproduction steps and expected behavior.",
+          ),
+          icon: "solar:pen-new-square-bold",
+          bullets: tr(
+            lang,
+            "نسخه و مرورگر را مشخص کنید|مراحل بازتولید را کوتاه و دقیق بنویسید|اطلاعات حساس را در Issue عمومی منتشر نکنید",
+            "Include version and browser|Write concise reproduction steps|Never publish sensitive information in a public issue",
+          ).split("|"),
+          links: [
+            { label: "NeveshtYar GitHub", href: LINKS.neveshtyarGithub, external: true },
+            { label: tr(lang, "راهنمای گزارش مشکل", "Issue reporting guide"), href: localPath(lang, "/report-issue") },
+          ],
+        },
+        {
+          title: tr(lang, "پشتیبانی آوایار", "AvaYar support"),
+          body: tr(
+            lang,
+            "آوایار در حال توسعه است. Issueها و وضعیت فنی باید از مخزن رسمی آن پیگیری شوند.",
+            "AvaYar is in development. Issues and technical progress should be followed through its official repository.",
+          ),
+          icon: "solar:soundwave-bold",
+          bullets: tr(
+            lang,
+            "نوع صفحه یا محتوای ورودی را توضیح دهید|رفتار واقعی و مورد انتظار را بنویسید|در صورت نیاز محیط و مرورگر را ذکر کنید",
+            "Describe the page or input content|Explain actual and expected behavior|Include environment and browser when relevant",
+          ).split("|"),
+          links: [
+            { label: "AvaYar GitHub", href: LINKS.avaGithub, external: true },
+            { label: tr(lang, "صفحه آوایار", "AvaYar product page"), href: localPath(lang, "/products/avayar") },
+          ],
+        },
+        {
+          title: tr(lang, "پیشنهاد محصول و تجربه کاربری", "Product and UX feedback"),
+          body: tr(
+            lang,
+            "اگر پیشنهادی برای تجربه فارسی، قابلیت محصول یا مسیر استفاده دارید، بهتر است مسئله و نتیجه مطلوب را به‌وضوح توضیح دهید؛ نه فقط نام یک قابلیت.",
+            "For product or UX proposals, describe the underlying problem and desired outcome rather than only naming a feature.",
+          ),
+          icon: "solar:lightbulb-bolt-bold",
+          links: [
+            { label: tr(lang, "محصولات فارسیو", "Farsio products"), href: localPath(lang, "/products") },
+            { label: "FarsioIR", href: LINKS.farsioGithub, external: true },
+          ],
+        },
+        {
+          title: tr(lang, "همکاری و مشارکت فنی", "Technical collaboration"),
+          body: tr(
+            lang,
+            "برای مشارکت کد، مستندات یا بهبودهای فنی، ابتدا Issue و راهنمای مشارکت را بررسی و تغییرات را در Pull Requestهای کوچک و قابل‌مرور ارائه کنید.",
+            "For code, documentation or technical contributions, review existing issues and contribution guidance, then keep pull requests small and reviewable.",
+          ),
+          icon: "solar:code-square-bold",
+          links: [
+            { label: tr(lang, "راهنمای مشارکت", "Contribution guide"), href: localPath(lang, "/contribute") },
+            { label: "GitHub", href: LINKS.farsioGithub, external: true },
+          ],
+        },
+        {
+          title: tr(lang, "حریم خصوصی یا موضوع حساس", "Privacy or sensitive topics"),
+          body: tr(
+            lang,
+            "داده شخصی، کلید API، متن محرمانه یا اطلاعات حساس را در Issue عمومی GitHub قرار ندهید. ابتدا اصول حریم خصوصی فارسیو را مرور کنید.",
+            "Do not publish personal data, API keys, confidential text or other sensitive information in public GitHub issues. Review Farsio privacy principles first.",
+          ),
+          icon: "solar:shield-check-bold",
+          links: [
+            { label: tr(lang, "حریم خصوصی فارسیو", "Farsio privacy"), href: localPath(lang, "/privacy") },
+          ],
+        },
+        {
+          title: tr(lang, "همکاری تجاری و ارتباط با سازنده", "Business and maker contact"),
+          body: tr(
+            lang,
+            "برای موضوعات تجاری، همکاری بین‌محصولی، پرتفوی یا ارتباط مستقیم با سازنده فارسیو، وب‌سایت رسمی امیر متفکر مرجع ارتباط است.",
+            "For business topics, cross-product collaboration, portfolio matters or direct maker contact, use Amir Motefaker's official website.",
+          ),
+          icon: "solar:global-bold",
+          links: [
+            { label: "amirmotefaker.ir", href: LINKS.founder, external: true },
+          ],
+        },
+      ],
+    },
     privacy: { eyebrow: "Privacy", title: tr(lang, "حریم خصوصی باید بخشی از طراحی باشد", "Privacy should be part of product design"), lead: tr(lang, "فارسیو حریم خصوصی را با کمینه‌سازی، شفافیت و کنترل کاربر تعریف می‌کند.", "Farsio frames privacy around minimization, transparency and user control."), icon: "solar:shield-check-bold", sections: [
       { title: tr(lang, "کمینه‌سازی", "Minimization"), body: tr(lang, "دسترسی و داده فقط تا جایی استفاده شوند که قابلیت واقعی نیاز دارد.", "Permissions and data should only be used to the extent required by functionality."), icon: "solar:minimalistic-magnifer-bold" },
       { title: tr(lang, "شفافیت", "Transparency"), body: tr(lang, "رفتار مهم، نسخه و تغییرات از مرجع فنی قابل بررسی باشند.", "Important behavior, releases and changes should remain reviewable through official sources."), icon: "solar:eye-bold" },
@@ -334,7 +685,7 @@ export function ProfessionalFooter({ lang, brand }: { lang: Lang; brand: ReactNo
   return <footer className="site-footer">
     <div className="shell footer-main">
       <div className="footer-brand">{brand}<p>{tr(lang, "فارسیو؛ خانه‌ی ابزارهای فارسی‌محور برای نوشتن، خواندن، ترجمه و شنیدن بهتر.", "Farsio builds Persian-first tools for better writing, reading, translation and listening.")}</p><div className="footer-social"><a href={LINKS.farsioGithub} target="_blank" rel="noreferrer" aria-label="GitHub"><Icon icon="mdi:github" /></a><a href={LINKS.founder} target="_blank" rel="noreferrer" aria-label="Amir Motefaker"><Icon icon="solar:global-bold" /></a></div></div>
-      <div className="footer-column"><strong>{tr(lang, "محصولات", "Products")}</strong><a href={localPath(lang, "/products")}>{tr(lang, "همه محصولات", "All products")}</a><a href={localPath(lang, "/products/neveshtyar")}>NeveshtYar · نوشت‌یار</a><a href={localPath(lang, "/products/ava")}>AvaYar · آوایار</a></div>
+      <div className="footer-column"><strong>{tr(lang, "محصولات", "Products")}</strong><a href={localPath(lang, "/products")}>{tr(lang, "همه محصولات", "All products")}</a><a href={localPath(lang, "/products/neveshtyar")}>NeveshtYar · نوشت‌یار</a><a href={localPath(lang, "/products/avayar")}>AvaYar · آوایار</a></div>
       <div className="footer-column"><strong>{tr(lang, "منابع", "Resources")}</strong><a href={localPath(lang, "/docs")}>{tr(lang, "راهنما", "Guide")}</a><a href={localPath(lang, "/faq")}>FAQ</a><a href={localPath(lang, "/releases")}>{tr(lang, "نسخه‌ها", "Releases")}</a><a href={localPath(lang, "/features")}>{tr(lang, "ویژگی‌ها", "Features")}</a></div>
       <div className="footer-column"><strong>{tr(lang, "جامعه", "Community")}</strong><a href={localPath(lang, "/community")}>{tr(lang, "جامعه و GitHub", "Community & GitHub")}</a><a href={localPath(lang, "/report-issue")}>{tr(lang, "گزارش مشکل", "Report an issue")}</a><a href={localPath(lang, "/contribute")}>{tr(lang, "مشارکت", "Contribute")}</a></div>
       <div className="footer-column"><strong>Farsio · فارسیو</strong><a href={localPath(lang, "/about")}>{tr(lang, "درباره", "About")}</a><a href={localPath(lang, "/contact")}>{tr(lang, "تماس", "Contact")}</a><a href={localPath(lang, "/privacy")}>{tr(lang, "حریم خصوصی", "Privacy")}</a></div>

@@ -88,6 +88,7 @@ function Header() {
   const location = useLocation();
   const [theme, setTheme] = useState(() => localStorage.getItem("farsio-theme") || "dark");
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [productsOpen, setProductsOpen] = useState(false);
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
@@ -115,7 +116,51 @@ function Header() {
         </button>
 
         <nav className="desktop-nav" aria-label={lang === "fa" ? "ناوبری اصلی" : "Main navigation"}>
-          <a href={localPath(lang, "/products")}>{t(lang, "navProducts")}</a>
+          <div
+            className="products-nav"
+            onMouseEnter={() => setProductsOpen(true)}
+            onMouseLeave={() => setProductsOpen(false)}
+          >
+            <button
+              className="products-nav-trigger"
+              type="button"
+              aria-expanded={productsOpen}
+              onClick={() => setProductsOpen((value) => !value)}
+            >
+              {t(lang, "navProducts")}
+              <Icon icon="solar:alt-arrow-down-linear" />
+            </button>
+
+            {productsOpen && (
+              <div className="products-dropdown">
+                <a href={localPath(lang, "/products/neveshtyar")} onClick={() => setProductsOpen(false)}>
+                  <span className="products-dropdown-logo">
+                    <img src="/brand/products/neveshtyar-mark.png" alt="NeveshtYar" />
+                  </span>
+                  <span>
+                    <strong>{lang === "fa" ? "نوشت‌یار" : "NeveshtYar"}</strong>
+                    <small>{lang === "fa" ? "دستیار نوشتن فارسی" : "Persian writing assistant"}</small>
+                  </span>
+                </a>
+
+                <a href={localPath(lang, "/products/avayar")} onClick={() => setProductsOpen(false)}>
+                  <span className="products-dropdown-logo">
+                    <img src="/brand/products/avayar-mark.png" alt="AvaYar" />
+                  </span>
+                  <span>
+                    <strong>{lang === "fa" ? "آوایار" : "AvaYar"}</strong>
+                    <small>{lang === "fa" ? "خواندن، خلاصه‌سازی و شنیدن" : "Reading, summary & listening"}</small>
+                  </span>
+                </a>
+
+                <a className="products-dropdown-all" href={localPath(lang, "/products")} onClick={() => setProductsOpen(false)}>
+                  {lang === "fa" ? "همه محصولات فارسیو" : "All Farsio products"}
+                  <Icon icon="solar:arrow-left-linear" />
+                </a>
+              </div>
+            )}
+          </div>
+
           <a href={localPath(lang, "/features")}>{t(lang, "navFeatures")}</a>
           <button type="button" onClick={() => go(localPath(lang, "/docs"))}>{t(lang, "navDocs")}</button>
           <button type="button" onClick={() => go(localPath(lang, "/about"))}>{t(lang, "navAbout")}</button>
@@ -143,7 +188,30 @@ function Header() {
       {mobileOpen && (
         <div className="mobile-menu">
           <div className="shell mobile-menu-inner">
-            <a href={localPath(lang, "/products")} onClick={() => setMobileOpen(false)}>{t(lang, "navProducts")}</a>
+            <div className="mobile-products">
+              <span>{t(lang, "navProducts")}</span>
+
+              <a href={localPath(lang, "/products/neveshtyar")} onClick={() => setMobileOpen(false)}>
+                <img src="/brand/products/neveshtyar-mark.png" alt="NeveshtYar" />
+                <span>
+                  <strong>{lang === "fa" ? "نوشت‌یار" : "NeveshtYar"}</strong>
+                  <small>{lang === "fa" ? "دستیار نوشتن فارسی" : "Persian writing assistant"}</small>
+                </span>
+              </a>
+
+              <a href={localPath(lang, "/products/avayar")} onClick={() => setMobileOpen(false)}>
+                <img src="/brand/products/avayar-mark.png" alt="AvaYar" />
+                <span>
+                  <strong>{lang === "fa" ? "آوایار" : "AvaYar"}</strong>
+                  <small>{lang === "fa" ? "خواندن و شنیدن فارسی" : "Persian reading & listening"}</small>
+                </span>
+              </a>
+
+              <a href={localPath(lang, "/products")} onClick={() => setMobileOpen(false)}>
+                {lang === "fa" ? "مشاهده همه محصولات" : "View all products"}
+              </a>
+            </div>
+
             <a href={localPath(lang, "/features")} onClick={() => setMobileOpen(false)}>{t(lang, "navFeatures")}</a>
             <button type="button" onClick={() => go(localPath(lang, "/docs"))}>{t(lang, "navDocs")}</button>
             <button type="button" onClick={() => go(localPath(lang, "/about"))}>{t(lang, "navAbout")}</button>
@@ -329,7 +397,7 @@ function ProductCard({
       </div>
 
       <div className="product-actions">
-        <a href={localPath(lang, isAva ? "/products/ava" : "/products/neveshtyar")}>
+        <a href={localPath(lang, isAva ? "/products/avayar" : "/products/neveshtyar")}>
           {t(lang, "learnMore")}
           <Icon icon="solar:arrow-left-linear" />
         </a>
@@ -653,7 +721,8 @@ function LocalizedLayout() {
         <Route index element={<Home />} />
         <Route path="products" element={<GenericPage lang={lang} pageKey="products" />} />
         <Route path="products/neveshtyar" element={<ProductPage type="neveshtyar" />} />
-        <Route path="products/ava" element={<ProductPage type="ava" />} />
+        <Route path="products/avayar" element={<ProductPage type="ava" />} />
+        <Route path="products/ava" element={<Navigate to={`/${lang}/products/avayar`} replace />} />
         <Route path="features" element={<GenericPage lang={lang} pageKey="features" />} />
         <Route path="docs" element={<Docs />} />
         <Route path="guides/:guideKey" element={<SeoGuide />} />
