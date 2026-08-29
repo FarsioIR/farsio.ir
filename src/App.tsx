@@ -131,34 +131,36 @@ function Header() {
               <Icon icon="solar:alt-arrow-down-linear" />
             </button>
 
-            {productsOpen && (
-              <div className="products-dropdown">
-                <a href={localPath(lang, "/products/neveshtyar")} onClick={() => setProductsOpen(false)}>
-                  <span className="products-dropdown-logo">
-                    <img src="/brand/products/neveshtyar-mark.png" alt="NeveshtYar" />
-                  </span>
-                  <span>
-                    <strong>{lang === "fa" ? "نوشت‌یار" : "NeveshtYar"}</strong>
-                    <small>{lang === "fa" ? "دستیار نوشتن فارسی" : "Persian writing assistant"}</small>
-                  </span>
-                </a>
+            <div
+              className={`products-dropdown ${productsOpen ? "open" : ""}`}
+              aria-hidden={!productsOpen}
+            >
+              <a
+                href={localPath(lang, "/products/neveshtyar")}
+                onClick={() => setProductsOpen(false)}
+              >
+                <span className="products-dropdown-logo">
+                  <img src="/brand/products/neveshtyar-mark.png" alt="NeveshtYar" />
+                </span>
+                <span>
+                  <strong>{lang === "fa" ? "نوشت‌یار" : "NeveshtYar"}</strong>
+                  <small>{lang === "fa" ? "دستیار نوشتن فارسی" : "Persian writing assistant"}</small>
+                </span>
+              </a>
 
-                <a href={localPath(lang, "/products/avayar")} onClick={() => setProductsOpen(false)}>
-                  <span className="products-dropdown-logo">
-                    <img src="/brand/products/avayar-mark.png" alt="AvaYar" />
-                  </span>
-                  <span>
-                    <strong>{lang === "fa" ? "آوایار" : "AvaYar"}</strong>
-                    <small>{lang === "fa" ? "خواندن، خلاصه‌سازی و شنیدن" : "Reading, summary & listening"}</small>
-                  </span>
-                </a>
-
-                <a className="products-dropdown-all" href={localPath(lang, "/products")} onClick={() => setProductsOpen(false)}>
-                  {lang === "fa" ? "همه محصولات فارسیو" : "All Farsio products"}
-                  <Icon icon="solar:arrow-left-linear" />
-                </a>
-              </div>
-            )}
+              <a
+                href={localPath(lang, "/products/avayar")}
+                onClick={() => setProductsOpen(false)}
+              >
+                <span className="products-dropdown-logo">
+                  <img src="/brand/products/avayar-mark.png" alt="AvaYar" />
+                </span>
+                <span>
+                  <strong>{lang === "fa" ? "آوایار" : "AvaYar"}</strong>
+                  <small>{lang === "fa" ? "خواندن، خلاصه‌سازی و شنیدن" : "Reading, summary & listening"}</small>
+                </span>
+              </a>
+            </div>
           </div>
 
           <a href={localPath(lang, "/features")}>{t(lang, "navFeatures")}</a>
