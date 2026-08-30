@@ -90,13 +90,17 @@ body {
 
 html[lang="fa"] body,
 html[lang="fa"] button,
-html[lang="fa"] input {
+html[lang="fa"] input,
+html[lang="fa"] textarea,
+html[lang="fa"] select {
   font-family:
     "Vazirmatn Variable",
     "Inter Variable",
     ui-sans-serif,
     system-ui,
     sans-serif;
+  font-variant-numeric: normal;
+  font-feature-settings: normal;
 }
 
 html[lang="en"] body,
