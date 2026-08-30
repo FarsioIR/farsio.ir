@@ -34,6 +34,38 @@ function useLang(): Lang {
 function localPath(lang: Lang, path = "") {
   return `/${lang}${path}`;
 }
+const PERSIAN_DIGITS = "۰۱۲۳۴۵۶۷۸۹";
+
+function toPersianDigits(value: string) {
+  return value.replace(/[0-9]/g, (digit) => PERSIAN_DIGITS[Number(digit)]);
+}
+
+function localizePersianTextNodes(root: HTMLElement) {
+  const walker = document.createTreeWalker(
+    root,
+    NodeFilter.SHOW_TEXT,
+  );
+
+  const textNodes: Text[] = [];
+
+  while (walker.nextNode()) {
+    textNodes.push(walker.currentNode as Text);
+  }
+
+  for (const node of textNodes) {
+    const current = node.nodeValue;
+
+    if (!current || !/[0-9]/.test(current)) {
+      continue;
+    }
+
+    const localized = toPersianDigits(current);
+
+    if (localized !== current) {
+      node.nodeValue = localized;
+    }
+  }
+}
 
 function upsertMeta(
   key: "name" | "property",
@@ -95,6 +127,34 @@ function Header() {
     localStorage.setItem("farsio-theme", theme);
   }, [theme]);
 
+  useEffect(() => {
+    if (lang !== "fa") {
+      return;
+    }
+
+    const root = document.getElementById("root");
+
+    if (!root) {
+      return;
+    }
+
+    const localize = () => localizePersianTextNodes(root);
+
+    localize();
+
+    const observer = new MutationObserver(() => {
+      localize();
+    });
+
+    observer.observe(root, {
+      childList: true,
+      subtree: true,
+      characterData: true,
+    });
+
+    return () => observer.disconnect();
+  }, [lang, location.pathname, location.search]);
+
   const switchLanguage = (next: Lang) => {
     const parts = location.pathname.split("/").filter(Boolean);
     if (parts.length && languages.some((item) => item.code === parts[0])) parts.shift();
@@ -153,7 +213,7 @@ function Header() {
                 onClick={() => setProductsOpen(false)}
               >
                 <span className="products-dropdown-logo">
-                  <img src="/brand/products/avayar-mark.png" alt="AvaYar" />
+                  <img src="/brand/products/avayar-flat.svg" alt="AvaYar" />
                 </span>
                 <span>
                   <strong>{lang === "fa" ? "آوایار" : "AvaYar"}</strong>
@@ -202,7 +262,7 @@ function Header() {
               </a>
 
               <a href={localPath(lang, "/products/avayar")} onClick={() => setMobileOpen(false)}>
-                <img src="/brand/products/avayar-mark.png" alt="AvaYar" />
+                <img src="/brand/products/avayar-flat.svg" alt="AvaYar" />
                 <span>
                   <strong>{lang === "fa" ? "آوایار" : "AvaYar"}</strong>
                   <small>{lang === "fa" ? "خواندن و شنیدن فارسی" : "Persian reading & listening"}</small>
@@ -262,7 +322,7 @@ function AvaPanel() {
   return (
     <div className="demo-panel ava-panel">
       <div className="demo-panel-head">
-        <span className="ava-icon"><img className="product-logo-mark" src="/brand/products/avayar-mark.png" alt="AvaYar" /></span>
+        <span className="ava-icon"><img className="product-logo-mark" src="/brand/products/avayar-flat.svg" alt="AvaYar" /></span>
         <div>
           <strong>آوایار</strong>
           <small>بشنو، به فارسی</small>
@@ -356,9 +416,7 @@ function Hero() {
           <AvaPanel />
         </div>
 
-        <div className="floating-mark">
-          <img src="/brand/farsio-mark.png" alt="" />
-        </div>
+
       </div>
     </section>
   );
