@@ -1,0 +1,176 @@
+/* Canonical product history UI: readable by users, aligned with Farsio product pages. */
+.product-release-section {
+  scroll-margin-top: 96px;
+}
+
+.product-stage-banner {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+  margin: 24px 0 30px;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: linear-gradient(135deg, rgba(33, 199, 173, 0.08), rgba(219, 169, 67, 0.055));
+}
+
+.product-stage-banner > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--jade-bright);
+  font-weight: 850;
+  white-space: nowrap;
+}
+
+.product-stage-banner p {
+  margin: 7px 0 0;
+  color: var(--muted);
+  line-height: 1.85;
+}
+
+.product-release-timeline {
+  position: relative;
+  display: grid;
+  gap: 16px;
+}
+
+.product-release-timeline::before {
+  content: "";
+  position: absolute;
+  inset-block: 14px;
+  inset-inline-start: 13px;
+  width: 1px;
+  background: var(--line);
+}
+
+.product-release-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  gap: 14px;
+}
+
+.release-marker {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  padding-top: 24px;
+}
+
+.release-marker span {
+  width: 13px;
+  height: 13px;
+  border-radius: 999px;
+  border: 3px solid var(--surface-strong);
+  background: var(--muted);
+  box-shadow: 0 0 0 1px var(--line);
+}
+
+.release-released .release-marker span { background: var(--jade-bright); }
+.release-preview .release-marker span { background: var(--gold-bright); }
+.release-active .release-marker span {
+  background: var(--success);
+  box-shadow: 0 0 0 5px rgba(94, 224, 177, 0.1);
+}
+
+.release-content {
+  padding: 22px 24px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--surface-soft);
+}
+
+.release-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 9px 12px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.release-meta > strong { color: var(--text); }
+
+.release-state {
+  padding: 5px 9px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-weight: 800;
+}
+
+.release-state-released { color: var(--jade-bright); background: rgba(33, 199, 173, 0.06); }
+.release-state-preview { color: var(--gold-bright); background: rgba(219, 169, 67, 0.07); }
+.release-state-active { color: var(--success); background: rgba(94, 224, 177, 0.07); }
+.release-state-planned { color: var(--muted); }
+
+.release-content h3 {
+  margin: 13px 0 8px;
+  font-size: 20px;
+}
+
+.release-content > p {
+  margin: 0 0 14px;
+  color: var(--muted);
+  line-height: 1.85;
+}
+
+.release-content ul {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.release-content li {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.release-content li svg {
+  flex: 0 0 auto;
+  margin-top: 4px;
+  color: var(--jade-bright);
+}
+
+.release-source {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  color: var(--jade-bright);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.release-note-policy {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 12px;
+  margin-top: 18px;
+  padding: 18px 20px;
+  border: 1px dashed var(--line);
+  border-radius: 16px;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.release-note-policy svg {
+  margin-top: 2px;
+  color: var(--gold-bright);
+  font-size: 22px;
+}
+
+.release-note-policy p { margin: 0; }
+
+@media (max-width: 720px) {
+  .product-stage-banner { grid-template-columns: 1fr; }
+  .release-content { padding: 18px; }
+  .release-meta { align-items: flex-start; }
+}
