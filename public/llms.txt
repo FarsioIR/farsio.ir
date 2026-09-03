@@ -16,25 +16,57 @@ Persian-first writing assistant for:
 - text editing and rewriting
 - Persian language productivity
 
+Current public release: v4.9.2
+Current stage: browser-store readiness and continued quality hardening
+
 Persian:
 https://farsio.ir/fa/products/neveshtyar
 
 English:
 https://farsio.ir/en/products/neveshtyar
 
+Release notes and roadmap:
+https://farsio.ir/fa/products/neveshtyar#release-notes
+https://farsio.ir/en/products/neveshtyar#release-notes
+
 ### AvaYar · آوایار
 Persian-first reading and speech assistant for:
 - reading web content
-- Persian text-to-speech
-- translation
+- English-to-Persian translation
+- Persian text-to-speech and browser speech fallback
 - summarization
 - listening workflows
 
+Current preview RC: 0.6.0 preview-3
+Current stage: real-browser RC acceptance, store readiness, privacy/permission hardening and online-runtime reliability
+
 Persian:
-https://farsio.ir/fa/products/ava
+https://farsio.ir/fa/products/avayar
 
 English:
-https://farsio.ir/en/products/ava
+https://farsio.ir/en/products/avayar
+
+Release notes and roadmap:
+https://farsio.ir/fa/products/avayar#release-notes
+https://farsio.ir/en/products/avayar#release-notes
+
+## Product status as of 2026-09-03
+
+NeveshtYar v4.9.2:
+- Chrome acceptance 15/15 PASS
+- Firefox acceptance 15/15 PASS
+- 193/193 deterministic tests PASS
+- extension-store audit PASS
+- Chromium, Firefox and Mozilla reviewer-source artifacts published
+
+AvaYar 0.6.0 preview-3:
+- isolated Cloudflare Workers preview runtime online
+- English-to-Persian Workers AI E2E PASS
+- Persian browser speech fallback contract PASS
+- installable Manifest V3 Chrome/Edge RC published
+- ZIP, SHA-256 checksum and release metadata published
+
+GitHub is the technical provenance source. Each Farsio product page is the canonical public, user-facing product history and roadmap.
 
 ## Guides
 
