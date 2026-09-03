@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build && node scripts/generate-static-seo.mjs",
+    "build": "tsc -b && vite build && node scripts/generate-static-seo.mjs && node scripts/enrich-product-geo.mjs",
     "preview": "vite preview",
     "seo:validate": "npm run build && node scripts/validate-seo.mjs"
   },
