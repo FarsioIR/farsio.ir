@@ -45,6 +45,12 @@ Persian name:
 
 NeveshtYar is the writing-focused product in the Farsio ecosystem.
 
+Current public release:
+v4.9.2
+
+Current stage:
+browser-store readiness, privacy/permission hardening and continued Persian writing quality improvements
+
 Core capabilities include:
 Persian writing assistance
 Finglish-to-Persian conversion
@@ -59,6 +65,29 @@ https://farsio.ir/fa/products/neveshtyar
 Canonical English page:
 https://farsio.ir/en/products/neveshtyar
 
+Canonical release notes and roadmap:
+https://farsio.ir/fa/products/neveshtyar#release-notes
+https://farsio.ir/en/products/neveshtyar#release-notes
+
+Official repository:
+https://github.com/FarsioIR/NeveshtYar
+
+Current official release:
+https://github.com/FarsioIR/NeveshtYar/releases/tag/v4.9.2
+
+### NeveshtYar release history
+
+2026-08-17 — v4.9.1
+Public Farsi Smart Assistant milestone with Chromium and Firefox packages plus Mozilla reviewer-source provenance.
+
+2026-08-26 — v4.9.2
+Canonical NeveshtYar release.
+Chrome acceptance: 15/15 PASS.
+Firefox acceptance: 15/15 PASS.
+Deterministic tests: 193/193 PASS.
+Extension-store audit: PASS.
+Chromium, Firefox and Mozilla reviewer-source artifacts published.
+
 ## AvaYar
 
 Canonical name:
@@ -67,20 +96,56 @@ AvaYar
 Persian name:
 آوایار
 
-AvaYar is the reading and speech-focused product in the Farsio ecosystem.
+AvaYar is the reading, translation and speech-focused product in the Farsio ecosystem.
+
+Current preview RC:
+0.6.0 preview-3
+
+Current stage:
+real-browser RC acceptance, browser-store readiness, privacy/permission hardening, online-runtime reliability and rate limiting
 
 Core capabilities include:
 web reading
-Persian text-to-speech
-translation
-summarization
+English-to-Persian translation
+Persian-first summarization
+Persian text-to-speech workflows
+browser Persian speech fallback
 listening workflows
 
 Canonical Persian page:
-https://farsio.ir/fa/products/ava
+https://farsio.ir/fa/products/avayar
 
 Canonical English page:
-https://farsio.ir/en/products/ava
+https://farsio.ir/en/products/avayar
+
+Canonical release notes and roadmap:
+https://farsio.ir/fa/products/avayar#release-notes
+https://farsio.ir/en/products/avayar#release-notes
+
+Official repository:
+https://github.com/FarsioIR/AvaYar
+
+Current official preview release:
+https://github.com/FarsioIR/AvaYar/releases/tag/avayar-v0.6.0-preview-3
+
+### AvaYar release history
+
+2026-08-30 — Brand v1
+Canonical AvaYar name, mark and Farsio product route established.
+
+2026-09-03 — 0.6.0 preview-3
+Isolated Cloudflare Workers preview runtime online.
+English-to-Persian Workers AI E2E: PASS.
+Persian browser speech fallback contract: PASS.
+Installable Manifest V3 Chrome/Edge RC published.
+ZIP, SHA-256 checksum and release metadata published.
+Automated preview deploy, E2E, package and prerelease pipeline established.
+
+## Product-history policy
+
+GitHub is the technical provenance source for issues, commits, pull requests, tests and releases.
+Each dedicated Farsio product page is the canonical public, user-facing product-history destination.
+Meaningful product changes are recorded with date, user impact, availability status, current stage and future direction.
 
 ## Knowledge guides
 
@@ -116,12 +181,14 @@ NeveshtYar
   -> focuses on -> Persian writing
   -> focuses on -> Finglish conversion
   -> focuses on -> keyboard-layout recovery
+  -> current release -> v4.9.2
 
 AvaYar
   -> focuses on -> Persian speech
   -> focuses on -> web reading
   -> focuses on -> summarization
-  -> focuses on -> translation
+  -> focuses on -> English-to-Persian translation
+  -> current preview -> 0.6.0 preview-3
 
 ## Localization
 
@@ -140,6 +207,7 @@ https://farsio.ir/sitemap.xml
 
 Robots:
 https://farsio.ir/robots.txt
+
 ## Semantic topic graph
 
 Farsio covers Persian language technology and practical AI-assisted language workflows.
@@ -170,8 +238,10 @@ Persian text-to-speech
 Persian speech technology
 AI reading
 web-page summarization
-translation
+English-to-Persian translation
 listening workflows
+browser speech fallback
+Cloudflare Workers runtime
 
 Related guides:
 https://farsio.ir/fa/guides/persian-text-to-speech
