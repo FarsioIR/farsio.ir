@@ -1,0 +1,142 @@
+{
+  "schemaVersion": "1.0",
+  "site": "https://farsio.ir/",
+  "issue": 22,
+  "intents": [
+    {
+      "id": "finglish-to-persian-tool-selection",
+      "cluster": "persian-writing",
+      "product": "neveshtyar",
+      "fa": {
+        "title": "تبدیل فینگلیش به فارسی؛ انتخاب روش و ابزار مناسب",
+        "summary": "راهنمای تصمیم‌گیری برای تبدیل فینگلیش به فارسی با تمرکز بر ابهام املایی، متن ترکیبی، بازبینی انسانی و انتخاب ابزار مناسب برای جریان واقعی نوشتن.",
+        "questions": [
+          "فینگلیش چرا تبدیل یک‌به‌یک ندارد؟",
+          "چه زمانی ابزار خودکار کافی نیست؟",
+          "برای متن‌های فارسی و انگلیسی ترکیبی چه روشی بهتر است؟",
+          "چطور خروجی را قبل از انتشار بازبینی کنیم؟"
+        ]
+      },
+      "en": {
+        "title": "Finglish to Persian: choosing the right workflow and tool",
+        "summary": "A decision guide for Finglish-to-Persian conversion covering spelling ambiguity, mixed-language text, human review and practical tool selection.",
+        "questions": [
+          "Why is Finglish not a one-to-one conversion problem?",
+          "When is automatic conversion not enough?",
+          "What works best for mixed Persian-English text?",
+          "How should converted text be reviewed before publishing?"
+        ]
+      },
+      "pillar": "https://farsio.ir/fa/products/neveshtyar",
+      "supportingGuide": "https://farsio.ir/fa/guides/finglish-to-persian"
+    },
+    {
+      "id": "persian-ai-writing-use-cases",
+      "cluster": "persian-writing",
+      "product": "neveshtyar",
+      "fa": {
+        "title": "دستیار هوش مصنوعی برای نوشتن فارسی؛ کجا مفید است و کجا نه؟",
+        "summary": "راهنمای کاربردهای واقعی دستیار نگارش فارسی برای بازنویسی، اصلاح خطاهای رایج، ساده‌سازی و بازبینی؛ همراه با محدودیت‌های معنایی و لحن.",
+        "questions": [
+          "هوش مصنوعی در کدام بخش نوشتن فارسی بیشترین کمک را می‌کند؟",
+          "چه تغییرهایی باید حتماً توسط نویسنده بررسی شوند؟",
+          "نیم‌فاصله و متن دو‌زبانه چه چالش‌هایی دارند؟",
+          "چطور از تغییر ناخواسته معنی جلوگیری کنیم؟"
+        ]
+      },
+      "en": {
+        "title": "AI assistant for Persian writing: useful cases and limits",
+        "summary": "A practical guide to Persian writing assistance for rewriting, common-error correction, simplification and review, including semantic and tone limitations.",
+        "questions": [
+          "Where does AI help most in Persian writing?",
+          "Which edits still require writer review?",
+          "What challenges come from Persian spacing and bilingual text?",
+          "How can unintended meaning changes be reduced?"
+        ]
+      },
+      "pillar": "https://farsio.ir/fa/products/neveshtyar",
+      "supportingGuide": "https://farsio.ir/fa/guides/persian-ai-writing"
+    },
+    {
+      "id": "persian-text-to-speech-workflow",
+      "cluster": "persian-reading-speech",
+      "product": "avayar",
+      "fa": {
+        "title": "تبدیل متن فارسی به گفتار؛ جریان کار، کیفیت و محدودیت‌ها",
+        "summary": "راهنمای آماده‌سازی متن فارسی برای خوانش صوتی، اثر علائم و نام‌ها بر کیفیت و انتخاب مسیر مناسب میان موتور صوتی و جایگزین مرورگر.",
+        "questions": [
+          "چه چیزهایی کیفیت خوانش فارسی را تغییر می‌دهند؟",
+          "اعداد و نام‌های خاص چگونه باید آماده شوند؟",
+          "چه زمانی fallback مرورگر مفید است؟",
+          "چطور خوانایی صوتی متن طولانی را بهتر کنیم؟"
+        ]
+      },
+      "en": {
+        "title": "Persian text to speech: workflow, quality and limitations",
+        "summary": "A practical guide to preparing Persian text for speech, understanding punctuation and proper-name effects, and choosing between primary voice engines and browser fallback.",
+        "questions": [
+          "What changes Persian speech quality?",
+          "How should numbers and proper names be prepared?",
+          "When is browser speech fallback useful?",
+          "How can long-form listening be made more intelligible?"
+        ]
+      },
+      "pillar": "https://farsio.ir/fa/products/avayar",
+      "supportingGuide": "https://farsio.ir/fa/guides/persian-text-to-speech"
+    },
+    {
+      "id": "web-summarization-reading-assistant",
+      "cluster": "persian-reading-speech",
+      "product": "avayar",
+      "fa": {
+        "title": "خلاصه‌سازی صفحات وب؛ چه زمانی مفید است و چه زمانی باید متن اصلی را خواند؟",
+        "summary": "راهنمای استفاده درست از خلاصه‌سازی برای مرور سریع وب، حفظ ادعاها و محدودیت‌های منبع و تشخیص موقعیت‌هایی که مراجعه به متن اصلی ضروری است.",
+        "questions": [
+          "خلاصه خوب چه بخش‌هایی از متن را باید حفظ کند؟",
+          "چطور محتوای اصلی از منو و عناصر جانبی جدا می‌شود؟",
+          "چه زمانی خلاصه برای تصمیم‌گیری کافی نیست؟",
+          "چگونه از حذف زمینه و تغییر معنی جلوگیری کنیم؟"
+        ]
+      },
+      "en": {
+        "title": "Web page summarization: when it helps and when to read the source",
+        "summary": "A practical guide to using summaries for faster web review while preserving source claims, limitations and context, including when the original page must still be read.",
+        "questions": [
+          "What should a useful summary preserve?",
+          "How should main content be separated from navigation and page chrome?",
+          "When is a summary insufficient for a decision?",
+          "How can loss of context be reduced?"
+        ]
+      },
+      "pillar": "https://farsio.ir/fa/products/avayar",
+      "supportingGuide": "https://farsio.ir/fa/guides/web-reading-summarization"
+    },
+    {
+      "id": "english-to-persian-translation-workflow",
+      "cluster": "persian-reading-speech",
+      "product": "avayar",
+      "fa": {
+        "title": "ترجمه انگلیسی به فارسی در جریان مطالعه وب؛ روش استفاده و بازبینی",
+        "summary": "راهنمای استفاده از ترجمه انگلیسی به فارسی در کنار خواندن و خلاصه‌سازی؛ با تمرکز بر اصطلاحات تخصصی، متن ترکیبی و بازبینی معنی قبل از استفاده نهایی.",
+        "questions": [
+          "ترجمه در چه بخش‌هایی از مطالعه وب زمان ذخیره می‌کند؟",
+          "اصطلاحات تخصصی چگونه باید بازبینی شوند؟",
+          "متن ترکیبی انگلیسی و فارسی چه خطاهایی ایجاد می‌کند؟",
+          "چه زمانی باید به متن اصلی انگلیسی برگردیم؟"
+        ]
+      },
+      "en": {
+        "title": "English to Persian translation for web reading: workflow and review",
+        "summary": "A guide to using English-to-Persian translation alongside reading and summarization, with attention to specialist terminology, mixed-language content and semantic review.",
+        "questions": [
+          "Where does translation save the most time in web reading?",
+          "How should specialist terminology be reviewed?",
+          "What errors can mixed Persian-English content introduce?",
+          "When should the original English source be consulted?"
+        ]
+      },
+      "pillar": "https://farsio.ir/fa/products/avayar",
+      "supportingGuide": "https://farsio.ir/fa/guides/web-reading-summarization"
+    }
+  ]
+}
