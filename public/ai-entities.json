@@ -1,0 +1,65 @@
+{
+  "schemaVersion": "1.0",
+  "generatedFor": "https://farsio.ir/",
+  "entities": [
+    {
+      "id": "https://farsio.ir/#organization",
+      "type": "Organization",
+      "name": "Farsio",
+      "alternateName": ["فارسیو", "Farsio AI"],
+      "url": "https://farsio.ir/",
+      "sameAs": [
+        "https://github.com/FarsioIR",
+        "https://amirmotefaker.ir/"
+      ]
+    },
+    {
+      "id": "https://farsio.ir/#website",
+      "type": "WebSite",
+      "name": "Farsio",
+      "alternateName": "فارسیو",
+      "url": "https://farsio.ir/",
+      "publisher": "https://farsio.ir/#organization",
+      "languages": ["fa", "en"]
+    },
+    {
+      "id": "https://farsio.ir/fa/products/neveshtyar#software",
+      "type": "SoftwareApplication",
+      "name": "NeveshtYar",
+      "alternateName": "نوشت‌یار",
+      "canonical": "https://farsio.ir/fa/products/neveshtyar",
+      "alternateCanonical": "https://farsio.ir/en/products/neveshtyar",
+      "releaseNotes": "https://farsio.ir/fa/products/neveshtyar#release-notes",
+      "currentVersion": "4.9.2",
+      "repository": "https://github.com/FarsioIR/NeveshtYar",
+      "officialRelease": "https://github.com/FarsioIR/NeveshtYar/releases/tag/v4.9.2",
+      "publisher": "https://farsio.ir/#organization",
+      "topics": [
+        "Persian writing assistant",
+        "Finglish to Persian",
+        "Persian keyboard layout recovery",
+        "Persian writing assistance"
+      ]
+    },
+    {
+      "id": "https://farsio.ir/fa/products/avayar#software",
+      "type": "SoftwareApplication",
+      "name": "AvaYar",
+      "alternateName": "آوایار",
+      "canonical": "https://farsio.ir/fa/products/avayar",
+      "alternateCanonical": "https://farsio.ir/en/products/avayar",
+      "releaseNotes": "https://farsio.ir/fa/products/avayar#release-notes",
+      "currentVersion": "0.6.0 preview-3",
+      "repository": "https://github.com/FarsioIR/AvaYar",
+      "officialRelease": "https://github.com/FarsioIR/AvaYar/releases/tag/avayar-v0.6.0-preview-3",
+      "publisher": "https://farsio.ir/#organization",
+      "topics": [
+        "Persian text to speech",
+        "English to Persian translation",
+        "Persian summarization",
+        "Web reading",
+        "Browser speech fallback"
+      ]
+    }
+  ]
+}
