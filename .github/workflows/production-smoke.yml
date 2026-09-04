@@ -1,0 +1,33 @@
+name: Production Smoke
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/validate-production-smoke.mjs'
+      - '.github/workflows/production-smoke.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: production-smoke-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  custom-domain-smoke:
+    name: Validate farsio.ir production
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Run production smoke
+        run: node scripts/validate-production-smoke.mjs
