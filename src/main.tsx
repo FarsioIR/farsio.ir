@@ -6,7 +6,9 @@ import "@fontsource-variable/vazirmatn";
 import "@fontsource-variable/inter";
 
 import App from "./App";
+import { installProductReleaseNotesMount } from "./product-release-mount";
 import "./styles.css";
+import "./product-release-notes.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -15,3 +17,5 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     </BrowserRouter>
   </React.StrictMode>,
 );
+
+installProductReleaseNotesMount();
