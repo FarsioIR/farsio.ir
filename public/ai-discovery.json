@@ -57,10 +57,10 @@
       "decisionPages": [
         "https://farsio.ir/fa/compare/tts-engine-vs-browser-fallback",
         "https://farsio.ir/en/compare/tts-engine-vs-browser-fallback",
-        "https://farsio.ir/fa/compare/summary-vs-full-source-reading",
-        "https://farsio.ir/en/compare/summary-vs-full-source-reading",
-        "https://farsio.ir/fa/compare/translation-vs-summary-vs-read-aloud",
-        "https://farsio.ir/en/compare/translation-vs-summary-vs-read-aloud"
+        "https://farsio.ir/fa/compare/summary-vs-full-source",
+        "https://farsio.ir/en/compare/summary-vs-full-source",
+        "https://farsio.ir/fa/compare/translate-vs-summary-vs-read-aloud",
+        "https://farsio.ir/en/compare/translate-vs-summary-vs-read-aloud"
       ]
     }
   ]
