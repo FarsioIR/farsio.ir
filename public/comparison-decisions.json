@@ -1,0 +1,169 @@
+{
+  "schemaVersion": "1.0",
+  "issue": 25,
+  "site": "https://farsio.ir/",
+  "comparisons": [
+    {
+      "id": "finglish-vs-keyboard-layout",
+      "slug": "finglish-vs-keyboard-layout",
+      "product": "neveshtyar",
+      "productPath": "/products/neveshtyar",
+      "guidePath": "/guides/finglish-to-persian",
+      "intentPath": "/insights/finglish-to-persian-workflow",
+      "entity": "https://farsio.ir/fa/products/neveshtyar#software",
+      "fa": {
+        "title": "فینگلیش یا چیدمان اشتباه کیبورد؟ تشخیص مشکل قبل از اصلاح متن",
+        "description": "راهنمای تشخیص تفاوت میان فینگلیش و متن تایپ‌شده با چیدمان اشتباه کیبورد، با مسیر تصمیم‌گیری برای انتخاب روش اصلاح مناسب در نوشت‌یار.",
+        "answer": "اگر حروف لاتین عمداً برای نوشتن واژه‌های فارسی استفاده شده‌اند، مسئله فینگلیش است؛ اگر کاربر تصور می‌کرد فارسی تایپ می‌کند اما صفحه‌کلید روی انگلیسی بوده، مسئله بازیابی چیدمان است. این دو خطا شبیه دیده می‌شوند اما الگوریتم اصلاح یکسانی ندارند.",
+        "optionA": "فینگلیش به تفسیر آوایی و زمینه جمله نیاز دارد؛ چون یک نوشتار لاتین می‌تواند چند معادل فارسی داشته باشد.",
+        "optionB": "بازیابی چیدمان بیشتر یک نگاشت کلیدبه‌کلید است و باید موقعیت فیزیکی کلیدها را به چیدمان درست برگرداند.",
+        "decision": "قبل از اصلاح، از خود بپرسید نویسنده چه صفحه‌کلیدی را قصد داشته استفاده کند. اگر رشته ورودی شبیه آوانویسی فارسی است مسیر فینگلیش را انتخاب کنید؛ اگر توالی حروف بی‌معنی ولی منظم است، بازیابی چیدمان محتمل‌تر است.",
+        "review": "نام‌ها، واژه‌های انگلیسی واقعی، کدها و نشانی‌های وب را از تبدیل خودکار جدا نگه دارید. در متن ترکیبی بهتر است اصلاح بخش‌به‌بخش انجام شود و خروجی با معنی جمله اصلی مقایسه شود."
+      },
+      "en": {
+        "title": "Finglish or wrong keyboard layout? Diagnose the problem before fixing text",
+        "description": "A decision guide for distinguishing Finglish from text typed under the wrong keyboard layout, with the right correction path for NeveshtYar workflows.",
+        "answer": "If Latin letters were intentionally used to spell Persian words, the problem is Finglish. If the writer intended to type Persian while the keyboard was set to English, the problem is layout recovery. They can look similar but require different correction logic.",
+        "optionA": "Finglish needs phonetic and sentence-level interpretation because one Latin spelling may map to several Persian words.",
+        "optionB": "Keyboard-layout recovery is closer to a deterministic key mapping that reconstructs the intended characters from physical key positions.",
+        "decision": "Ask what keyboard state the writer intended. Phonetic Latin spellings point to Finglish; regular but meaningless letter sequences often point to a layout mismatch.",
+        "review": "Protect real English names, URLs, code and product terms from automatic conversion. Mixed-language text is safer when corrected in segments and reviewed against the intended meaning."
+      }
+    },
+    {
+      "id": "manual-vs-ai-persian-editing",
+      "slug": "manual-vs-ai-persian-editing",
+      "product": "neveshtyar",
+      "productPath": "/products/neveshtyar",
+      "guidePath": "/guides/persian-ai-writing",
+      "intentPath": "/insights/persian-ai-writing-assistant",
+      "entity": "https://farsio.ir/fa/products/neveshtyar#software",
+      "fa": {
+        "title": "ویرایش دستی یا دستیار هوش مصنوعی فارسی؟ انتخاب روش بر اساس ریسک متن",
+        "description": "مقایسه ویرایش دستی با دستیار هوش مصنوعی برای نوشتن فارسی، با تمرکز بر سرعت، کنترل معنی، لحن و نیاز به بازبینی انسانی.",
+        "answer": "برای اصلاح‌های روشن مثل فاصله، نیم‌فاصله، جمله‌های تکراری و روان‌سازی اولیه، دستیار هوش مصنوعی سرعت را بالا می‌برد. برای ادعاهای حساس، لحن برند، متن حقوقی یا جایی که یک واژه معنی را تغییر می‌دهد، ویرایش انسانی مرجع نهایی است.",
+        "optionA": "ویرایش دستی کنترل کامل روی معنی و لحن می‌دهد اما برای متن‌های طولانی زمان بیشتری می‌گیرد و خطاهای تکراری ممکن است از چشم دور بمانند.",
+        "optionB": "دستیار هوش مصنوعی می‌تواند پیشنهادهای سریع و یکنواخت بدهد، ولی ممکن است در بازنویسی شدت ادعا یا منظور نویسنده را ناخواسته تغییر دهد.",
+        "decision": "از هوش مصنوعی برای پیشنهاد و پیش‌نویس استفاده کنید، نه برای واگذاری تصمیم نهایی. هرچه هزینه اشتباه بالاتر است، سهم بازبینی انسانی باید بیشتر شود.",
+        "review": "به‌جای دستورهای کلی، هدف را محدود کنید؛ مثلاً فقط روان‌سازی بدون تغییر معنی. تغییرات مهم را با نسخه اصلی مقایسه کنید و اصطلاحات تخصصی را جداگانه بررسی کنید."
+      },
+      "en": {
+        "title": "Manual editing or AI-assisted Persian writing? Choose by text risk",
+        "description": "A practical comparison of manual Persian editing and AI assistance across speed, meaning control, tone and mandatory human review.",
+        "answer": "AI assistance can speed up clear tasks such as spacing, repetition cleanup and first-pass rewriting. Human editing remains the final authority for sensitive claims, brand voice, legal text or any sentence where a small wording change alters meaning.",
+        "optionA": "Manual editing provides maximum semantic and tonal control but costs more time and can miss repetitive mechanical issues in long documents.",
+        "optionB": "AI assistance can produce fast, consistent suggestions, but rewriting may unintentionally change claim strength or author intent.",
+        "decision": "Use AI as a suggestion and drafting layer rather than the final decision-maker. The higher the cost of an error, the stronger the human review requirement.",
+        "review": "Keep prompts narrow, such as improving clarity without changing meaning. Compare consequential edits with the source and review specialist terminology separately."
+      }
+    },
+    {
+      "id": "ai-writing-vs-human-review",
+      "slug": "ai-writing-vs-human-review",
+      "product": "neveshtyar",
+      "productPath": "/products/neveshtyar",
+      "guidePath": "/guides/persian-ai-writing",
+      "intentPath": "/insights/persian-ai-writing-assistant",
+      "entity": "https://farsio.ir/fa/products/neveshtyar#software",
+      "fa": {
+        "title": "دستیار نوشتن فارسی کجا کافی است و کجا بازبینی انسانی اجباری می‌شود؟",
+        "description": "چارچوب تصمیم‌گیری برای تعیین مرز استفاده از دستیار نوشتن فارسی و زمان‌هایی که بازبینی انسانی باید بخش ثابت فرایند باشد.",
+        "answer": "برای کارهای کم‌ریسک و قابل‌برگشت، پیشنهاد خودکار معمولاً یک لایه مفید بهره‌وری است. برای اطلاعاتی که می‌توانند بر سلامت، پول، حقوق، اعتبار حرفه‌ای یا تصمیم دیگران اثر بگذارند، خروجی باید پیش‌نویس تلقی شود.",
+        "optionA": "کارهای کم‌ریسک شامل اصلاح نشانه‌گذاری، ساده‌سازی جمله، کاهش تکرار و پیشنهاد عبارت جایگزین هستند؛ به‌شرط اینکه کاربر تغییر را ببیند و بپذیرد.",
+        "optionB": "متن‌های پزشکی، حقوقی، مالی، سیاست سازمانی، قرارداد، آمار مهم و نقل‌قول مستقیم نیازمند بررسی منبع و تأیید انسانی‌اند.",
+        "decision": "ریسک را بر اساس پیامد خطا بسنجید، نه طول متن. یک جمله کوتاه درباره مبلغ قرارداد ممکن است بسیار حساس‌تر از چند پاراگراف محتوای عمومی باشد.",
+        "review": "فرایند حرفه‌ای باید امکان مقایسه قبل و بعد، رد پیشنهاد و بازگشت به متن اصلی را حفظ کند. ثبت منبع برای ادعاهای واقعی نیز از خود روان‌سازی مهم‌تر است."
+      },
+      "en": {
+        "title": "When is a Persian writing assistant enough, and when is human review mandatory?",
+        "description": "A decision framework for separating low-risk Persian writing assistance from cases where human review must remain a fixed part of the workflow.",
+        "answer": "For low-risk, reversible edits, automated suggestions are a useful productivity layer. For information that can affect health, money, legal rights, professional reputation or another person's decision, output should be treated as a draft.",
+        "optionA": "Lower-risk tasks include punctuation fixes, sentence simplification, repetition reduction and alternative wording when the user can inspect and accept each change.",
+        "optionB": "Medical, legal, financial, policy, contract, consequential statistics and direct quotations require source checking and human approval.",
+        "decision": "Measure risk by the consequence of an error, not by text length. One short sentence about a contract value can be more sensitive than several pages of general copy.",
+        "review": "A professional workflow should preserve before-and-after comparison, rejection and recovery of the original text. Source verification matters more than stylistic fluency for factual claims."
+      }
+    },
+    {
+      "id": "tts-engine-vs-browser-fallback",
+      "slug": "tts-engine-vs-browser-fallback",
+      "product": "avayar",
+      "productPath": "/products/avayar",
+      "guidePath": "/guides/persian-text-to-speech",
+      "intentPath": "/insights/persian-text-to-speech-workflow",
+      "entity": "https://farsio.ir/fa/products/avayar#software",
+      "fa": {
+        "title": "موتور تبدیل متن به گفتار یا صدای مرورگر؟ انتخاب مسیر خوانش فارسی",
+        "description": "مقایسه موتور اصلی TTS با fallback مرورگر در خوانش فارسی آوایار؛ شامل کیفیت، دسترس‌پذیری، وابستگی دستگاه و روش تصمیم‌گیری.",
+        "answer": "موتور اصلی TTS زمانی ترجیح دارد که صدای پایدارتر و کنترل‌شده‌تری ارائه کند. fallback مرورگر برای تداوم قابلیت خواندن مفید است، اما کیفیت آن به سیستم‌عامل، مرورگر و صداهای فارسی نصب‌شده وابسته است.",
+        "optionA": "موتور اصلی امکان تجربه یکنواخت‌تر، کنترل بهتر خروجی و رفتار قابل‌آزمایش‌تر را می‌دهد، ولی به سرویس و دسترس‌پذیری آن وابسته است.",
+        "optionB": "صدای مرورگر بدون وابستگی به همان سرویس اصلی می‌تواند مسیر جایگزین باشد، اما نوع صدا، تلفظ و حتی موجودبودن زبان فارسی میان دستگاه‌ها فرق دارد.",
+        "decision": "اگر کیفیت ثابت برای تجربه محصول اولویت دارد، موتور اصلی را انتخاب کنید و fallback را برای تداوم سرویس نگه دارید. اگر دستگاه کاربر صدای فارسی مناسبی ندارد، fallback نباید معادل کیفیت موتور اصلی فرض شود.",
+        "review": "قبل از متن طولانی، یک نمونه کوتاه شامل نام، عدد و علائم نگارشی را تست کنید. تفاوت تلفظ میان دستگاه‌ها باید در طراحی تجربه و پیام خطا شفاف باشد."
+      },
+      "en": {
+        "title": "Primary TTS engine or browser speech? Choosing a Persian read-aloud path",
+        "description": "A comparison of primary Persian TTS and browser speech fallback in AvaYar across quality, availability, device dependency and decision criteria.",
+        "answer": "A primary TTS engine is preferable when it provides more stable and controlled speech. Browser fallback helps preserve read-aloud availability, but its quality depends on the operating system, browser and installed Persian voices.",
+        "optionA": "The primary engine can provide a more consistent and testable experience, but it depends on the availability of that service path.",
+        "optionB": "Browser speech can operate as an independent fallback, yet voice selection, pronunciation and even Persian-language availability differ across devices.",
+        "decision": "Choose the primary engine when consistency matters and keep browser speech as resilience. Do not assume browser fallback is quality-equivalent on devices with weak or missing Persian voices.",
+        "review": "Test a short sample containing names, numbers and punctuation before long-form playback. Device-dependent pronunciation differences should be visible in product UX and error handling."
+      }
+    },
+    {
+      "id": "summary-vs-full-source",
+      "slug": "summary-vs-full-source",
+      "product": "avayar",
+      "productPath": "/products/avayar",
+      "guidePath": "/guides/web-reading-summarization",
+      "intentPath": "/insights/web-summarization-assistant",
+      "entity": "https://farsio.ir/fa/products/avayar#software",
+      "fa": {
+        "title": "خلاصه یا متن کامل منبع؟ انتخاب روش مطالعه برای تصمیم‌های مهم",
+        "description": "راهنمای تصمیم‌گیری میان خلاصه‌سازی و خواندن متن کامل منبع، با تمرکز بر سرعت، زمینه، استناد و ریسک حذف جزئیات مهم.",
+        "answer": "خلاصه برای یافتن ساختار، نکات اصلی و تصمیم درباره ارزش ادامه مطالعه مناسب است. متن کامل زمانی ضروری است که جزئیات، استثناها، اعداد، روش تحقیق یا عبارت دقیق منبع روی نتیجه اثر می‌گذارند.",
+        "optionA": "خلاصه زمان مرور را کم می‌کند و برای غربال اولیه چند منبع مفید است، اما ممکن است زمینه یا یک شرط مهم را فشرده کند.",
+        "optionB": "خواندن منبع کامل کندتر است ولی برای استناد، تصمیم حساس، مقایسه دقیق و فهم محدودیت‌های نویسنده اطلاعات بیشتری حفظ می‌کند.",
+        "decision": "برای کشف و غربال از خلاصه شروع کنید؛ برای تصمیم نهایی، نقل‌قول، آمار یا موضوع پرریسک به متن اصلی برگردید. خلاصه باید مسیر رسیدن به منبع را کوتاه کند، نه آن را حذف کند.",
+        "review": "نتیجه اصلی، شرط‌ها، استثناها، تاریخ، اعداد و نسبت‌دادن ادعا به منبع را کنترل کنید. اگر یکی از این عناصر روی تصمیم اثر دارد، فقط به خلاصه تکیه نکنید."
+      },
+      "en": {
+        "title": "Summary or full source? Choosing a reading method for consequential decisions",
+        "description": "A decision guide for choosing between summaries and full-source reading based on speed, context, citation needs and the risk of missing important details.",
+        "answer": "A summary is useful for discovering structure, key points and whether a source deserves deeper reading. The full source becomes necessary when details, exceptions, numbers, methodology or exact wording can change the conclusion.",
+        "optionA": "Summaries reduce review time and help triage many sources, but they can compress context or an important condition.",
+        "optionB": "Full-source reading is slower but preserves more evidence for citation, consequential decisions, close comparison and understanding limitations.",
+        "decision": "Start with summaries for discovery and triage; return to the source for final decisions, quotations, statistics or high-impact topics. A summary should shorten the path to evidence, not remove it.",
+        "review": "Check the main conclusion, conditions, exceptions, date, numbers and attribution. If any of them affect the decision, do not rely on the summary alone."
+      }
+    },
+    {
+      "id": "translate-vs-summary-vs-read-aloud",
+      "slug": "translate-vs-summary-vs-read-aloud",
+      "product": "avayar",
+      "productPath": "/products/avayar",
+      "guidePath": "/guides/web-reading-summarization",
+      "intentPath": "/insights/english-to-persian-translation",
+      "entity": "https://farsio.ir/fa/products/avayar#software",
+      "fa": {
+        "title": "ترجمه، خلاصه یا خواندن با صدا؟ انتخاب جریان کار مناسب برای مطالعه وب",
+        "description": "مقایسه سه مسیر ترجمه، خلاصه‌سازی و خواندن با صدا در آوایار برای انتخاب روش مناسب بر اساس هدف مطالعه و نیاز کاربر.",
+        "answer": "اگر مانع اصلی زبان است ترجمه را انتخاب کنید؛ اگر زمان محدود و هدف فهم سریع ساختار است خلاصه مناسب‌تر است؛ اگر محتوا را می‌فهمید اما می‌خواهید بدون نگاه مداوم به صفحه ادامه دهید، خواندن با صدا مفیدتر است.",
+        "optionA": "ترجمه دسترسی معنایی را بهتر می‌کند ولی اصطلاحات تخصصی و جمله‌های چندمعنا باید با متن اصلی مقایسه شوند. خلاصه حجم اطلاعات را کم می‌کند ولی همه جزئیات را نگه نمی‌دارد.",
+        "optionB": "خواندن با صدا متن را حذف یا ترجمه نمی‌کند؛ همان محتوا را به کانال شنیداری می‌برد و برای مرور در حال حرکت یا کاهش خستگی چشم مناسب است.",
+        "decision": "هدف را قبل از ابزار مشخص کنید: فهم زبان، کاهش حجم یا تغییر شیوه دریافت محتوا. در یک جریان حرفه‌ای می‌توان ابتدا ترجمه، سپس خلاصه و در پایان شنیدن بخش‌های مهم را ترکیب کرد.",
+        "review": "برای پژوهش و تصمیم مهم، لینک و متن اصلی باید همیشه در دسترس بماند. هیچ‌کدام از سه ابزار نباید نسبت‌دادن ادعا یا امکان بازگشت به منبع را از بین ببرد."
+      },
+      "en": {
+        "title": "Translate, summarize or read aloud? Choose the right web-reading workflow",
+        "description": "A comparison of translation, summarization and read-aloud workflows in AvaYar, organized around the user's actual reading objective.",
+        "answer": "Choose translation when language is the main barrier, summarization when time is limited and you need the structure quickly, and read-aloud when you understand the content but want to continue without constant visual attention.",
+        "optionA": "Translation improves semantic access but specialist terminology and ambiguous sentences should be checked against the source. Summarization reduces information volume but does not preserve every detail.",
+        "optionB": "Read-aloud does not translate or remove content; it moves the same material into an audio channel and can help during mobile review or visual fatigue.",
+        "decision": "Define the goal before selecting the tool: language access, information compression or a different consumption mode. A professional workflow can combine translation, summary and listening in sequence.",
+        "review": "For research and consequential decisions, the original link and source text must remain available. None of the three tools should remove attribution or the ability to return to evidence."
+      }
+    }
+  ]
+}
