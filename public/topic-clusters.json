@@ -1,0 +1,46 @@
+{
+  "schemaVersion": "1.0",
+  "site": "https://farsio.ir/",
+  "clusters": [
+    {
+      "id": "persian-writing",
+      "pillar": "https://farsio.ir/fa/products/neveshtyar",
+      "alternatePillar": "https://farsio.ir/en/products/neveshtyar",
+      "entity": "https://farsio.ir/fa/products/neveshtyar#software",
+      "intents": [
+        "دستیار نوشتن فارسی",
+        "اصلاح فینگلیش",
+        "تبدیل فینگلیش به فارسی",
+        "اصلاح چیدمان اشتباه کیبورد فارسی و انگلیسی",
+        "هوش مصنوعی برای نوشتن فارسی"
+      ],
+      "supportingRoutes": [
+        "https://farsio.ir/fa/guides/finglish-to-persian",
+        "https://farsio.ir/fa/guides/persian-keyboard-layout",
+        "https://farsio.ir/fa/guides/persian-ai-writing",
+        "https://farsio.ir/en/guides/finglish-to-persian",
+        "https://farsio.ir/en/guides/persian-keyboard-layout",
+        "https://farsio.ir/en/guides/persian-ai-writing"
+      ]
+    },
+    {
+      "id": "persian-reading-speech",
+      "pillar": "https://farsio.ir/fa/products/avayar",
+      "alternatePillar": "https://farsio.ir/en/products/avayar",
+      "entity": "https://farsio.ir/fa/products/avayar#software",
+      "intents": [
+        "تبدیل متن فارسی به گفتار",
+        "خواندن متن فارسی",
+        "خلاصه سازی صفحه وب",
+        "ترجمه انگلیسی به فارسی",
+        "دستیار مطالعه و شنیدن فارسی"
+      ],
+      "supportingRoutes": [
+        "https://farsio.ir/fa/guides/persian-text-to-speech",
+        "https://farsio.ir/fa/guides/web-reading-summarization",
+        "https://farsio.ir/en/guides/persian-text-to-speech",
+        "https://farsio.ir/en/guides/web-reading-summarization"
+      ]
+    }
+  ]
+}
