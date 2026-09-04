@@ -1,0 +1,67 @@
+{
+  "schemaVersion": "1.0",
+  "generatedFor": "https://farsio.ir/",
+  "updatedAt": "2026-09-04",
+  "organization": "https://farsio.ir/#organization",
+  "website": "https://farsio.ir/#website",
+  "products": [
+    {
+      "id": "neveshtyar",
+      "entity": "https://farsio.ir/fa/products/neveshtyar#software",
+      "name": "NeveshtYar",
+      "alternateName": "نوشت‌یار",
+      "canonicalFa": "https://farsio.ir/fa/products/neveshtyar",
+      "canonicalEn": "https://farsio.ir/en/products/neveshtyar",
+      "releaseNotesFa": "https://farsio.ir/fa/products/neveshtyar#release-notes",
+      "releaseNotesEn": "https://farsio.ir/en/products/neveshtyar#release-notes",
+      "currentVersion": "4.9.2",
+      "stage": "browser-store readiness and continued quality hardening",
+      "repository": "https://github.com/FarsioIR/NeveshtYar",
+      "officialRelease": "https://github.com/FarsioIR/NeveshtYar/releases/tag/v4.9.2",
+      "intentPages": [
+        "https://farsio.ir/fa/insights/finglish-to-persian-workflow",
+        "https://farsio.ir/en/insights/finglish-to-persian-workflow",
+        "https://farsio.ir/fa/insights/persian-ai-writing-assistant",
+        "https://farsio.ir/en/insights/persian-ai-writing-assistant"
+      ],
+      "decisionPages": [
+        "https://farsio.ir/fa/compare/finglish-vs-keyboard-layout",
+        "https://farsio.ir/en/compare/finglish-vs-keyboard-layout",
+        "https://farsio.ir/fa/compare/manual-vs-ai-persian-editing",
+        "https://farsio.ir/en/compare/manual-vs-ai-persian-editing",
+        "https://farsio.ir/fa/compare/ai-writing-vs-human-review",
+        "https://farsio.ir/en/compare/ai-writing-vs-human-review"
+      ]
+    },
+    {
+      "id": "avayar",
+      "entity": "https://farsio.ir/fa/products/avayar#software",
+      "name": "AvaYar",
+      "alternateName": "آوایار",
+      "canonicalFa": "https://farsio.ir/fa/products/avayar",
+      "canonicalEn": "https://farsio.ir/en/products/avayar",
+      "releaseNotesFa": "https://farsio.ir/fa/products/avayar#release-notes",
+      "releaseNotesEn": "https://farsio.ir/en/products/avayar#release-notes",
+      "currentVersion": "0.6.0 preview-3",
+      "stage": "real-browser RC acceptance, store readiness, privacy and permission hardening, and online-runtime reliability",
+      "repository": "https://github.com/FarsioIR/AvaYar",
+      "officialRelease": "https://github.com/FarsioIR/AvaYar/releases/tag/avayar-v0.6.0-preview-3",
+      "intentPages": [
+        "https://farsio.ir/fa/insights/persian-text-to-speech-workflow",
+        "https://farsio.ir/en/insights/persian-text-to-speech-workflow",
+        "https://farsio.ir/fa/insights/web-summarization-assistant",
+        "https://farsio.ir/en/insights/web-summarization-assistant",
+        "https://farsio.ir/fa/insights/english-to-persian-translation",
+        "https://farsio.ir/en/insights/english-to-persian-translation"
+      ],
+      "decisionPages": [
+        "https://farsio.ir/fa/compare/tts-engine-vs-browser-fallback",
+        "https://farsio.ir/en/compare/tts-engine-vs-browser-fallback",
+        "https://farsio.ir/fa/compare/summary-vs-full-source",
+        "https://farsio.ir/en/compare/summary-vs-full-source",
+        "https://farsio.ir/fa/compare/translate-vs-summary-vs-read-aloud",
+        "https://farsio.ir/en/compare/translate-vs-summary-vs-read-aloud"
+      ]
+    }
+  ]
+}
