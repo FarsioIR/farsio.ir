@@ -51,7 +51,9 @@ function AuthorityLinks({ context }: { context: Context }) {
   const { lang, kind } = context;
   const isWriting = kind === "neveshtyar" || kind === "writing-guide";
   const productPath = isWriting ? `/${lang}/products/neveshtyar` : `/${lang}/products/avayar`;
-  const productName = isWriting ? "NeveshtYar · نوشت‌یار" : "AvaYar · آوایار";
+  const productName = isWriting
+    ? tr(lang, "نوشت‌یار", "NeveshtYar")
+    : tr(lang, "آوایار", "AvaYar");
   const guides = isWriting ? writingGuides : readingGuides;
 
   return (
