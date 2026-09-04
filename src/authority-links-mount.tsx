@@ -75,8 +75,9 @@ function routeContext(): Context | null {
 function AuthorityLinks({ context }: { context: Context }) {
   const { lang, kind } = context;
   const isWriting = kind === "neveshtyar" || kind === "writing-guide";
-  const productSlug = isWriting ? "neveshtyar" : "avayar";
-  const productPath = `/${lang}/products/${productSlug}`;
+  const productPath = isWriting
+    ? `/${lang}/products/neveshtyar`
+    : `/${lang}/products/avayar`;
   const releasePath = `${productPath}#release-notes`;
   const productName = isWriting
     ? tr(lang, "نوشت‌یار", "NeveshtYar")
