@@ -1,6 +1,7 @@
 import { createRoot, type Root } from "react-dom/client";
 import type { Lang } from "./i18n";
 import { ProductReleaseNotes } from "./product-release-notes";
+import { AvaYarStableReleaseNotes } from "./avayar-stable-release-notes";
 
 type ProductType = "neveshtyar" | "ava";
 
@@ -52,7 +53,11 @@ function syncReleaseNotes() {
   anchor.parentElement.insertBefore(host, anchor);
 
   const root = createRoot(host);
-  root.render(<ProductReleaseNotes lang={context.lang} type={context.type} />);
+  root.render(
+    context.type === "ava"
+      ? <AvaYarStableReleaseNotes lang={context.lang} />
+      : <ProductReleaseNotes lang={context.lang} type={context.type} />
+  );
   mounted = { key, host, root };
 }
 

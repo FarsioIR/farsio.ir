@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0",
   "generatedFor": "https://farsio.ir/",
-  "updatedAt": "2026-09-04",
+  "updatedAt": "2026-09-10",
   "organization": "https://farsio.ir/#organization",
   "website": "https://farsio.ir/#website",
   "products": [
@@ -42,10 +42,20 @@
       "canonicalEn": "https://farsio.ir/en/products/avayar",
       "releaseNotesFa": "https://farsio.ir/fa/products/avayar#release-notes",
       "releaseNotesEn": "https://farsio.ir/en/products/avayar#release-notes",
-      "currentVersion": "0.6.0 preview-3",
-      "stage": "real-browser RC acceptance, store readiness, privacy and permission hardening, and online-runtime reliability",
+      "currentVersion": "0.6.0",
+      "stage": "browser-accepted Stable release; browser-store distribution readiness, privacy/permission hardening and runtime reliability",
       "repository": "https://github.com/FarsioIR/AvaYar",
-      "officialRelease": "https://github.com/FarsioIR/AvaYar/releases/tag/avayar-v0.6.0-preview-3",
+      "officialRelease": "https://github.com/FarsioIR/AvaYar/releases/tag/avayar-v0.6.0",
+      "capabilities": [
+        "Full Text reading",
+        "Summary mode",
+        "English-to-Persian preparation",
+        "real Persian neural TTS",
+        "Sulafat female voice",
+        "Iapetus male voice",
+        "progressive audio playback",
+        "Play Pause Resume Stop controls"
+      ],
       "intentPages": [
         "https://farsio.ir/fa/insights/persian-text-to-speech-workflow",
         "https://farsio.ir/en/insights/persian-text-to-speech-workflow",

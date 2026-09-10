@@ -107,18 +107,23 @@ Persian name:
 
 AvaYar is the reading, translation and speech-focused product in the Farsio ecosystem.
 
-Current preview RC:
-0.6.0 preview-3
+Current public release:
+0.6.0 Stable
 
 Current stage:
-real-browser RC acceptance, browser-store readiness, privacy/permission hardening, online-runtime reliability and rate limiting
+browser-accepted Stable release; browser-store distribution readiness, privacy/permission hardening, online-runtime reliability and continued reading, translation and speech quality improvements
 
 Core capabilities include:
 web reading
-English-to-Persian translation
+Full Text mode
+Summary mode
+English-to-Persian preparation
 Persian-first summarization
-Persian text-to-speech workflows
-browser Persian speech fallback
+real Persian neural text-to-speech
+female Sulafat voice
+male Iapetus voice
+progressive audio playback
+Play, Pause, Resume and Stop controls
 listening workflows
 
 Canonical Persian page:
@@ -134,8 +139,14 @@ https://farsio.ir/en/products/avayar#release-notes
 Official repository:
 https://github.com/FarsioIR/AvaYar
 
-Current official preview release:
-https://github.com/FarsioIR/AvaYar/releases/tag/avayar-v0.6.0-preview-3
+Current official Stable release:
+https://github.com/FarsioIR/AvaYar/releases/tag/avayar-v0.6.0
+
+Stable source SHA:
+20d9da845c32e9873d332fb12192b38521d21232
+
+Stable package SHA-256:
+b3cb4265b5d9bb13e5bc0d6f9f726ca716270a0d692d29706f4e7596077ed375
 
 ### AvaYar release history
 
@@ -149,6 +160,20 @@ Persian browser speech fallback contract: PASS.
 Installable Manifest V3 Chrome/Edge RC published.
 ZIP, SHA-256 checksum and release metadata published.
 Automated preview deploy, E2E, package and prerelease pipeline established.
+
+2026-09-10 — 0.6.0 Stable
+Browser-accepted Stable Chrome/Edge package published.
+English-to-Persian preparation: PASS.
+Real Persian neural TTS: PASS.
+Female Sulafat voice: PASS.
+Male Iapetus voice: PASS.
+Summary + Female: PASS.
+Summary + Male: PASS.
+Full Text + Female: PASS.
+Full Text + Male: PASS.
+Progressive playback: PASS.
+Play/Pause/Resume/Stop: PASS.
+Stable package is byte-identical to the browser-accepted Preview 9 package.
 
 ## Product-history policy
 
@@ -233,7 +258,7 @@ AvaYar
   -> focuses on -> web reading
   -> focuses on -> summarization
   -> focuses on -> English-to-Persian translation
-  -> current preview -> 0.6.0 preview-3
+  -> current release -> 0.6.0 Stable
   -> public provenance -> product release notes
   -> supporting authority -> guides, intent pages and comparison pages
 
@@ -288,12 +313,14 @@ AvaYar
 
 Related concepts:
 Persian text-to-speech
-Persian speech technology
+Persian neural speech
 AI reading
 web-page summarization
 English-to-Persian translation
+progressive audio playback
+Sulafat
+Iapetus
 listening workflows
-browser speech fallback
 Cloudflare Workers runtime
 
 Related guides:

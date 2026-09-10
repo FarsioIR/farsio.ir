@@ -38,13 +38,16 @@ https://farsio.ir/en/products/neveshtyar#release-notes
 ### AvaYar · آوایار
 Persian-first reading and speech assistant for:
 - reading web content
-- English-to-Persian translation
-- Persian text-to-speech and browser speech fallback
-- summarization
+- Full Text and Summary modes
+- English-to-Persian preparation
+- real Persian neural text-to-speech
+- female Sulafat and male Iapetus voices
+- progressive audio playback
+- Play, Pause, Resume and Stop controls
 - listening workflows
 
-Current preview RC: 0.6.0 preview-3
-Current stage: real-browser RC acceptance, store readiness, privacy/permission hardening and online-runtime reliability
+Current public release: 0.6.0 Stable
+Current stage: browser-accepted Stable release; browser-store distribution readiness, privacy/permission hardening and online-runtime reliability
 
 Persian:
 https://farsio.ir/fa/products/avayar
@@ -56,7 +59,10 @@ Release notes and roadmap:
 https://farsio.ir/fa/products/avayar#release-notes
 https://farsio.ir/en/products/avayar#release-notes
 
-## Product status as of 2026-09-03
+Official Stable release:
+https://github.com/FarsioIR/AvaYar/releases/tag/avayar-v0.6.0
+
+## Product status as of 2026-09-10
 
 NeveshtYar v4.9.2:
 - Chrome acceptance 15/15 PASS
@@ -65,12 +71,16 @@ NeveshtYar v4.9.2:
 - extension-store audit PASS
 - Chromium, Firefox and Mozilla reviewer-source artifacts published
 
-AvaYar 0.6.0 preview-3:
-- isolated Cloudflare Workers preview runtime online
-- English-to-Persian Workers AI E2E PASS
-- Persian browser speech fallback contract PASS
-- installable Manifest V3 Chrome/Edge RC published
-- ZIP, SHA-256 checksum and release metadata published
+AvaYar 0.6.0 Stable:
+- browser-accepted Chrome/Edge Stable package published
+- English-to-Persian preparation PASS
+- real Persian neural TTS PASS
+- female Sulafat voice PASS
+- male Iapetus voice PASS
+- Summary + Full Text browser acceptance PASS
+- progressive playback PASS
+- Play/Pause/Resume/Stop PASS
+- canonical Stable ZIP SHA-256: b3cb4265b5d9bb13e5bc0d6f9f726ca716270a0d692d29706f4e7596077ed375
 
 GitHub is the technical provenance source. Each Farsio product page is the canonical public, user-facing product history and roadmap.
 

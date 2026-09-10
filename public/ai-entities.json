@@ -49,16 +49,18 @@
       "canonical": "https://farsio.ir/fa/products/avayar",
       "alternateCanonical": "https://farsio.ir/en/products/avayar",
       "releaseNotes": "https://farsio.ir/fa/products/avayar#release-notes",
-      "currentVersion": "0.6.0 preview-3",
+      "currentVersion": "0.6.0",
       "repository": "https://github.com/FarsioIR/AvaYar",
-      "officialRelease": "https://github.com/FarsioIR/AvaYar/releases/tag/avayar-v0.6.0-preview-3",
+      "officialRelease": "https://github.com/FarsioIR/AvaYar/releases/tag/avayar-v0.6.0",
       "publisher": "https://farsio.ir/#organization",
       "topics": [
         "Persian text to speech",
         "English to Persian translation",
         "Persian summarization",
         "Web reading",
-        "Browser speech fallback"
+        "Progressive audio playback",
+        "Persian neural speech",
+        "Chrome and Edge extension"
       ]
     }
   ]

@@ -13,14 +13,17 @@ async function text(relative) {
 }
 
 const releaseSource = await text("src/product-release-notes.tsx");
+const avayarStableSource = await text("src/avayar-stable-release-notes.tsx");
 const redirects = await text("public/_redirects");
 const sitemap = await text("public/sitemap.xml");
 const llms = await text("public/llms.txt");
 const llmsFull = await text("public/llms-full.txt");
+const aiEntities = await text("public/ai-entities.json");
+const aiDiscovery = await text("public/ai-discovery.json");
 
 for (const required of [
   "v4.9.2",
-  "0.6.0 preview-3",
+  "0.6.0",
   "released",
   "preview",
   "active",
@@ -28,10 +31,34 @@ for (const required of [
   "#release-notes",
 ]) {
   assert(
-    releaseSource.includes(required) || llms.includes(required) || llmsFull.includes(required),
+    releaseSource.includes(required) || avayarStableSource.includes(required) || llms.includes(required) || llmsFull.includes(required),
     `Missing product-history contract token: ${required}`,
   );
 }
+
+for (const stableToken of [
+  "۱۹ شهریور ۱۴۰۵",
+  "10 Sep 2026",
+  "Sulafat",
+  "Iapetus",
+  "progressive",
+  "avayar-v0.6.0",
+]) {
+  assert(
+    avayarStableSource.includes(stableToken) || llms.includes(stableToken) || llmsFull.includes(stableToken),
+    `Missing AvaYar Stable authority token: ${stableToken}`,
+  );
+}
+
+for (const surface of [llms, llmsFull, aiEntities, aiDiscovery]) {
+  assert(surface.includes("0.6.0"), "Machine-readable authority surface missing AvaYar 0.6.0");
+  assert(surface.includes("https://github.com/FarsioIR/AvaYar/releases/tag/avayar-v0.6.0"), "Machine-readable authority surface missing canonical AvaYar Stable release URL");
+}
+
+assert(!aiEntities.includes('"currentVersion": "0.6.0 preview-3"'), "AI entity graph still marks AvaYar Preview 3 as current");
+assert(!aiDiscovery.includes('"currentVersion": "0.6.0 preview-3"'), "AI discovery graph still marks AvaYar Preview 3 as current");
+assert(!llms.includes("Current preview RC: 0.6.0 preview-3"), "llms.txt still marks AvaYar Preview 3 as current");
+assert(!llmsFull.includes("Current preview RC:\n0.6.0 preview-3"), "llms-full.txt still marks AvaYar Preview 3 as current");
 
 assert(
   redirects.includes("/fa/products/ava /fa/products/avayar 301") &&
@@ -60,8 +87,8 @@ assert(!llmsFull.includes("https://farsio.ir/en/products/ava\n"), "llms-full.txt
 const routes = [
   ["fa", "neveshtyar", "4.9.2"],
   ["en", "neveshtyar", "4.9.2"],
-  ["fa", "avayar", "0.6.0 preview-3"],
-  ["en", "avayar", "0.6.0 preview-3"],
+  ["fa", "avayar", "0.6.0"],
+  ["en", "avayar", "0.6.0"],
 ];
 
 for (const [lang, slug, version] of routes) {
@@ -83,6 +110,11 @@ for (const [lang, slug, version] of routes) {
   assert(software.softwareVersion === version, `${lang}/${slug}: softwareVersion mismatch`);
   assert(software.releaseNotes?.endsWith("#release-notes"), `${lang}/${slug}: releaseNotes URL missing`);
   assert(history.numberOfItems >= 2, `${lang}/${slug}: release history is incomplete`);
+
+  if (slug === "avayar") {
+    assert(history.numberOfItems >= 3, `${lang}/${slug}: Stable release missing from history`);
+    assert(software.sameAs?.includes("https://github.com/FarsioIR/AvaYar/releases/tag/avayar-v0.6.0"), `${lang}/${slug}: Stable release provenance missing from SoftwareApplication`);
+  }
 }
 
 console.log(
@@ -95,6 +127,9 @@ console.log(
       checks: [
         "dated-release-notes",
         "released-preview-active-planned-statuses",
+        "avayar-0.6.0-stable-authority",
+        "avayar-stable-release-provenance",
+        "machine-readable-current-version-consistency",
         "canonical-avayar-redirects",
         "canonical-sitemap-product-urls",
         "llms-product-entities",
