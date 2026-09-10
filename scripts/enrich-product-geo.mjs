@@ -3,7 +3,7 @@ import { fileURLToPath } from "node:url";
 
 const DIST = fileURLToPath(new URL("../dist/", import.meta.url));
 const ORIGIN = "https://farsio.ir";
-const MODIFIED = "2026-09-03";
+const MODIFIED = "2026-09-10";
 
 const products = {
   neveshtyar: {
@@ -42,15 +42,19 @@ const products = {
     slug: "avayar",
     name: "AvaYar",
     alternateName: "آوایار",
-    version: "0.6.0 preview-3",
+    version: "0.6.0",
     github: "https://github.com/FarsioIR/AvaYar",
-    release: "https://github.com/FarsioIR/AvaYar/releases/tag/avayar-v0.6.0-preview-3",
+    release: "https://github.com/FarsioIR/AvaYar/releases/tag/avayar-v0.6.0",
     features: [
       "Web content reading",
-      "Live English-to-Persian translation",
+      "English-to-Persian translation",
       "Persian-first summarization",
-      "Persian browser speech fallback",
-      "Manifest V3 Chrome and Edge installable RC",
+      "Real Persian neural text-to-speech",
+      "Female Sulafat and male Iapetus voices",
+      "Progressive audio playback",
+      "Full Text and Summary modes",
+      "Play, Pause, Resume and Stop controls",
+      "Manifest V3 Chrome and Edge package",
       "Cloudflare Workers online runtime",
     ],
     releases: [
@@ -65,11 +69,18 @@ const products = {
         date: "2026-09-03",
         version: "0.6.0 preview-3",
         title: "First installable online-runtime RC",
-        summary: "Cloudflare preview runtime, English-to-Persian Workers AI E2E PASS, Persian browser speech fallback contract PASS, and installable Chrome/Edge Manifest V3 RC.",
+        summary: "Cloudflare preview runtime, English-to-Persian Workers AI E2E PASS, browser speech fallback contract and installable Chrome/Edge Manifest V3 RC.",
         url: "https://github.com/FarsioIR/AvaYar/releases/tag/avayar-v0.6.0-preview-3",
       },
+      {
+        date: "2026-09-10",
+        version: "0.6.0",
+        title: "Browser-accepted Stable release",
+        summary: "Stable Chrome/Edge release with real Persian neural TTS, Sulafat and Iapetus voices, progressive playback, Full Text and Summary modes, English-to-Persian preparation and browser acceptance across all core playback scenarios.",
+        url: "https://github.com/FarsioIR/AvaYar/releases/tag/avayar-v0.6.0",
+      },
     ],
-    currentStage: "Real-browser RC acceptance, store readiness, privacy and permission hardening, runtime reliability and rate limiting.",
+    currentStage: "Stable browser-accepted release; current focus is browser-store distribution readiness, privacy and permission hardening, runtime reliability and continued reading, translation and speech quality improvements.",
   },
 };
 
