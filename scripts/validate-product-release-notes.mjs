@@ -37,7 +37,7 @@ for (const required of [
 }
 
 for (const stableToken of [
-  "19 Shahrivar 1405",
+  "۱۹ شهریور ۱۴۰۵",
   "10 Sep 2026",
   "Sulafat",
   "Iapetus",
