@@ -23,11 +23,13 @@ const productExpectations = [
     slug: "neveshtyar",
     version: "4.9.2",
     repo: "https://github.com/FarsioIR/NeveshtYar",
+    release: "https://github.com/FarsioIR/NeveshtYar/releases/tag/v4.9.2",
   },
   {
     slug: "avayar",
-    version: "0.6.0 preview-3",
+    version: "0.6.0",
     repo: "https://github.com/FarsioIR/AvaYar",
+    release: "https://github.com/FarsioIR/AvaYar/releases/tag/avayar-v0.6.0",
   },
 ];
 
@@ -36,6 +38,7 @@ for (const product of productExpectations) {
   if (!entity) throw new Error(`Missing product entity: ${product.slug}`);
   if (entity.currentVersion !== product.version) throw new Error(`Version mismatch: ${product.slug}`);
   if (entity.repository !== product.repo) throw new Error(`Repository mismatch: ${product.slug}`);
+  if (entity.officialRelease !== product.release) throw new Error(`Official release mismatch: ${product.slug}`);
   if (!entity.releaseNotes?.endsWith(`#release-notes`)) throw new Error(`Missing release-notes anchor: ${product.slug}`);
 
   for (const lang of ["fa", "en"]) {
@@ -66,6 +69,7 @@ console.log(JSON.stringify({
     "stable-entity-ids",
     "canonical-product-links",
     "official-repository-provenance",
+    "official-release-provenance",
     "release-notes-anchors",
     "localized-hreflang",
     "structured-data-presence",
