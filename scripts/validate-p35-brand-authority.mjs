@@ -46,12 +46,15 @@ for (const item of expectations) {
   if (!json["@graph"].some((entry) => entry?.["@id"] === "https://farsio.ir/#brand")) {
     throw new Error(`${item.path} missing Farsio Brand entity`);
   }
-}
 
-for (const path of ["fa/products/avayar.html", "en/products/avayar.html"]) {
-  const html = await readFile(join(DIST, path), "utf8");
-  if (/0\.6\.0\s+preview-3/i.test(html)) throw new Error(`${path} regressed to AvaYar preview-3`);
-  if (/AvaYar[^\n<]{0,80}(In development|در حال توسعه)/i.test(html)) throw new Error(`${path} regressed to development status`);
+  if (item.path.includes("/avayar.html")) {
+    const app = json["@graph"].find((entry) => entry?.["@type"] === "SoftwareApplication");
+    if (!app) throw new Error(`${item.path} missing AvaYar SoftwareApplication`);
+    if (app.softwareVersion !== "0.6.0") throw new Error(`${item.path} current AvaYar softwareVersion is not 0.6.0 Stable`);
+    if (app.releaseNotes !== "https://github.com/FarsioIR/AvaYar/releases/tag/avayar-v0.6.0") {
+      throw new Error(`${item.path} current AvaYar releaseNotes is not the Stable release`);
+    }
+  }
 }
 
 console.log("P35 brand/product authority validation PASS.");
