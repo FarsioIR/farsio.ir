@@ -45,9 +45,13 @@ function syncExistingProductChrome(lang: Lang, product: ProductKey) {
   const heroKicker = document.querySelector<HTMLElement>(".pro-hero .hero-kicker");
 
   if (heroKicker) {
-    const icon = heroKicker.querySelector("svg");
-    heroKicker.textContent = tr(lang, `نسخه پایدار · ${truth.version}`, `Stable release · ${truth.version}`);
-    if (icon) heroKicker.prepend(icon);
+    const desired = tr(lang, `نسخه پایدار · ${truth.version}`, `Stable release · ${truth.version}`);
+    const current = heroKicker.textContent?.trim() ?? "";
+    if (current !== desired) {
+      const icon = heroKicker.querySelector("svg");
+      heroKicker.textContent = desired;
+      if (icon) heroKicker.prepend(icon);
+    }
   }
 
   const facts = document.querySelector<HTMLElement>(".pro-facts");
@@ -57,17 +61,21 @@ function syncExistingProductChrome(lang: Lang, product: ProductKey) {
       ? [["وضعیت", "پایدار"], ["نسخه", truth.version], ["بستر", platformText], ["مرجع", "Release رسمی"]]
       : [["Status", "Stable"], ["Version", truth.version], ["Platforms", platformText], ["Authority", "Official release"]];
 
-    facts.replaceChildren(
-      ...labels.map(([label, value]) => {
-        const item = document.createElement("div");
-        const labelEl = document.createElement("span");
-        const valueEl = document.createElement("strong");
-        labelEl.textContent = label;
-        valueEl.textContent = value;
-        item.append(labelEl, valueEl);
-        return item;
-      }),
-    );
+    const desiredSignature = labels.map(([label, value]) => `${label}:${value}`).join("|");
+    if (facts.dataset.truthSignature !== desiredSignature) {
+      facts.replaceChildren(
+        ...labels.map(([label, value]) => {
+          const item = document.createElement("div");
+          const labelEl = document.createElement("span");
+          const valueEl = document.createElement("strong");
+          labelEl.textContent = label;
+          valueEl.textContent = value;
+          item.append(labelEl, valueEl);
+          return item;
+        }),
+      );
+      facts.dataset.truthSignature = desiredSignature;
+    }
   }
 }
 
@@ -81,7 +89,8 @@ function syncHomeCards(lang: Lang) {
 
     const truth = getLocalizedProductTruth(product, lang);
     const state = card.querySelector<HTMLElement>(".product-state");
-    if (state) state.textContent = tr(lang, `پایدار · ${truth.version}`, `Stable · ${truth.version}`);
+    const desired = tr(lang, `پایدار · ${truth.version}`, `Stable · ${truth.version}`);
+    if (state && state.textContent?.trim() !== desired) state.textContent = desired;
   }
 }
 
@@ -203,12 +212,13 @@ function syncSurface() {
   }
 
   if (context.kind === "home") {
-    syncHomeCards(context.lang);
     const anchor = document.querySelector<HTMLElement>("#features");
     if (!anchor?.parentElement) return;
 
     const key = `home:${context.lang}`;
     if (mounted?.key === key && mounted.host.isConnected) return;
+
+    syncHomeCards(context.lang);
     unmountCurrent();
 
     const host = document.createElement("div");
@@ -220,12 +230,13 @@ function syncSurface() {
     return;
   }
 
-  syncExistingProductChrome(context.lang, context.product);
   const anchor = document.querySelector<HTMLElement>(".product-trust-section");
   if (!anchor?.parentElement) return;
 
   const key = `product:${context.lang}:${context.product}`;
   if (mounted?.key === key && mounted.host.isConnected) return;
+
+  syncExistingProductChrome(context.lang, context.product);
   unmountCurrent();
 
   const host = document.createElement("div");
