@@ -241,7 +241,7 @@ export const PRODUCT_TRUTH: Record<ProductKey, ProductTruth> = {
     ],
     privacyFacts: [
       {
-        fa: "نسخه 0.6.0 برای اجرای جریان صفحه فعال از activeTab، scripting، sidePanel و storage استفاده می‌کند.",
+        fa: "نسخه ۰.۶.۰ برای اجرای جریان صفحه فعال از activeTab، scripting، sidePanel و storage استفاده می‌کند.",
         en: "Version 0.6.0 uses activeTab, scripting, sidePanel and storage for its active-page workflow.",
       },
       {

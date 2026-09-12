@@ -101,7 +101,7 @@ const fa: Dictionary = {
   faq4A:
     "GitHub مرجع فنی برای Releaseها، تغییرات نسخه، Issueها و وضعیت توسعه محصولات فارسیو است.",
 
-  ctaEyebrow: "Farsio · فارسیو",
+  ctaEyebrow: "فارسیو",
   ctaTitle: "تجربه‌ی فارسی دیجیتال را بهتر کنید",
   ctaBody:
     "محصول مناسب خود را ببینید یا مسیر توسعه فارسیو را در GitHub دنبال کنید.",
@@ -219,7 +219,7 @@ const en: Dictionary = {
   faq4A:
     "GitHub is the technical source of truth for releases, changes, issues and development status.",
 
-  ctaEyebrow: "Farsio · فارسیو",
+  ctaEyebrow: "Farsio",
   ctaTitle: "Make your digital Persian experience better",
   ctaBody:
     "Explore the right product for you or follow Farsio's development on GitHub.",

@@ -110,7 +110,7 @@ function upsertAlternateLink(hreflang: string, href: string) {
 function Brand({ compact = false }: { compact?: boolean }) {
   return (
     <span className={`brand ${compact ? "compact" : ""}`}>
-      <img src="/brand/farsio-logo.png" alt="Farsio · فارسیو" />
+      <img src="/brand/farsio-logo.png" alt="" />
     </span>
   );
 }
@@ -286,47 +286,57 @@ function Header() {
   );
 }
 
-function WritingPanel() {
+function WritingPanel({ lang }: { lang: Lang }) {
   return (
     <div className="demo-panel writing-panel">
       <div className="demo-panel-head">
         <span className="mini-brand"><img className="product-logo-mark" src="/brand/products/neveshtyar-mark.png" alt="NeveshtYar" /></span>
         <div>
-          <strong>نوشت‌یار</strong>
-          <small>بنویس، درست و روان</small>
+          <strong>{lang === "fa" ? "نوشت‌یار" : "NeveshtYar"}</strong>
+          <small>{lang === "fa" ? "بنویس، درست و روان" : "Write clearly, correctly and fluently"}</small>
         </div>
         <span className="panel-status">AI</span>
       </div>
 
       <div className="editor-line">
-        فارسیو تجربه‌ی نوشتن فارسی را
-        <mark> روان‌تر </mark>
-        می‌کند.
+        {lang === "fa" ? (
+          <>
+            فارسیو تجربه‌ی نوشتن فارسی را
+            <mark> روان‌تر </mark>
+            می‌کند.
+          </>
+        ) : (
+          <>
+            Farsio makes writing
+            <mark> clearer </mark>
+            and more fluent.
+          </>
+        )}
       </div>
 
       <div className="suggestion-box">
-        <span className="suggestion-label">پیشنهاد فارسیو</span>
+        <span className="suggestion-label">{lang === "fa" ? "پیشنهاد فارسیو" : "Farsio suggestion"}</span>
         <div>
           <Icon icon="solar:magic-stick-3-bold" />
-          دقیق‌تر، روان‌تر و طبیعی‌تر بنویسید.
+          {lang === "fa" ? "دقیق‌تر، روان‌تر و طبیعی‌تر بنویسید." : "Write more clearly, fluently and naturally."}
         </div>
         <div className="suggestion-actions">
           <span>Tab</span>
-          <button type="button">پذیرش</button>
+          <button type="button">{lang === "fa" ? "پذیرش" : "Accept"}</button>
         </div>
       </div>
     </div>
   );
 }
 
-function AvaPanel() {
+function AvaPanel({ lang }: { lang: Lang }) {
   return (
     <div className="demo-panel ava-panel">
       <div className="demo-panel-head">
         <span className="ava-icon"><img className="product-logo-mark" src="/brand/products/avayar-flat.svg" alt="AvaYar" /></span>
         <div>
-          <strong>آوایار</strong>
-          <small>بشنو، به فارسی</small>
+          <strong>{lang === "fa" ? "آوایار" : "AvaYar"}</strong>
+          <small>{lang === "fa" ? "بشنو، به فارسی" : "Listen, in Persian"}</small>
         </div>
         <span className="panel-status gold">TTS</span>
       </div>
@@ -346,7 +356,7 @@ function AvaPanel() {
         <button type="button" aria-label="Play">
           <Icon icon="solar:play-bold" />
         </button>
-        <span>00:12 / 01:08</span>
+        <span>{lang === "fa" ? "۰۰:۱۲ / ۰۱:۰۸" : "00:12 / 01:08"}</span>
         <div className="audio-progress">
           <i />
         </div>
@@ -410,11 +420,11 @@ function Hero() {
         <div className="hero-halo halo-gold" />
 
         <div className="floating writing-float">
-          <WritingPanel />
+          <WritingPanel lang={lang} />
         </div>
 
         <div className="floating ava-float">
-          <AvaPanel />
+          <AvaPanel lang={lang} />
         </div>
 
 
@@ -438,7 +448,7 @@ function ProductCard({
 
   const stableLabel =
     lang === "fa"
-      ? `نسخه پایدار · v${truth.version}`
+      ? `نسخه پایدار · v${toPersianDigits(truth.version)}`
       : `Stable release · v${truth.version}`;
 
   const capabilitySummary = truth.capabilitiesLocalized
@@ -466,7 +476,7 @@ function ProductCard({
       <p>{capabilitySummary}</p>
 
       <div className="product-mini-preview">
-        {isAva ? <AvaPanel /> : <WritingPanel />}
+        {isAva ? <AvaPanel lang={lang} /> : <WritingPanel lang={lang} />}
       </div>
 
       <div className="product-actions">
@@ -539,9 +549,11 @@ function Features() {
 function ShowcaseCard({
   variant,
   title,
+  lang,
 }: {
   variant: "voice" | "editor" | "review";
   title: string;
+  lang: Lang;
 }) {
   return (
     <article className={`showcase-card ${variant}`}>
@@ -564,7 +576,7 @@ function ShowcaseCard({
           </div>
           <div className="mini-player">
             <Icon icon="solar:play-bold" />
-            <span>00:00 / 01:08</span>
+            <span>{lang === "fa" ? "۰۰:۰۰ / ۰۱:۰۸" : "00:00 / 01:08"}</span>
           </div>
         </div>
       )}
@@ -576,10 +588,10 @@ function ShowcaseCard({
               <i key={index} />
             ))}
           </div>
-          <p>فارسیو تجربه‌ی نوشتن فارسی را متحول می‌کند.</p>
+          <p>{lang === "fa" ? "فارسیو تجربه‌ی نوشتن فارسی را متحول می‌کند." : "Farsio improves the digital writing experience."}</p>
           <div className="smart-popover">
-            <strong>پیشنهاد فارسیو</strong>
-            <span>روان‌تر و دقیق‌تر بنویسید.</span>
+            <strong>{lang === "fa" ? "پیشنهاد فارسیو" : "Farsio suggestion"}</strong>
+            <span>{lang === "fa" ? "روان‌تر و دقیق‌تر بنویسید." : "Write more clearly and accurately."}</span>
             <button type="button">Tab</button>
           </div>
         </div>
@@ -587,12 +599,19 @@ function ShowcaseCard({
 
       {variant === "review" && (
         <div className="showcase-inner review-preview">
-          <strong>بررسی املا و نگارش</strong>
-          {[
-            ["اشتباه املایی", "اصلاح"],
-            ["نشانه‌گذاری", "پیشنهاد"],
-            ["خوانایی متن", "بهتر"],
-          ].map(([label, state]) => (
+          <strong>{lang === "fa" ? "بررسی املا و نگارش" : "Spelling and writing review"}</strong>
+          {(lang === "fa"
+            ? [
+                ["اشتباه املایی", "اصلاح"],
+                ["نشانه‌گذاری", "پیشنهاد"],
+                ["خوانایی متن", "بهتر"],
+              ]
+            : [
+                ["Spelling issue", "Fix"],
+                ["Punctuation", "Suggestion"],
+                ["Readability", "Better"],
+              ]
+          ).map(([label, state]) => (
             <div key={label}>
               <span>{label}</span>
               <small>{state}</small>
@@ -616,9 +635,9 @@ function Showcase() {
       </div>
 
       <div className="showcase-grid">
-        <ShowcaseCard variant="voice" title={t(lang, "showcaseVoice")} />
-        <ShowcaseCard variant="editor" title={t(lang, "showcaseEditor")} />
-        <ShowcaseCard variant="review" title={t(lang, "showcaseReview")} />
+        <ShowcaseCard lang={lang} variant="voice" title={t(lang, "showcaseVoice")} />
+        <ShowcaseCard lang={lang} variant="editor" title={t(lang, "showcaseEditor")} />
+        <ShowcaseCard lang={lang} variant="review" title={t(lang, "showcaseReview")} />
       </div>
     </section>
   );
@@ -727,7 +746,7 @@ function Home() {
 
 function ProductPage({ type }: { type: "neveshtyar" | "ava" }) {
   const lang = useLang();
-  return <ProductDetailPage lang={lang} type={type} preview={type === "ava" ? <AvaPanel /> : <WritingPanel />} />;
+  return <ProductDetailPage lang={lang} type={type} preview={type === "ava" ? <AvaPanel lang={lang} /> : <WritingPanel lang={lang} />} />;
 }
 
 function SeoGuide() {

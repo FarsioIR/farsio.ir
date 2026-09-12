@@ -183,7 +183,7 @@ function HomeAuthoritySurface({ lang }: { lang: Lang }) {
   return (
     <section className="truth-home-authority shell" data-farsio-parent-authority="true">
       <div className="truth-home-copy">
-        <span className="truth-eyebrow"><Icon icon="solar:stars-minimalistic-bold" />Farsio · فارسیو</span>
+        <span className="truth-eyebrow"><Icon icon="solar:stars-minimalistic-bold" />{tr(lang, "فارسیو", "Farsio")}</span>
         <h2>{tr(lang, "فارسیو، برند مادر و مرجع رسمی آنلاین نوشت‌یار و آوایار", "Farsio is the parent brand and canonical online authority for NeveshtYar and AvaYar")}</h2>
         <p>{FARSIO_BRAND.role[lang]}</p>
       </div>
