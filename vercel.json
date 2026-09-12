@@ -1,0 +1,12 @@
+{
+  "framework": "vite",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/fa/products/neveshtyar", "destination": "/fa/products/neveshtyar.html" },
+    { "source": "/en/products/neveshtyar", "destination": "/en/products/neveshtyar.html" },
+    { "source": "/fa/products/avayar", "destination": "/fa/products/avayar.html" },
+    { "source": "/en/products/avayar", "destination": "/en/products/avayar.html" }
+  ]
+}
