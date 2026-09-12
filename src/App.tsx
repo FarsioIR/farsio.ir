@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Lang, languageMeta, languages, t } from "./i18n";
+import { getLocalizedProductTruth } from "./product-truth";
 import { GuidePage, isGuideKey } from "./seo-guides";
 import {
   FaqPage,
@@ -430,6 +431,20 @@ function ProductCard({
   type: "neveshtyar" | "ava";
 }) {
   const isAva = type === "ava";
+  const truth = getLocalizedProductTruth(
+    isAva ? "avayar" : "neveshtyar",
+    lang,
+  );
+
+  const stableLabel =
+    lang === "fa"
+      ? `نسخه پایدار · v${truth.version}`
+      : `Stable release · v${truth.version}`;
+
+  const capabilitySummary = truth.capabilitiesLocalized
+    .slice(0, 4)
+    .map((capability) => capability.nameText)
+    .join(" · ");
 
   return (
     <article className={`product-card ${isAva ? "product-ava" : "product-write"}`}>
@@ -438,19 +453,17 @@ function ProductCard({
           <Icon icon={isAva ? "solar:soundwave-bold" : "solar:pen-new-square-bold"} />
         </span>
 
-        <span className="product-state">
-          {t(lang, isAva ? "stateDev" : "statePublic")}
-        </span>
+        <span className="product-state">{stableLabel}</span>
       </div>
 
       <div className="product-title-row">
         <div>
-          <h3>{t(lang, isAva ? "ava" : "neveshtyar")}</h3>
-          <strong>{t(lang, isAva ? "avaTag" : "neveshtyarTag")}</strong>
+          <h3>{truth.name}</h3>
+          <strong>{truth.taglineText}</strong>
         </div>
       </div>
 
-      <p>{t(lang, isAva ? "avaBody" : "neveshtyarBody")}</p>
+      <p>{capabilitySummary}</p>
 
       <div className="product-mini-preview">
         {isAva ? <AvaPanel /> : <WritingPanel />}
@@ -462,11 +475,7 @@ function ProductCard({
           <Icon icon="solar:arrow-left-linear" />
         </a>
 
-        <a
-          href={isAva ? LINKS.avaGithub : LINKS.neveshtyarGithub}
-          target="_blank"
-          rel="noreferrer"
-        >
+        <a href={truth.repositoryUrl} target="_blank" rel="noreferrer">
           <Icon icon="mdi:github" />
           GitHub
         </a>

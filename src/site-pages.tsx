@@ -1,6 +1,7 @@
 import { Icon } from "@iconify/react";
 import type { ReactNode } from "react";
 import type { Lang } from "./i18n";
+import { getLocalizedProductTruth } from "./product-truth";
 
 const LINKS = {
   farsio: "https://farsio.ir/fa",
@@ -33,7 +34,7 @@ const SEO: Record<Lang, Record<string, SeoEntry>> = {
     features: { title: "ویژگی‌های فارسیو | طراحی فارسی‌محور، سبک و شفاف", description: "ویژگی‌ها و اصول طراحی فارسیو؛ فارسی در اولویت، سرعت، حریم خصوصی، توسعه شفاف و تجربه دو‌زبانه." },
     docs: { title: "راهنمای فارسیو | نصب، استفاده و مسیر توسعه", description: "راهنمای جامع فارسیو برای شروع، نصب نوشت‌یار، آوایار، حریم خصوصی، گزارش مشکل و نسخه‌ها." },
     faq: { title: "سوالات متداول فارسیو | پاسخ‌های رسمی", description: "پاسخ‌های رسمی درباره فارسیو، نوشت‌یار، آوایار، نسخه‌ها، GitHub، حریم خصوصی و مشارکت." },
-    releases: { title: "نسخه‌ها و انتشارهای فارسیو | Release Notes", description: "وضعیت انتشار نوشت‌یار v4.9.2 و مسیر توسعه آوایار." },
+    releases: { title: "نسخه‌ها و انتشارهای فارسیو | Release Notes", description: "وضعیت رسمی انتشار نوشت‌یار v4.9.2 و آوایار 0.6.0 Stable." },
     community: { title: "جامعه و GitHub فارسیو | توسعه شفاف", description: "مخزن‌های رسمی GitHub، گزارش مسائل و مسیر مشارکت در توسعه فارسیو." },
     report: { title: "گزارش مشکل فارسیو | راهنمای ثبت Issue حرفه‌ای", description: "راهنمای گزارش خطا با اطلاعات بازتولید، نسخه، مرورگر و رفتار مورد انتظار." },
     contribute: { title: "مشارکت در فارسیو | راهنمای Contribution", description: "راهنمای مشارکت در توسعه فارسیو، Issue، Pull Request، تست و حریم خصوصی." },
@@ -54,7 +55,7 @@ const SEO: Record<Lang, Record<string, SeoEntry>> = {
     features: { title: "Farsio Features | Persian-first, lightweight and transparent", description: "Explore Farsio's product principles: Persian-first design, speed, privacy, transparent development and bilingual UX." },
     docs: { title: "Farsio Guide | Installation, usage and development", description: "A practical Farsio guide covering setup, NeveshtYar, AvaYar, privacy, issue reporting and releases." },
     faq: { title: "Farsio FAQ | Official answers", description: "Official answers about Farsio, NeveshtYar, AvaYar, releases, GitHub, privacy and contribution." },
-    releases: { title: "Farsio Releases | Product release notes", description: "Follow NeveshtYar v4.9.2 and AvaYar development status through official sources." },
+    releases: { title: "Farsio Releases | Product release notes", description: "Follow the official NeveshtYar v4.9.2 and AvaYar 0.6.0 Stable releases through Farsio sources." },
     community: { title: "Farsio Community & GitHub | Open development", description: "Explore Farsio repositories, issue tracking and contribution paths." },
     report: { title: "Report a Farsio Issue | High-quality bug reports", description: "Learn how to report a Farsio issue with reproducible steps, version, browser and expected behavior." },
     contribute: { title: "Contribute to Farsio | Contribution guide", description: "A practical guide to issues, focused pull requests, validation and safe contribution." },
@@ -131,48 +132,114 @@ function SectionTitle({ eyebrow, title, body }: { eyebrow: string; title: string
   return <div className="pro-section-heading"><span>{eyebrow}</span><h2>{title}</h2>{body ? <p>{body}</p> : null}</div>;
 }
 
-type ProductInfo = { name: string; status: string; tagline: string; lead: string; overview: string; cards: Card[]; uses: string[]; facts: [string, string][] };
+type ProductInfo = {
+  name: string;
+  status: string;
+  tagline: string;
+  lead: string;
+  overview: string;
+  cards: Card[];
+  uses: string[];
+  facts: [string, string][];
+  version: string;
+  releaseUrl: string;
+  repositoryUrl: string;
+};
+
+const PRODUCT_CAPABILITY_ICONS: Record<string, string> = {
+  "keyboard-layout-recovery": "solar:keyboard-bold",
+  finglish: "solar:translation-2-bold",
+  "correct-text-preservation": "solar:shield-check-bold",
+  "inline-correction": "solar:pen-new-square-bold",
+  "personal-dictionary": "solar:book-bookmark-bold",
+  "user-learning": "solar:brain-bold",
+  "bilingual-ui": "solar:global-bold",
+  "local-first": "solar:lock-keyhole-bold",
+  "webpage-reading": "solar:document-text-bold",
+  "full-text": "solar:document-add-bold",
+  summary: "solar:notes-bold",
+  "english-to-persian": "solar:translation-bold",
+  "persian-neural-tts": "solar:soundwave-bold",
+  "dual-voice": "solar:microphone-3-bold",
+  "progressive-playback": "solar:play-stream-bold",
+  "playback-controls": "solar:play-circle-bold",
+  "side-panel": "solar:sidebar-minimalistic-bold",
+};
+
 function productInfo(lang: Lang, type: "neveshtyar" | "ava"): ProductInfo {
-  if (type === "neveshtyar") return {
-    name: tr(lang, "نوشت‌یار", "NeveshtYar"),
-    status: tr(lang, "نسخه عمومی · v4.9.2", "Public release · v4.9.2"),
-    tagline: tr(lang, "بنویس، درست و روان", "Persian & English writing assistant"),
-    lead: tr(lang, "دستیار نوشتن فارسی و انگلیسی برای مرورگر؛ با تمرکز بر اصلاح فینگلیش، بازیابی چیدمان صفحه‌کلید، املا و تجربه بهتر نوشتن راست‌به‌چپ.", "A browser writing assistant focused on Finglish correction, keyboard-layout recovery, spelling and practical RTL workflows."),
-    overview: tr(lang, "نوشت‌یار برای لحظه‌ای ساخته شده که می‌خواهید متن را همان‌جا که می‌نویسید بهتر کنید. ابزارهای ضروری نگارش فارسی نزدیک به جریان واقعی تایپ می‌مانند و کنترل نهایی در اختیار نویسنده است.", "NeveshtYar keeps practical Persian writing tools close to the typing flow and leaves the final decision with the writer."),
-    cards: [
-      { icon: "solar:keyboard-bold", title: tr(lang, "بازیابی چیدمان صفحه‌کلید", "Keyboard-layout recovery"), body: tr(lang, "متن تایپ‌شده با چیدمان اشتباه فارسی یا انگلیسی را بازیابی می‌کند.", "Recover text accidentally typed with the wrong Persian or English layout.") },
-      { icon: "solar:translation-2-bold", title: tr(lang, "اصلاح Finglish", "Finglish correction"), body: tr(lang, "برای ورودی فینگلیش در سناریوهای واقعی نوشتن فارسی طراحی شده است.", "Support real-world Finglish input without breaking the writing flow.") },
-      { icon: "solar:pen-new-square-bold", title: tr(lang, "املا و نگارش", "Spelling and writing"), body: tr(lang, "به شناسایی خطاهای رایج و بهبود خوانایی کمک می‌کند.", "Surface common writing issues and readability improvements.") },
-      { icon: "solar:text-square-bold", title: tr(lang, "گردش‌کار RTL", "RTL workflows"), body: tr(lang, "رابط و رفتار محصول با واقعیت متن راست‌به‌چپ هماهنگ است.", "Interface details are designed around right-to-left Persian text.") },
-      { icon: "solar:shield-check-bold", title: tr(lang, "رویکرد local-first", "Local-first direction"), body: tr(lang, "تا جای ممکن پردازش نزدیک به دستگاه کاربر و دسترسی‌ها محدود نگه داشته می‌شوند.", "Keep processing close to the device where practical and minimize permissions.") },
-      { icon: "solar:code-square-bold", title: tr(lang, "توسعه شفاف", "Transparent development"), body: tr(lang, "نسخه‌ها، تاریخچه و Issueها در GitHub رسمی قابل پیگیری‌اند.", "Releases, history and issues are visible in the official repository.") },
-    ],
-    uses: tr(lang, "اصلاح سریع متن فارسی|بازیابی متن با زبان صفحه‌کلید اشتباه|کار با فینگلیش|بهبود تایپ در فرم‌ها و ویرایشگرها", "Improve Persian text|Recover wrong-layout text|Handle Finglish|Improve typing in forms and editors").split("|"),
-    facts: lang === "fa" ? [["وضعیت", "نسخه عمومی"], ["نسخه", "v4.9.2"], ["بستر", "افزونه مرورگر"], ["مرجع", "GitHub رسمی"]] : [["Status", "Public"], ["Release", "v4.9.2"], ["Platform", "Browser extension"], ["Source", "Official GitHub"]],
-  };
+  const truth = getLocalizedProductTruth(
+    type === "ava" ? "avayar" : "neveshtyar",
+    lang,
+  );
+
+  const status =
+    lang === "fa"
+      ? `نسخه پایدار · v${truth.version}`
+      : `Stable release · v${truth.version}`;
+
+  const lead =
+    lang === "fa"
+      ? `${truth.categoryText} از فارسیو؛ نسخه پایدار ${truth.version} با قابلیت‌های تاییدشده و مرجع رسمی انتشار.`
+      : `${truth.categoryText} by Farsio; Stable ${truth.version} with verified capabilities and official release provenance.`;
+
+  const overview =
+    lang === "fa"
+      ? `این صفحه مرجع رسمی و به‌روز ${truth.name} در فارسیو است. قابلیت‌ها، نسخه، بسترها و اطلاعات حریم خصوصی مستقیماً از Registry مرکزی محصول خوانده می‌شوند.`
+      : `This is Farsio's canonical and current product page for ${truth.name}. Capabilities, version, platforms and privacy facts are read directly from the central product registry.`;
+
+  const cards: Card[] = truth.capabilitiesLocalized.map((capability) => ({
+    icon:
+      PRODUCT_CAPABILITY_ICONS[capability.id] ??
+      "solar:check-circle-bold",
+    title: capability.nameText,
+    body: capability.descriptionText,
+  }));
+
+  const facts: [string, string][] =
+    lang === "fa"
+      ? [
+          ["وضعیت", "نسخه پایدار"],
+          ["نسخه", `v${truth.version}`],
+          ["بستر", truth.platforms.join("، ")],
+          ["تاریخ انتشار", truth.releaseDate],
+          ["مرجع", "GitHub رسمی"],
+          ...truth.privacyFactsLocalized.map(
+            (fact, index) =>
+              [`حریم خصوصی ${index + 1}`, fact] as [string, string],
+          ),
+        ]
+      : [
+          ["Status", "Stable"],
+          ["Release", `v${truth.version}`],
+          ["Platform", truth.platforms.join(", ")],
+          ["Release date", truth.releaseDate],
+          ["Source", "Official GitHub"],
+          ...truth.privacyFactsLocalized.map(
+            (fact, index) =>
+              [`Privacy ${index + 1}`, fact] as [string, string],
+          ),
+        ];
 
   return {
-    name: tr(lang, "آوایار", "AvaYar"),
-    status: tr(lang, "در حال توسعه", "In development"),
-    tagline: tr(lang, "بشنو، به فارسی", "Persian Reading & Listening Assistant"),
-    lead: tr(lang, "دستیار خواندن و شنیدن فارسی برای وب؛ با تمرکز بر محتوای صفحه، ترجمه فارسی‌محور، خلاصه‌سازی و تبدیل متن به گفتار.", "A Persian-first web reading and listening assistant focused on content, translation, summarization and text-to-speech."),
-    overview: tr(lang, "آوایار برای زمانی طراحی می‌شود که خواندن یک صفحه طولانی یا محتوای غیرفارسی بهترین شکل دریافت اطلاعات نیست؛ هدف، تجربه‌ای قابل‌فهم‌تر و شنیدنی‌تر است.", "AvaYar is designed for situations where reading long or foreign-language web content is not the best way to absorb information."),
-    cards: [
-      { icon: "solar:document-text-bold", title: tr(lang, "خواندن محتوای وب", "Web content reading"), body: tr(lang, "تمرکز روی محتوای اصلی صفحه برای مطالعه و پردازش بهتر.", "Focus on the main page content for easier reading and processing.") },
-      { icon: "solar:translation-bold", title: tr(lang, "ترجمه فارسی‌محور", "Persian-first translation"), body: tr(lang, "خروجی برای خواننده فارسی طبیعی و قابل‌فهم هدف‌گذاری می‌شود.", "Aim for Persian output that reads naturally.") },
-      { icon: "solar:notes-bold", title: tr(lang, "خلاصه‌سازی", "Summarization"), body: tr(lang, "برای رسیدن سریع‌تر به نکات اصلی محتوای طولانی.", "Reach the main ideas of long content faster.") },
-      { icon: "solar:soundwave-bold", title: tr(lang, "تبدیل متن به گفتار", "Text to speech"), body: tr(lang, "آماده‌سازی متن برای تجربه شنیداری فارسی با کنترل‌های ساده.", "Prepare text for a clear Persian listening flow.") },
-      { icon: "solar:accessibility-bold", title: tr(lang, "دسترسی بهتر", "Alternative access"), body: tr(lang, "شنیدن و خلاصه‌خوانی مسیر مکملی برای دریافت محتوا هستند.", "Listening and concise reading complement direct reading.") },
-      { icon: "solar:code-square-bold", title: tr(lang, "توسعه قابل‌پیگیری", "Trackable development"), body: tr(lang, "پیشرفت فنی از مخزن رسمی فارسیو قابل دنبال‌کردن است.", "Technical progress remains visible in the official repository.") },
-    ],
-    uses: tr(lang, "مرور سریع محتوای طولانی|دریافت نسخه فارسی‌محور|آماده‌سازی متن برای شنیدن|رسیدن به نکات کلیدی", "Review long content faster|Get a Persian-first version|Prepare text for listening|Reach key points").split("|"),
-    facts: lang === "fa" ? [["وضعیت", "در حال توسعه"], ["تمرکز", "خواندن و شنیدن"], ["بستر", "وب"], ["مرجع", "GitHub رسمی"]] : [["Status", "In development"], ["Focus", "Reading & listening"], ["Platform", "Web"], ["Source", "Official GitHub"]],
+    name: truth.name,
+    status,
+    tagline: truth.taglineText,
+    lead,
+    overview,
+    cards,
+    uses: truth.capabilitiesLocalized.map(
+      (capability) => capability.nameText,
+    ),
+    facts,
+    version: truth.version,
+    releaseUrl: truth.releaseUrl,
+    repositoryUrl: truth.repositoryUrl,
   };
 }
 
 export function ProductDetailPage({ lang, type, preview }: { lang: Lang; type: "neveshtyar" | "ava"; preview: ReactNode }) {
   const p = productInfo(lang, type);
-  const github = type === "ava" ? LINKS.avaGithub : LINKS.neveshtyarGithub;
+  const github = p.repositoryUrl;
   const isAva = type === "ava";
 
   const audiences = isAva
@@ -251,7 +318,7 @@ export function ProductDetailPage({ lang, type, preview }: { lang: Lang; type: "
       <Hero eyebrow={p.status} title={p.name} lead={p.lead} icon={type === "ava" ? "solar:soundwave-bold" : "solar:pen-new-square-bold"}>
         <div className="pro-tagline">{p.tagline}</div>
         <div className="hero-actions">
-          {type === "neveshtyar" ? <a className="button button-primary" href={LINKS.neveshtyarRelease} target="_blank" rel="noreferrer"><Icon icon="solar:download-bold" />v4.9.2</a> : null}
+          <a className="button button-primary" href={p.releaseUrl} target="_blank" rel="noreferrer"><Icon icon="solar:download-bold" />v{p.version}</a>
           <a className="button button-secondary" href={github} target="_blank" rel="noreferrer"><Icon icon="mdi:github" />GitHub</a>
         </div>
       </Hero>
@@ -485,14 +552,14 @@ function pageData(lang: Lang, key: PageKey): PageData {
         { title: tr(lang, "شروع", "Getting started"), body: tr(lang, "نوشت‌یار برای نوشتن و آوایار برای خواندن، ترجمه و شنیدن طراحی شده‌اند.", "NeveshtYar is for writing; AvaYar is for reading, translation and listening."), icon: "solar:home-2-bold", bullets: tr(lang, "صفحه محصول را بخوانید|نسخه را از مرجع رسمی بگیرید|GitHub مرجع فنی است", "Read the product page|Use official releases|GitHub is the technical source").split("|") },
         { title: tr(lang, "نصب نوشت‌یار", "Install NeveshtYar"), body: tr(lang, "نسخه عمومی مرجع v4.9.2 است. فایل و جزئیات را از Release رسمی دریافت کنید.", "The current public reference is v4.9.2. Use the official release for files and details."), icon: "solar:download-bold", bullets: tr(lang, "منبع رسمی را بررسی کنید|دسترسی‌های افزونه را مرور کنید|نسخه و مرورگر را در Issue بنویسید", "Verify the official source|Review permissions|Include version and browser in issues").split("|"), links: [{ label: "v4.9.2", href: LINKS.neveshtyarRelease, external: true }] },
         { title: tr(lang, "استفاده از نوشت‌یار", "Using NeveshtYar"), body: tr(lang, "پیشنهادها را قبل از استفاده نهایی مرور کنید، مخصوصاً در متن‌های تخصصی یا حساس.", "Review suggestions before final use, especially in specialist or sensitive text."), icon: "solar:pen-new-square-bold" },
-        { title: tr(lang, "وضعیت آوایار", "AvaYar status"), body: tr(lang, "آوایار در حال توسعه است و مخزن رسمی مرجع پیشرفت فنی آن است.", "AvaYar is in development and the official repository is the technical progress source."), icon: "solar:soundwave-bold", links: [{ label: "AvaYar GitHub", href: LINKS.avaGithub, external: true }] },
+        { title: tr(lang, "وضعیت آوایار", "AvaYar status"), body: tr(lang, "آوایار 0.6.0 به‌صورت نسخه پایدار منتشر شده است و مخزن رسمی مرجع پیشرفت فنی آن است.", "AvaYar 0.6.0 is available as a Stable release and the official repository is the technical progress source."), icon: "solar:soundwave-bold", links: [{ label: "AvaYar GitHub", href: LINKS.avaGithub, external: true }] },
         { title: tr(lang, "حریم خصوصی", "Privacy"), body: tr(lang, "دسترسی و داده باید تا حد نیاز واقعی قابلیت‌ها محدود بمانند؛ اطلاعات حساس را در Issue عمومی منتشر نکنید.", "Permissions and data should stay limited to real needs; never publish sensitive information in public issues."), icon: "solar:shield-check-bold", links: [{ label: tr(lang, "صفحه حریم خصوصی", "Privacy page"), href: localPath(lang, "/privacy") }] },
         { title: tr(lang, "گزارش مشکل", "Report an issue"), body: tr(lang, "نسخه، محیط، مراحل بازتولید، رفتار واقعی و رفتار مورد انتظار را واضح ثبت کنید.", "Include version, environment, reproduction steps, actual behavior and expected behavior."), icon: "solar:bug-bold", links: [{ label: tr(lang, "راهنمای Issue", "Issue guide"), href: localPath(lang, "/report-issue") }] },
       ],
     },
     releases: { eyebrow: "Release Notes", title: tr(lang, "وضعیت انتشار محصولات", "Product release status"), lead: tr(lang, "نسخه عمومی و وضعیت توسعه محصولات را از منابع رسمی دنبال کنید.", "Follow public releases and development status through official sources."), icon: "solar:tag-bold", sections: [
       { title: "NeveshtYar · v4.9.2", body: tr(lang, "نسخه مرجع عمومی نوشت‌یار با فایل‌ها و تاریخچه در GitHub رسمی.", "The public NeveshtYar reference release with files and history on official GitHub."), icon: "solar:verified-check-bold", links: [{ label: "GitHub Release", href: LINKS.neveshtyarRelease, external: true }] },
-      { title: "AvaYar", body: tr(lang, "آوایار در حال توسعه است؛ وضعیت فنی را از مخزن رسمی دنبال کنید.", "AvaYar is in development; follow its official repository for progress."), icon: "solar:soundwave-bold", links: [{ label: "GitHub", href: LINKS.avaGithub, external: true }] },
+      { title: "AvaYar", body: tr(lang, "آوایار 0.6.0 به‌صورت نسخه پایدار منتشر شده است؛ وضعیت فنی را از مخزن رسمی دنبال کنید.", "AvaYar 0.6.0 is available as a Stable release; follow its official repository for progress."), icon: "solar:soundwave-bold", links: [{ label: "GitHub", href: LINKS.avaGithub, external: true }] },
     ] },
     community: { eyebrow: "Farsio Community", title: tr(lang, "توسعه‌ای قابل مشاهده و مشارکت", "Visible and approachable development"), lead: tr(lang, "GitHub مرجع اصلی فعالیت فنی فارسیو است.", "GitHub is Farsio's primary technical home."), icon: "solar:users-group-rounded-bold", sections: [
       { title: tr(lang, "سازمان GitHub فارسیو", "Farsio GitHub organization"), body: tr(lang, "مخزن‌های رسمی و تاریخچه توسعه در FarsioIR نگهداری می‌شوند.", "Official repositories and development history live under FarsioIR."), icon: "mdi:github", links: [{ label: "FarsioIR", href: LINKS.farsioGithub, external: true }] },
@@ -554,8 +621,8 @@ function pageData(lang: Lang, key: PageKey): PageData {
           title: tr(lang, "پشتیبانی آوایار", "AvaYar support"),
           body: tr(
             lang,
-            "آوایار در حال توسعه است. Issueها و وضعیت فنی باید از مخزن رسمی آن پیگیری شوند.",
-            "AvaYar is in development. Issues and technical progress should be followed through its official repository.",
+            "آوایار 0.6.0 به‌صورت نسخه پایدار منتشر شده است. Issueها و وضعیت فنی باید از مخزن رسمی آن پیگیری شوند.",
+            "AvaYar 0.6.0 is available as a Stable release. Issues and technical progress should be followed through its official repository.",
           ),
           icon: "solar:soundwave-bold",
           bullets: tr(
@@ -655,7 +722,7 @@ function faqItems(lang: Lang): [string, string][] {
   return lang === "fa" ? [
     ["فارسیو چیست؟", "فارسیو خانه محصولاتی برای بهترشدن تجربه دیجیتال فارسی است. نوشت‌یار و آوایار نخستین محصولات این خانواده‌اند."],
     ["نوشت‌یار چه کاری انجام می‌دهد؟", "نوشت‌یار روی نوشتن فارسی و انگلیسی، فینگلیش، بازیابی چیدمان صفحه‌کلید، املا و RTL تمرکز دارد."],
-    ["آوایار منتشر شده است؟", "آوایار در حال توسعه است و صفحه اختصاصی و مخزن رسمی آن وضعیت فعلی را توضیح می‌دهند."],
+    ["آوایار منتشر شده است؟", "آوایار 0.6.0 به‌صورت نسخه پایدار منتشر شده است و صفحه اختصاصی و مخزن رسمی آن وضعیت فعلی را توضیح می‌دهند."],
     ["نسخه رسمی نوشت‌یار را از کجا بگیرم؟", "مرجع نسخه عمومی، Release رسمی v4.9.2 در مخزن NeveshtYar سازمان FarsioIR است."],
     ["برای گزارش خطا چه اطلاعاتی لازم است؟", "نسخه، مرورگر، مراحل بازتولید، رفتار واقعی و رفتار مورد انتظار را ثبت کنید و داده حساس منتشر نکنید."],
     ["محصولات فارسیو متن‌باز هستند؟", "مخزن و تاریخچه توسعه محصولات اصلی در GitHub قابل مشاهده است. مجوز هر محصول را از همان مخزن بررسی کنید."],
@@ -664,7 +731,7 @@ function faqItems(lang: Lang): [string, string][] {
   ] : [
     ["What is Farsio?", "Farsio is the product home for tools designed to improve the digital Persian experience. NeveshtYar and AvaYar are the first products."],
     ["What does NeveshtYar do?", "NeveshtYar focuses on Persian and English writing, Finglish correction, keyboard-layout recovery, spelling and RTL workflows."],
-    ["Is AvaYar publicly released?", "AvaYar is in development. Its dedicated page and official repository describe current status."],
+    ["Is AvaYar publicly released?", "AvaYar 0.6.0 is available as a Stable release. Its dedicated page and official repository describe current status."],
     ["Where can I get NeveshtYar?", "The current public reference is the official NeveshtYar v4.9.2 release in FarsioIR."],
     ["What should an issue include?", "Include version, browser, reproduction steps, actual behavior and expected behavior. Never publish sensitive data."],
     ["Are Farsio products open source?", "Main product repositories and development history are visible on GitHub. Check each repository for its license."],
