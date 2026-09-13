@@ -56,7 +56,7 @@ function syncReleaseNotes() {
   root.render(
     context.type === "ava"
       ? <AvaYarStableReleaseNotes lang={context.lang} />
-      : <ProductReleaseNotes lang={context.lang} type={context.type} />
+      : <ProductReleaseNotes lang={context.lang} />
   );
   mounted = { key, host, root };
 }

@@ -14,6 +14,17 @@ async function text(relative) {
 
 const releaseSource = await text("src/product-release-notes.tsx");
 const avayarStableSource = await text("src/avayar-stable-release-notes.tsx");
+assert(
+  !releaseSource.includes("0.6.0 preview-3"),
+  "Generic release UI must not contain AvaYar Preview 3; keep it only as historical provenance",
+);
+assert(
+  !releaseSource.includes("RC acceptance") &&
+    !releaseSource.includes("پذیرش RC") &&
+    !releaseSource.includes("Post-RC") &&
+    !releaseSource.includes("پس از RC"),
+  "Generic release UI still contains stale AvaYar RC-current narrative",
+);
 const redirects = await text("public/_redirects");
 const sitemap = await text("public/sitemap.xml");
 const llms = await text("public/llms.txt");

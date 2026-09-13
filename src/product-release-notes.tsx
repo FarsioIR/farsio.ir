@@ -24,9 +24,8 @@ function stateLabel(lang: Lang, state: ReleaseState) {
   return tr(lang, ...labels[state]);
 }
 
-function releases(lang: Lang, type: "neveshtyar" | "ava"): ReleaseItem[] {
-  if (type === "neveshtyar") {
-    return [
+function releases(lang: Lang): ReleaseItem[] {
+  return [
       {
         date: tr(lang, "۲۶ مرداد ۱۴۰۵ · ۱۷ اوت ۲۰۲۶", "17 Aug 2026"),
         version: "v4.9.1",
@@ -79,70 +78,11 @@ function releases(lang: Lang, type: "neveshtyar" | "ava"): ReleaseItem[] {
           tr(lang, "اندازه‌گیری کیفیت و پایداری در نسخه‌های بعدی", "Quality and reliability measurement in future releases"),
         ],
       },
-    ];
-  }
-
-  return [
-    {
-      date: tr(lang, "۸ شهریور ۱۴۰۵ · ۳۰ اوت ۲۰۲۶", "30 Aug 2026"),
-      version: tr(lang, "هویت رسمی v1", "Brand v1"),
-      title: tr(lang, "تثبیت هویت رسمی آوایار", "Canonical AvaYar identity"),
-      summary: tr(lang, "نام، نشان و مسیر رسمی محصول برای دستیار خواندن و شنیدن فارسی تثبیت شد.", "AvaYar's canonical name, product mark and public identity were established for the Persian reading and listening assistant."),
-      state: "released",
-      features: [
-        tr(lang, "نشان رسمی و دارایی‌های برند آوایار", "Canonical AvaYar product mark and brand assets"),
-        tr(lang, "هماهنگی مخزن و مسیر رسمی محصول در فارسیو", "Repository and canonical Farsio product route alignment"),
-        tr(lang, "حفظ مسیر توسعه خواندن، ترجمه، خلاصه و صدا", "Product direction preserved around reading, translation, summarization and speech"),
-      ],
-      href: "https://github.com/FarsioIR/AvaYar/releases/tag/avayar-brand-v1-2026-08-30",
-    },
-    {
-      date: tr(lang, "۱۲ شهریور ۱۴۰۵ · ۳ سپتامبر ۲۰۲۶", "3 Sep 2026"),
-      version: "0.6.0 preview-3",
-      title: tr(lang, "اولین RC نصب‌شدنی متصل به Runtime آنلاین", "First installable RC connected to the online runtime"),
-      summary: tr(lang, "آوایار از یک نمونه توسعه‌ای عبور کرد و به نسخه آزمایشی نصب‌شدنی Chrome/Edge با Runtime آنلاین و زنجیره انتشار خودکار رسید.", "AvaYar moved beyond a development prototype to an installable Chrome/Edge RC backed by an online runtime and automated release pipeline."),
-      state: "preview",
-      features: [
-        tr(lang, "ترجمه واقعی انگلیسی به فارسی با Cloudflare Workers AI", "Live English-to-Persian translation through Cloudflare Workers AI"),
-        tr(lang, "قبولی تست سرتاسری ترجمه روی Preview آنلاین", "Online translation E2E PASS"),
-        tr(lang, "Fallback کنترل‌شده گفتار فارسی مرورگر در نبود TTS سرور", "Controlled browser Persian speech fallback when server TTS is unavailable"),
-        tr(lang, "بسته Manifest V3 قابل نصب برای Chrome و Edge", "Installable Manifest V3 package for Chrome and Edge"),
-        tr(lang, "ZIP، SHA-256 و metadata رسمی Release Candidate", "Official RC ZIP, SHA-256 checksum and metadata"),
-        tr(lang, "زنجیره خودکار Deploy → E2E → Build → Artifact → Prerelease", "Automated Deploy → E2E → Build → Artifact → Prerelease pipeline"),
-      ],
-      href: "https://github.com/FarsioIR/AvaYar/releases/tag/avayar-v0.6.0-preview-3",
-    },
-    {
-      date: tr(lang, "مرحله فعلی", "Current stage"),
-      version: tr(lang, "پذیرش RC", "RC acceptance"),
-      title: tr(lang, "تست واقعی مرورگر و آمادگی فروشگاه", "Real-browser acceptance and store readiness"),
-      summary: tr(lang, "تمرکز فعلی روی پذیرش واقعی Chrome/Edge، بررسی تجربه صفحه‌های فارسی و انگلیسی، کنترل‌های پخش و سخت‌گیری روی مجوزها و حریم خصوصی است.", "Current work focuses on real Chrome/Edge acceptance, Persian and English page workflows, playback controls, permissions and privacy hardening."),
-      state: "active",
-      features: [
-        tr(lang, "تست نصب و رفتار واقعی افزونه در Chrome و Edge", "Real installation and behavior testing in Chrome and Edge"),
-        tr(lang, "اعتبارسنجی متن کامل، ترجمه، خلاصه و Play/Pause/Stop", "Validation of full text, translation, summary and Play/Pause/Stop"),
-        tr(lang, "Rate limiting و پایداری Runtime آنلاین", "Rate limiting and online runtime reliability"),
-        tr(lang, "آماده‌سازی Privacy و metadata برای فروشگاه‌ها", "Store privacy and metadata readiness"),
-      ],
-    },
-    {
-      date: tr(lang, "مسیر آینده", "Next"),
-      version: tr(lang, "پس از RC", "Post-RC"),
-      title: tr(lang, "صدای فارسی باکیفیت‌تر و تجربه خواندن هوشمندتر", "Higher-quality Persian speech and smarter reading"),
-      summary: tr(lang, "پس از تثبیت RC، آوایار به سمت صدای فارسی سروری باکیفیت و قابل اتکا، بدون حذف fallback مرورگر، و کیفیت بالاتر در خلاصه و ترجمه حرکت می‌کند.", "After RC stabilization, AvaYar will move toward reliable higher-quality server-side Persian speech while retaining browser fallback, plus stronger summary and translation quality."),
-      state: "planned",
-      features: [
-        tr(lang, "TTS فارسی سروری در صورت تأمین ارائه‌دهنده پایدار", "Server-side Persian TTS when a reliable provider is available"),
-        tr(lang, "حفظ fallback مرورگر برای تاب‌آوری سرویس", "Retain browser fallback for resilience"),
-        tr(lang, "بهبود کیفیت خلاصه‌سازی و ترجمه فارسی‌محور", "Improve Persian-first summarization and translation quality"),
-        tr(lang, "گسترش سازگاری با صفحات و سناریوهای واقعی وب", "Expand compatibility across real-world web pages and workflows"),
-      ],
-    },
   ];
 }
 
-export function ProductReleaseNotes({ lang, type }: { lang: Lang; type: "neveshtyar" | "ava" }) {
-  const items = releases(lang, type);
+export function ProductReleaseNotes({ lang }: { lang: Lang }) {
+  const items = releases(lang);
   const current = items.find((item) => item.state === "active");
   return (
     <section className="pro-section product-release-section" id="release-notes">
