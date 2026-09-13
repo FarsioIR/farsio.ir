@@ -271,8 +271,8 @@ export function GuidePage({
 
   const productName =
     guide.relatedProduct === "neveshtyar"
-      ? "NeveshtYar · نوشت‌یار"
-      : "AvaYar · آوایار";
+      ? tr(lang, "نوشت‌یار", "NeveshtYar")
+      : tr(lang, "آوایار", "AvaYar");
 
   return (
     <main className="shell inner-page pro-page">

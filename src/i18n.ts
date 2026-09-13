@@ -53,7 +53,7 @@ const fa: Dictionary = {
   avaBody:
     "محتوای وب را می‌گیرد، در صورت نیاز به فارسی روان برمی‌گرداند و آن را برای شنیدن با صدای فارسی آماده می‌کند.",
   statePublic: "نسخه عمومی",
-  stateDev: "در حال توسعه",
+  stateDev: "نسخه پایدار · ۰.۶.۰",
   learnMore: "بیشتر بدانید",
 
   featuresEyebrow: "چرا فارسیو؟",
@@ -101,7 +101,7 @@ const fa: Dictionary = {
   faq4A:
     "GitHub مرجع فنی برای Releaseها، تغییرات نسخه، Issueها و وضعیت توسعه محصولات فارسیو است.",
 
-  ctaEyebrow: "Farsio · فارسیو",
+  ctaEyebrow: "فارسیو",
   ctaTitle: "تجربه‌ی فارسی دیجیتال را بهتر کنید",
   ctaBody:
     "محصول مناسب خود را ببینید یا مسیر توسعه فارسیو را در GitHub دنبال کنید.",
@@ -118,7 +118,7 @@ const fa: Dictionary = {
     "نسخه عمومی نوشت‌یار از GitHub Release رسمی در دسترس است و بسته‌های Chromium و Firefox به‌صورت جداگانه منتشر می‌شوند.",
   docsAva: "آوایار",
   docsAvaBody:
-    "آوایار در حال توسعه است. صفحه رسمی محصول همزمان با آماده‌شدن نسخه‌های عمومی، روش استفاده و وضعیت انتشار را نمایش خواهد داد.",
+    "آوایار ۰.۶.۰ به‌صورت نسخه پایدار منتشر شده است و صفحه رسمی محصول قابلیت‌ها، روش استفاده و وضعیت انتشار فعلی را نمایش می‌دهد.",
   docsPrivacy: "حریم خصوصی",
   docsPrivacyBody:
     "اصل طراحی فارسیو کمینه‌سازی داده و شفافیت است. هر محصول اعلامیه و جزئیات حریم خصوصی مخصوص خود را خواهد داشت.",
@@ -171,7 +171,7 @@ const en: Dictionary = {
   avaBody:
     "Persian-first web reading, translation and text-to-speech experience.",
   statePublic: "Public release",
-  stateDev: "In development",
+  stateDev: "Stable release · 0.6.0",
   learnMore: "Learn more",
 
   featuresEyebrow: "Why Farsio?",
@@ -219,7 +219,7 @@ const en: Dictionary = {
   faq4A:
     "GitHub is the technical source of truth for releases, changes, issues and development status.",
 
-  ctaEyebrow: "Farsio · فارسیو",
+  ctaEyebrow: "Farsio",
   ctaTitle: "Make your digital Persian experience better",
   ctaBody:
     "Explore the right product for you or follow Farsio's development on GitHub.",
@@ -236,7 +236,7 @@ const en: Dictionary = {
     "NeveshtYar's public release is available from the official GitHub Release page, with separate Chromium and Firefox packages.",
   docsAva: "AvaYar",
   docsAvaBody:
-    "AvaYar is in development. Its official product page will expose usage and release information as public versions become available.",
+    "AvaYar 0.6.0 is available as a Stable release. Its official product page shows current capabilities, usage guidance, and release information.",
   docsPrivacy: "Privacy",
   docsPrivacyBody:
     "Farsio is designed around data minimization and transparency. Each product will maintain its own privacy information.",
