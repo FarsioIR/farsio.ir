@@ -11,6 +11,7 @@ import { installAuthorityLinksMount } from "./authority-links-mount";
 import "./styles.css";
 import "./product-release-notes.css";
 import "./authority-links.css";
+import "./avayar-store-pages.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
