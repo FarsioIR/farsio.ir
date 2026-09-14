@@ -40,6 +40,8 @@ const SEO: Record<Lang, Record<string, SeoEntry>> = {
     products: { title: "محصولات فارسیو | نوشت‌یار و آوایار", description: "محصولات فارسیو را بشناسید؛ نوشت‌یار برای نوشتن دقیق‌تر و آوایار برای خواندن، ترجمه و شنیدن بهتر." },
     neveshtyar: { title: "نوشت‌یار | دستیار نوشتن فارسی و انگلیسی | فارسیو", description: "نوشت‌یار، دستیار نوشتن فارسی و انگلیسی برای اصلاح فینگلیش، بازیابی چیدمان صفحه‌کلید، املا و گردش‌کارهای راست‌به‌چپ." },
     ava: { title: "آوایار | دستیار خواندن و شنیدن فارسی | فارسیو", description: "آوایار، دستیار فارسی‌محور برای خواندن وب، ترجمه، خلاصه‌سازی و تبدیل متن به گفتار." },
+    "products/avayar/privacy": { title: "حریم خصوصی آوایار | دسترسی‌ها و جریان داده | فارسیو", description: "سیاست رسمی حریم خصوصی آوایار؛ دسترسی‌های افزونه، پردازش محتوای صفحه، اتصال HTTPS و مرزهای داده نسخه ۰.۶.۰ پایدار." },
+    "products/avayar/support": { title: "پشتیبانی آوایار | راهنما و گزارش مشکل | فارسیو", description: "صفحه رسمی پشتیبانی آوایار برای راهنما، بررسی نسخه، گزارش خطا، GitHub Issues و ارتباط با فارسیو." },
     features: { title: "ویژگی‌های فارسیو | طراحی فارسی‌محور، سبک و شفاف", description: "ویژگی‌ها و اصول طراحی فارسیو؛ فارسی در اولویت، سرعت، حریم خصوصی، توسعه شفاف و تجربه دو‌زبانه." },
     docs: { title: "راهنمای فارسیو | نصب، استفاده و مسیر توسعه", description: "راهنمای جامع فارسیو برای شروع، نصب نوشت‌یار، آوایار، حریم خصوصی، گزارش مشکل و نسخه‌ها." },
     faq: { title: "سوالات متداول فارسیو | پاسخ‌های رسمی", description: "پاسخ‌های رسمی درباره فارسیو، نوشت‌یار، آوایار، نسخه‌ها، GitHub، حریم خصوصی و مشارکت." },
@@ -61,6 +63,8 @@ const SEO: Record<Lang, Record<string, SeoEntry>> = {
     products: { title: "Farsio Products | NeveshtYar & AvaYar", description: "Explore NeveshtYar for better writing and AvaYar for Persian-first reading, translation and listening." },
     neveshtyar: { title: "NeveshtYar | Persian & English Writing Assistant | Farsio", description: "NeveshtYar is Farsio's local-first writing assistant for Finglish correction, keyboard-layout recovery, spelling and RTL workflows." },
     ava: { title: "AvaYar | Persian Reading & Listening Assistant | Farsio", description: "AvaYar is Farsio's Persian-first web reading, translation, summarization and text-to-speech assistant." },
+    "products/avayar/privacy": { title: "AvaYar Privacy | Permissions & Data Flow | Farsio", description: "Official AvaYar privacy information covering extension permissions, webpage-content processing, HTTPS service use and the Stable 0.6.0 data-flow boundary." },
+    "products/avayar/support": { title: "AvaYar Support | Help & Issue Reporting | Farsio", description: "Official AvaYar support for release verification, troubleshooting, GitHub issue reporting and contacting Farsio." },
     features: { title: "Farsio Features | Persian-first, lightweight and transparent", description: "Explore Farsio's product principles: Persian-first design, speed, privacy, transparent development and bilingual UX." },
     docs: { title: "Farsio Guide | Installation, usage and development", description: "A practical Farsio guide covering setup, NeveshtYar, AvaYar, privacy, issue reporting and releases." },
     faq: { title: "Farsio FAQ | Official answers", description: "Official answers about Farsio, NeveshtYar, AvaYar, releases, GitHub, privacy and contribution." },
@@ -365,8 +369,12 @@ export function ProductDetailPage({ lang, type, preview }: { lang: Lang; type: "
               "Intelligence should help without taking control away. Features should stay clear and reviewable.",
             )}
           </p>
-          <a href={localPath(lang, "/privacy")}>
-            {tr(lang, "اصول حریم خصوصی", "Privacy principles")}
+          <a href={localPath(lang, isAva ? "/products/avayar/privacy" : "/privacy")}>
+            {tr(
+              lang,
+              isAva ? "حریم خصوصی آوایار" : "اصول حریم خصوصی",
+              isAva ? "AvaYar privacy" : "Privacy principles",
+            )}
             <Icon icon="solar:arrow-left-linear" />
           </a>
         </aside>
@@ -435,8 +443,12 @@ export function ProductDetailPage({ lang, type, preview }: { lang: Lang; type: "
                 "Permissions and data should remain limited to real functional requirements. Product behavior and releases should remain reviewable through official sources.",
               )}
             </p>
-            <a href={localPath(lang, "/privacy")}>
-              {tr(lang, "مشاهده اصول حریم خصوصی", "Read privacy principles")}
+            <a href={localPath(lang, isAva ? "/products/avayar/privacy" : "/privacy")}>
+              {tr(
+                lang,
+                isAva ? "مشاهده حریم خصوصی آوایار" : "مشاهده اصول حریم خصوصی",
+                isAva ? "Read AvaYar privacy" : "Read privacy principles",
+              )}
             </a>
           </article>
 
@@ -465,8 +477,12 @@ export function ProductDetailPage({ lang, type, preview }: { lang: Lang; type: "
                 "For bug reports, include version, browser, reproduction steps and expected behavior, and never publish sensitive data.",
               )}
             </p>
-            <a href={localPath(lang, "/report-issue")}>
-              {tr(lang, "راهنمای گزارش مشکل", "Issue reporting guide")}
+            <a href={localPath(lang, isAva ? "/products/avayar/support" : "/report-issue")}>
+              {tr(
+                lang,
+                isAva ? "پشتیبانی آوایار" : "راهنمای گزارش مشکل",
+                isAva ? "AvaYar support" : "Issue reporting guide",
+              )}
             </a>
           </article>
         </div>

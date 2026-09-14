@@ -1,3 +1,7 @@
+import {
+  AvaYarPrivacyPage,
+  AvaYarSupportPage,
+} from "./avayar-store-pages";
 import { Icon } from "@iconify/react";
 import {
   Navigate,
@@ -810,6 +814,8 @@ function LocalizedLayout() {
         <Route path="products" element={<GenericPage lang={lang} pageKey="products" />} />
         <Route path="products/neveshtyar" element={<ProductPage type="neveshtyar" />} />
         <Route path="products/avayar" element={<ProductPage type="ava" />} />
+        <Route path="products/avayar/privacy" element={<AvaYarPrivacyPage lang={lang} />} />
+        <Route path="products/avayar/support" element={<AvaYarSupportPage lang={lang} />} />
         <Route path="products/ava" element={<Navigate to={`/${lang}/products/avayar`} replace />} />
         <Route path="features" element={<GenericPage lang={lang} pageKey="features" />} />
         <Route path="docs" element={<Docs />} />
