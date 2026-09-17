@@ -6,6 +6,7 @@ import "@fontsource-variable/vazirmatn";
 import "@fontsource-variable/inter";
 
 import App from "./App";
+import { AnalyticsRouteTracker } from "./analytics-route-tracker";
 import { installProductReleaseNotesMount } from "./product-release-mount";
 import { installAuthorityLinksMount } from "./authority-links-mount";
 import "./styles.css";
@@ -16,6 +17,7 @@ import "./avayar-store-pages.css";
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <BrowserRouter>
+      <AnalyticsRouteTracker />
       <App />
     </BrowserRouter>
   </React.StrictMode>,
