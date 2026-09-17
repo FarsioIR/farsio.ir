@@ -11,8 +11,8 @@ function requireContract(condition, message) {
 }
 
 requireContract(
-  analytics.includes('GA4_MEASUREMENT_ID = "G-EXBSWLJBDX"'),
-  "canonical Measurement ID missing",
+  analytics.includes("import.meta.env.VITE_GA4_MEASUREMENT_ID"),
+  "GA4 environment binding missing",
 );
 
 requireContract(

@@ -1,4 +1,5 @@
-export const GA4_MEASUREMENT_ID = "G-EXBSWLJBDX";
+export const GA4_MEASUREMENT_ID =
+  import.meta.env.VITE_GA4_MEASUREMENT_ID ?? "";
 
 declare global {
   interface Window {
@@ -13,8 +14,12 @@ function isBrowser() {
   return typeof window !== "undefined" && typeof document !== "undefined";
 }
 
+function hasMeasurementId() {
+  return Boolean(GA4_MEASUREMENT_ID);
+}
+
 export function initializeAnalytics() {
-  if (!isBrowser() || initialized) return;
+  if (!isBrowser() || initialized || !hasMeasurementId()) return;
 
   initialized = true;
   window.dataLayer = window.dataLayer || [];
@@ -42,7 +47,7 @@ export function initializeAnalytics() {
 }
 
 export function trackPageView(path: string, title: string) {
-  if (!isBrowser()) return;
+  if (!isBrowser() || !hasMeasurementId()) return;
 
   initializeAnalytics();
 
@@ -85,7 +90,7 @@ export function trackProductEvent(
   name: ProductEventName,
   parameters: ProductEventParameters,
 ) {
-  if (!isBrowser()) return;
+  if (!isBrowser() || !hasMeasurementId()) return;
 
   initializeAnalytics();
 
