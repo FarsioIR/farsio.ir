@@ -1,3 +1,8 @@
+import type {
+  AnalyticsEventName,
+  ProductAnalyticsEventParameters,
+} from "./analytics-events";
+
 export const GA4_MEASUREMENT_ID =
   import.meta.env.VITE_GA4_MEASUREMENT_ID ?? "";
 
@@ -58,9 +63,12 @@ export function trackPageView(path: string, title: string) {
   });
 }
 
-export function getAnalyticsContext(pathname: string) {
+export function getAnalyticsContext(pathname: string): {
+  locale: "fa" | "en";
+  product: "neveshtyar" | "avayar" | "farsio";
+} {
   const parts = pathname.split("/").filter(Boolean);
-  const locale = parts[0] === "en" ? "en" : "fa";
+  const locale: "fa" | "en" = parts[0] === "en" ? "en" : "fa";
 
   let product: "neveshtyar" | "avayar" | "farsio" = "farsio";
 
@@ -73,18 +81,9 @@ export function getAnalyticsContext(pathname: string) {
   return { locale, product };
 }
 
-export type ProductEventName =
-  | "product_cta_click"
-  | "install_intent"
-  | "support_contact"
-  | "github_issue_click";
+export type ProductEventName = AnalyticsEventName;
 
-type ProductEventParameters = {
-  product: "farsio" | "neveshtyar" | "avayar";
-  locale: "fa" | "en";
-  cta_type?: string;
-  destination_type?: string;
-};
+type ProductEventParameters = ProductAnalyticsEventParameters;
 
 export function trackProductEvent(
   name: ProductEventName,
