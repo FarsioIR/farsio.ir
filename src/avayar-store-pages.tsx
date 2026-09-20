@@ -1,3 +1,4 @@
+import { productInteraction } from "./analytics-interactions";
 import type { ReactNode } from "react";
 import type { Lang } from "./i18n";
 
@@ -212,6 +213,13 @@ export function AvaYarSupportPage({ lang }: { lang: Lang }) {
           href={ISSUES_URL}
           target="_blank"
           rel="noreferrer"
+          onClick={productInteraction({
+            event: "github_issue_click",
+            product: "avayar",
+            locale: lang,
+            ctaType: "issue_report",
+            destinationType: "github_issues",
+          })}
         >
           GitHub Issues
         </a>
@@ -228,6 +236,13 @@ export function AvaYarSupportPage({ lang }: { lang: Lang }) {
         <a
           className="avayar-store-primary-link"
           href={localPath(lang, "/contact")}
+          onClick={productInteraction({
+            event: "support_contact",
+            product: "avayar",
+            locale: lang,
+            ctaType: "support_contact",
+            destinationType: "farsio_contact",
+          })}
         >
           {fa ? "تماس با فارسیو" : "Contact Farsio"}
         </a>

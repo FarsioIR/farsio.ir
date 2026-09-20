@@ -1,3 +1,4 @@
+import { productInteraction } from "./analytics-interactions";
 import { Icon } from "@iconify/react";
 import type { ReactNode } from "react";
 import type { Lang } from "./i18n";
@@ -331,8 +332,38 @@ export function ProductDetailPage({ lang, type, preview }: { lang: Lang; type: "
       <Hero eyebrow={p.status} title={p.name} lead={p.lead} icon={type === "ava" ? "solar:soundwave-bold" : "solar:pen-new-square-bold"}>
         <div className="pro-tagline">{p.tagline}</div>
         <div className="hero-actions">
-          <a className="button button-primary" href={p.releaseUrl} target="_blank" rel="noreferrer"><Icon icon="solar:download-bold" />v{p.version}</a>
-          <a className="button button-secondary" href={github} target="_blank" rel="noreferrer"><Icon icon="mdi:github" />GitHub</a>
+          <a
+            className="button button-primary"
+            href={p.releaseUrl}
+            target="_blank"
+            rel="noreferrer"
+            onClick={productInteraction({
+              event: "install_intent",
+              product: isAva ? "avayar" : "neveshtyar",
+              locale: lang,
+              ctaType: "release_download",
+              destinationType: "github_release",
+            })}
+          >
+            <Icon icon="solar:download-bold" />
+            v{p.version}
+          </a>
+          <a
+            className="button button-secondary"
+            href={github}
+            target="_blank"
+            rel="noreferrer"
+            onClick={productInteraction({
+              event: "product_cta_click",
+              product: isAva ? "avayar" : "neveshtyar",
+              locale: lang,
+              ctaType: "repository",
+              destinationType: "github_repository",
+            })}
+          >
+            <Icon icon="mdi:github" />
+            GitHub
+          </a>
         </div>
       </Hero>
       <section className="pro-product-overview">
